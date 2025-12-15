@@ -1,4 +1,4 @@
-    :root {
+:root {
       /* Deep Ocean Palette */
       --abyss: #040810;
       --deep-trench: #061018;
@@ -971,6 +971,29 @@
       min-width: 44px; min-height: 44px;
       transition: transform 0.2s;
     }
+    .nav-item:active {
+      transform: scale(0.9);
+    }
+    .nav-item svg { 
+      width: 22px; 
+      height: 22px; 
+      fill: rgba(224, 232, 240, 0.5); 
+      transition: fill 0.2s, transform 0.2s; 
+    }
+    .nav-item span { 
+      font-size: 9px; 
+      color: rgba(224, 232, 240, 0.5); 
+      text-transform: uppercase; 
+      letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+    .nav-item.active svg { 
+      fill: var(--bio-cyan); 
+      filter: drop-shadow(0 0 8px rgba(77, 216, 232, 0.5)); 
+    }
+    .nav-item.active span { 
+      color: var(--bio-cyan); 
+    }
 
 /* ========== SIMULATION PAGE ========== */
 .simulation-page {
@@ -1241,4 +1264,380 @@
 
 .hidden {
   display: none !important;
+}
+
+/* ========== ACTIVE/PRESS STATES ========== */
+/* Buttons */
+.cta-btn:active,
+.start-btn:active,
+.outline-btn:active {
+  transform: scale(0.96);
+  filter: brightness(0.9);
+}
+
+.cta-btn, .start-btn, .outline-btn {
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out, filter 0.15s ease-out, background 0.2s;
+}
+
+/* Cards */
+.threat-card,
+.radar-card,
+.challenge-card,
+.weekly-card {
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s;
+}
+
+.threat-card:active,
+.challenge-card:active {
+  transform: scale(0.98);
+}
+
+.challenge-card:active {
+  border-color: var(--bio-cyan);
+  background: rgba(42, 181, 160, 0.1);
+}
+
+/* Skill nodes */
+.snode {
+  transition: transform 0.2s ease-out, filter 0.2s;
+}
+
+.snode:active {
+  transform: scale(0.9);
+}
+
+.snode:not(.locked):hover {
+  filter: brightness(1.2);
+}
+
+/* Simulation choices */
+.sim-choice {
+  transition: transform 0.15s ease-out, border-color 0.2s, background 0.2s;
+}
+
+.sim-choice:active {
+  transform: scale(0.97);
+  border-color: var(--bio-cyan);
+}
+
+/* Ripple effect for touch */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(77, 216, 232, 0.3);
+  transform: scale(0);
+  animation: ripple-effect 0.6s ease-out;
+  pointer-events: none;
+}
+
+@keyframes ripple-effect {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ========== LOADING / SKELETON STATES ========== */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(224, 232, 240, 0.05) 0%,
+    rgba(224, 232, 240, 0.1) 50%,
+    rgba(224, 232, 240, 0.05) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Skeleton variants */
+.skeleton-text {
+  height: 14px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+.skeleton-text.short { width: 40%; }
+.skeleton-text.medium { width: 70%; }
+.skeleton-text.long { width: 100%; }
+
+.skeleton-title {
+  height: 24px;
+  width: 60%;
+  margin-bottom: 12px;
+  border-radius: 6px;
+}
+
+.skeleton-card {
+  height: 180px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+}
+
+.skeleton-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.skeleton-button {
+  height: 50px;
+  border-radius: 12px;
+  margin-top: 16px;
+}
+
+/* Loading spinner */
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(77, 216, 232, 0.2);
+  border-top-color: var(--bio-cyan);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Loading overlay */
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 8, 16, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 50;
+  backdrop-filter: blur(4px);
+}
+
+.loading-text {
+  font-family: 'Orbitron';
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--bio-cyan);
+  animation: pulse-text 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-text {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Content loading state */
+.is-loading {
+  pointer-events: none;
+  position: relative;
+}
+
+.is-loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 8, 16, 0.6);
+  backdrop-filter: blur(2px);
+  border-radius: inherit;
+}
+
+/* ========== TRANSITION POLISH ========== */
+/* Page transitions */
+.page {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease-out, visibility 0.35s, transform 0.35s ease-out;
+  transform: translateY(10px);
+}
+
+.page.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Staggered entrance animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInBottom {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply staggered animations to home page elements */
+.home-page.active .threat-card {
+  animation: fadeInUp 0.4s ease-out 0.1s both;
+}
+
+.home-page.active .section-label {
+  animation: fadeInUp 0.4s ease-out 0.2s both;
+}
+
+.home-page.active .radar-card {
+  animation: fadeInScale 0.4s ease-out 0.25s both;
+}
+
+.home-page.active .mission-board {
+  animation: fadeInUp 0.4s ease-out 0.35s both;
+}
+
+/* Challenge cards stagger */
+.challenge-card {
+  animation: fadeInUp 0.3s ease-out both;
+}
+
+.challenge-card:nth-child(1) { animation-delay: 0.1s; }
+.challenge-card:nth-child(2) { animation-delay: 0.15s; }
+.challenge-card:nth-child(3) { animation-delay: 0.2s; }
+
+/* Detail panel slide up */
+.detail-panel {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s;
+}
+
+.detail-panel.open {
+  animation: slideInBottom 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Simulation page transitions */
+.simulation-page.active .sim-scenario {
+  animation: fadeInUp 0.4s ease-out 0.1s both;
+}
+
+.simulation-page.active .sim-speaker {
+  animation: fadeInUp 0.4s ease-out 0.15s both;
+}
+
+.simulation-page.active .sim-choices {
+  animation: fadeInUp 0.4s ease-out 0.2s both;
+}
+
+.sim-choice {
+  animation: fadeInUp 0.3s ease-out both;
+}
+
+.sim-choice:nth-child(1) { animation-delay: 0.25s; }
+.sim-choice:nth-child(2) { animation-delay: 0.3s; }
+.sim-choice:nth-child(3) { animation-delay: 0.35s; }
+
+/* Result reveal */
+.sim-result:not(.hidden) {
+  animation: fadeInScale 0.4s ease-out;
+}
+
+.sim-result .result-icon {
+  animation: fadeInScale 0.3s ease-out 0.1s both;
+}
+
+.sim-result .result-title {
+  animation: fadeInUp 0.3s ease-out 0.2s both;
+}
+
+.sim-result .result-desc {
+  animation: fadeInUp 0.3s ease-out 0.25s both;
+}
+
+.sim-result .result-tactic {
+  animation: fadeInUp 0.3s ease-out 0.3s both;
+}
+
+.sim-result .cta-btn {
+  animation: fadeInUp 0.3s ease-out 0.4s both;
+}
+
+/* Smooth color transitions for interactive elements */
+.currency-item,
+.skill-tag,
+.diff-tag,
+.reward-type {
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+/* Header subtle entrance */
+.header {
+  animation: fadeInUp 0.4s ease-out;
+}
+
+/* Bottom nav entrance */
+.bottom-nav {
+  animation: slideInBottom 0.4s ease-out 0.3s both;
+}
+
+/* Skill node pulse for recommended */
+.snode.recommended .snode-shape {
+  animation: recommendedPulse 2s ease-in-out infinite;
+}
+
+@keyframes recommendedPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(77, 216, 232, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(77, 216, 232, 0);
+  }
+}
+
+/* Subtle hover lift for cards */
+@media (hover: hover) {
+  .threat-card:hover,
+  .weekly-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(42, 181, 160, 0.15);
+  }
+  
+  .challenge-card:hover {
+    border-color: rgba(77, 216, 232, 0.3);
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
