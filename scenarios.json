@@ -1,0 +1,134 @@
+{
+  "scenarios": [
+    {
+      "id": "crypto_rugpull",
+      "title": "Crypto Rug-Pull Survival",
+      "description": "Navigate a volatile token launch. Spot the warning signs before the founders disappear.",
+      "reward": 500,
+      "difficulty": "HARD",
+      "estimatedMinutes": 12,
+      "category": "defense",
+      "tactics": [
+        "Social Proof",
+        "FOMO",
+        "Manufactured Scarcity",
+        "Loss Recovery Manipulation"
+      ]
+    },
+    {
+      "id": "car_dealer",
+      "title": "Car Dealer Showdown",
+      "description": "A salesperson is using every trick in the book. Can you get a fair deal?",
+      "reward": 350,
+      "difficulty": "MEDIUM",
+      "estimatedMinutes": 8,
+      "category": "purchase",
+      "tactics": [
+        "False Scarcity",
+        "Upselling",
+        "Price Anchoring",
+        "Hidden Fees"
+      ]
+    },
+    {
+      "id": "subscription_trap",
+      "title": "Subscription Trap",
+      "description": "A free trial is about to become very expensive. Navigate the dark patterns.",
+      "reward": 250,
+      "difficulty": "EASY",
+      "estimatedMinutes": 5,
+      "category": "defense",
+      "tactics": [
+        "Dark Patterns",
+        "Forced Continuity",
+        "Hidden Terms"
+      ]
+    },
+    {
+      "id": "black_friday",
+      "title": "Black Friday Chaos",
+      "description": "Deals everywhere. But which ones are real? Survive the shopping frenzy.",
+      "reward": 300,
+      "difficulty": "MEDIUM",
+      "estimatedMinutes": 7,
+      "category": "purchase",
+      "tactics": [
+        "Artificial Urgency",
+        "Fake Discounts",
+        "Countdown Timers"
+      ]
+    },
+    {
+      "id": "mlm_pitch",
+      "title": "MLM Escape",
+      "description": "An old friend has an 'amazing opportunity' for you. Recognize the pyramid.",
+      "reward": 400,
+      "difficulty": "HARD",
+      "estimatedMinutes": 10,
+      "category": "income",
+      "tactics": [
+        "Social Pressure",
+        "Income Claims",
+        "Recruitment Focus",
+        "Sunk Cost"
+      ]
+    }
+  ],
+  
+  "skills": [
+    {
+      "id": "fomo",
+      "name": "FOMO Defense",
+      "icon": "😰",
+      "tier": 1,
+      "category": "defense",
+      "description": "Recognize and resist Fear of Missing Out tactics",
+      "tactic": "Fear of Missing Out",
+      "quote": "Everyone else is buying...",
+      "reward": 350
+    },
+    {
+      "id": "urgency",
+      "name": "Urgency Tactics",
+      "icon": "⏰",
+      "tier": 1,
+      "category": "defense",
+      "description": "Spot artificial time pressure",
+      "tactic": "Artificial Urgency",
+      "quote": "Limited time only!",
+      "reward": 300
+    },
+    {
+      "id": "anchoring",
+      "name": "Price Anchoring",
+      "icon": "⚓",
+      "tier": 1,
+      "category": "purchase",
+      "description": "Recognize when high prices are set to make regular prices seem like deals",
+      "tactic": "Price Anchoring",
+      "quote": "Was $999, now only $499!",
+      "reward": 350
+    },
+    {
+      "id": "compound",
+      "name": "Compound Interest",
+      "icon": "📈",
+      "tier": 1,
+      "category": "wealth",
+      "description": "Understand how money grows over time",
+      "tactic": "Financial Literacy",
+      "quote": "Time in the market beats timing the market",
+      "reward": 400
+    }
+  ],
+
+  "ranks": [
+    { "level": 1, "name": "GUPPY", "minXP": 0 },
+    { "level": 3, "name": "MINNOW", "minXP": 200 },
+    { "level": 5, "name": "BARRACUDA", "minXP": 500 },
+    { "level": 10, "name": "TIGER SHARK", "minXP": 1500 },
+    { "level": 15, "name": "GREAT WHITE", "minXP": 3000 },
+    { "level": 20, "name": "MEGALODON", "minXP": 5000 },
+    { "level": 25, "name": "APEX PREDATOR", "minXP": 8000 }
+  ]
+}
