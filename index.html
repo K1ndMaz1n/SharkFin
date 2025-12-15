@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#040810">
+  <title>SharkFin Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Background layers -->
+  <div class="bg-layer"></div>
+  <div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <!-- Header - always visible -->
+  <header class="header">
+    <div class="user-info">
+      <div class="avatar">
+        <div class="avatar-inner">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+        </div>
+      </div>
+      <div>
+        <div class="rank-text" id="userLevel">LV.01</div>
+        <div class="rank-title" id="userRank">GUPPY</div>
+      </div>
+    </div>
+    <div class="currency">
+      <div class="currency-item">SC <span id="sharkCoins">0</span></div>
+      <div class="currency-item streak">🔥 <span id="streak">0</span></div>
+    </div>
+  </header>
+
+  <!-- ========== HOME PAGE ========== -->
+  <div class="page home-page active" id="homePage">
+    
+    <!-- Active Threat Card -->
+    <div class="threat-card" id="threatCard">
+      <div class="threat-label">▸ ACTIVE THREAT</div>
+      <div class="threat-title" id="threatTitle">Loading...</div>
+      <div class="threat-desc" id="threatDesc">Loading scenario...</div>
+      <div class="threat-meta">
+        <div class="reward" id="threatReward">+0 SC</div>
+        <div class="diff-tag" id="threatDiff">--</div>
+        <div class="time-tag">
+          <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+          <span id="threatTime">-- min</span>
+        </div>
+      </div>
+      <button class="cta-btn" id="enterSimBtn">
+        ENTER SIMULATION
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+    </div>
+
+    <!-- Combat Radar (Locked initially) -->
+    <div class="section-label">COMBAT RADAR</div>
+    <div class="radar-card radar-locked" id="radarCard">
+      <div class="radar-lock-overlay">
+        <div class="radar-lock-icon">🔒</div>
+        <div class="radar-lock-title">CLASSIFIED</div>
+        <div class="radar-lock-desc">Your threat profile is being analyzed...</div>
+        <div class="radar-lock-level">Unlocks at <span>Level 5</span></div>
+      </div>
+      <div class="radar-wrap">
+        <svg class="radar-svg" viewBox="0 0 200 200">
+          <circle class="radar-ring" cx="100" cy="100" r="70" stroke-width="1"/>
+          <circle class="radar-ring" cx="100" cy="100" r="50" stroke-width="1"/>
+          <circle class="radar-ring" cx="100" cy="100" r="30" stroke-width="1"/>
+          <polygon class="radar-shape" points="100,35 155,65 140,130 60,130 45,65"/>
+          <circle class="radar-dot" cx="100" cy="35" r="5"/>
+          <circle class="radar-dot" cx="155" cy="65" r="5"/>
+          <circle class="radar-dot" cx="140" cy="130" r="5"/>
+          <circle class="radar-dot" cx="60" cy="130" r="5"/>
+          <circle class="radar-dot" cx="45" cy="65" r="5"/>
+          <text class="radar-lbl" x="100" y="22" text-anchor="middle">DEF</text>
+          <text class="radar-lbl" x="172" y="68">WL</text>
+          <text class="radar-lbl" x="152" y="145">PUR</text>
+          <text class="radar-lbl" x="48" y="145" text-anchor="end">INC</text>
+          <text class="radar-lbl" x="28" y="68" text-anchor="end">SYS</text>
+        </svg>
+        <div class="radar-center">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        </div>
+      </div>
+      <div class="tap-hint">TAP TO ENTER PREDATOR GRID</div>
+      <div class="skill-tags">
+        <div class="skill-tag">Urgency Resistance II</div>
+        <div class="skill-tag">Index Fund Basics</div>
+      </div>
+      <button class="outline-btn" id="skillTreeBtn">
+        VIEW FULL SKILL TREE
+        <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+      </button>
+    </div>
+
+    <!-- Mission Board -->
+    <div class="section-label">MISSION BOARD</div>
+    <div class="mission-board">
+      
+      <!-- Daily Challenges -->
+      <div class="board-section">
+        <div class="board-header">
+          <div class="board-title">DAILY CHALLENGES</div>
+          <div class="board-timer">
+            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+            <span id="dailyTimer">--:--:--</span>
+          </div>
+        </div>
+        <div id="dailyChallenges">
+          <!-- Populated by missions.js -->
+        </div>
+      </div>
+      
+      <!-- Weekly Challenge -->
+      <div class="board-section">
+        <div class="board-header">
+          <div class="board-title">WEEKLY CHALLENGE</div>
+          <div class="board-timer">
+            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+            <span id="weeklyTimer">--d --h</span>
+          </div>
+        </div>
+        <div id="weeklyChallenge">
+          <!-- Populated by missions.js -->
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- ========== SIMULATION PAGE ========== -->
+  <div class="page simulation-page" id="simulationPage">
+    <div class="sim-header">
+      <button class="back-btn" id="simBackBtn">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        EXIT
+      </button>
+      <div class="sim-progress">
+        <div class="sim-progress-fill" id="simProgressFill"></div>
+      </div>
+      <div class="sim-step" id="simStep">1/5</div>
+    </div>
+    
+    <div class="sim-content">
+      <div class="sim-scenario" id="simScenario">
+        <!-- Scenario text populated by simulations.js -->
+      </div>
+      
+      <div class="sim-speaker" id="simSpeaker">
+        <!-- Speaker info if applicable -->
+      </div>
+      
+      <div class="sim-choices" id="simChoices">
+        <!-- Choices populated by simulations.js -->
+      </div>
+    </div>
+    
+    <div class="sim-result hidden" id="simResult">
+      <div class="result-icon" id="resultIcon">✓</div>
+      <div class="result-title" id="resultTitle">Good Call!</div>
+      <div class="result-desc" id="resultDesc">You spotted the manipulation tactic.</div>
+      <div class="result-tactic" id="resultTactic">
+        <div class="tactic-label">TACTIC USED</div>
+        <div class="tactic-name">Artificial Scarcity</div>
+      </div>
+      <button class="cta-btn" id="resultNextBtn">CONTINUE</button>
+    </div>
+  </div>
+
+  <!-- ========== SKILL TREE PAGE ========== -->
+  <div class="page intel-page" id="intelPage">
+    <div class="intel-header">
+      <button class="back-btn" id="intelBackBtn">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        BACK
+      </button>
+      <div class="intel-title">PREDATOR GRID</div>
+      <button class="heat-btn" id="heatBtn">
+        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+        THREAT
+      </button>
+    </div>
+    <div class="grid-area" id="gridArea">
+      <div class="zoom-controls">
+        <button class="zoom-btn" id="zoomIn">+</button>
+        <div class="zoom-level" id="zoomLevel">100%</div>
+        <button class="zoom-btn" id="zoomOut">−</button>
+        <button class="zoom-btn" id="zoomReset" style="font-size:12px">↺</button>
+      </div>
+      <div class="grid-scroll" id="gridScroll">
+        <div class="zoom-container" id="zoomContainer">
+          <div class="skill-map" id="skillMap">
+            <!-- Skill nodes populated by app.js -->
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Skill Detail Panel -->
+    <div class="detail-panel" id="detailPanel">
+      <button class="panel-x" id="panelX">
+        <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+      <div class="detail-top">
+        <div class="detail-icon" id="detailIcon">😰</div>
+        <div>
+          <div class="detail-name" id="detailName">Skill Name</div>
+          <div class="detail-tier" id="detailTier">TIER 1 • CATEGORY</div>
+        </div>
+      </div>
+      <div class="threat-box">
+        <div class="threat-lbl">MANIPULATION TACTIC</div>
+        <div class="threat-nm" id="detailThreat">Tactic Name</div>
+        <div class="threat-qt" id="detailQuote">"Example quote..."</div>
+      </div>
+      <div class="steps-box">
+        <div class="steps-lbl">REQUIRED STEPS</div>
+        <div class="step done">
+          <div class="step-n">1</div>
+          <div><div class="step-t">Learn</div><div class="step-d">Understand the tactic</div></div>
+        </div>
+        <div class="step">
+          <div class="step-n">2</div>
+          <div><div class="step-t">Practice</div><div class="step-d">Complete simulation</div></div>
+        </div>
+        <div class="step">
+          <div class="step-n">3</div>
+          <div><div class="step-t">Prove</div><div class="step-d">Resist in real life</div></div>
+        </div>
+      </div>
+      <div class="reward-box">
+        <div class="rew-lbl">SC REWARD</div>
+        <div class="rew-val" id="detailReward">+350 SC</div>
+      </div>
+      <button class="start-btn" id="startSkillBtn">
+        BEGIN TRAINING
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ========== SHOP PAGE (Placeholder) ========== -->
+  <div class="page shop-page" id="shopPage">
+    <div class="page-header">
+      <div class="page-title">SHOP</div>
+      <div class="page-subtitle">Coming soon...</div>
+    </div>
+  </div>
+
+  <!-- ========== PROFILE PAGE (Placeholder) ========== -->
+  <div class="page profile-page" id="profilePage">
+    <div class="page-header">
+      <div class="page-title">PROFILE</div>
+      <div class="page-subtitle">Coming soon...</div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <div class="nav-item active" data-page="home">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>Home</span>
+    </div>
+    <div class="nav-item" data-page="pod">
+      <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+      <span>Pod</span>
+    </div>
+    <div class="nav-item" data-page="shop">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="6" r="4" fill="currentColor"/><ellipse cx="12" cy="17" rx="7" ry="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      <span>Shop</span>
+    </div>
+    <div class="nav-item" data-page="profile">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"/></svg>
+      <span>You</span>
+    </div>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="js/state.js"></script>
+  <script src="js/missions.js"></script>
+  <script src="js/simulations.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
