@@ -1100,6 +1100,8 @@ Congratulations on your new car!`,
    * Initialize the simulation
    */
   init() {
+    console.log('CarDealerSim.init() called');
+    
     // Reset player state
     this.player = {
       budget: 28000,
@@ -1123,6 +1125,9 @@ Congratulations on your new car!`,
       misdirectionResisted: false
     };
 
+    console.log('Scenes available:', this.scenes ? this.scenes.length : 'undefined');
+    console.log('Looking for scene:', this.scene.phase, this.scene.beat);
+    
     this.render();
   },
 
@@ -1130,13 +1135,16 @@ Congratulations on your new car!`,
    * Get current scene data
    */
   getCurrentScene() {
-    return this.scenes.find(s => s.phase === this.scene.phase && s.beat === this.scene.beat);
+    const scene = this.scenes.find(s => s.phase === this.scene.phase && s.beat === this.scene.beat);
+    console.log('getCurrentScene result:', scene ? 'found' : 'NOT FOUND', this.scene);
+    return scene;
   },
 
   /**
    * Render current scene
    */
   render() {
+    console.log('render() called');
     const scene = this.getCurrentScene();
     if (!scene) {
       console.error('Scene not found:', this.scene);
@@ -1144,6 +1152,7 @@ Congratulations on your new car!`,
     }
 
     const container = document.getElementById('simContent');
+    console.log('Container found:', container ? 'yes' : 'NO');
     if (!container) return;
 
     // Update background
