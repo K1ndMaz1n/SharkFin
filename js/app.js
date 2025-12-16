@@ -124,14 +124,20 @@ const App = {
    * Launch JRPG style simulation
    */
   launchJRPGSim() {
+    console.log('launchJRPGSim called');
     const simContainer = document.getElementById('jrpgSim');
+    console.log('simContainer found:', simContainer ? 'yes' : 'no');
+    
     if (simContainer) {
       simContainer.classList.remove('hidden');
       document.querySelector('.bottom-nav').style.display = 'none';
       
       // Initialize the car dealer sim
-      if (window.CarDealerSim) {
+      console.log('CarDealerSim exists:', typeof CarDealerSim !== 'undefined');
+      if (typeof CarDealerSim !== 'undefined') {
         CarDealerSim.init();
+      } else {
+        console.error('CarDealerSim not found!');
       }
     }
   },
