@@ -1458,7 +1458,11 @@ Congratulations on your new car!`,
       State.addCoins(coinsEarned);
       State.addXP(Math.floor(coinsEarned / 5));
       State.completeScenario('car_dealer', coinsEarned, score >= 90);
-      App.showPage('home');
+      
+      // Close the sim and go home
+      App.closeJRPGSim();
+      
+      console.log(`Simulation complete! Earned ${coinsEarned} SC, ${Math.floor(coinsEarned / 5)} XP`);
     });
   }
 };
