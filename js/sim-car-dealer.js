@@ -1220,11 +1220,13 @@ Congratulations on your new car!`,
 
     container.innerHTML = html;
 
-    // Add choice handlers
+    // Add choice handlers - need to preserve 'this' context
+    const self = this;
     container.querySelectorAll('.dialogue-choice').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const index = parseInt(btn.dataset.choiceIndex);
-        this.handleChoice(index);
+      btn.addEventListener('click', function() {
+        const index = parseInt(this.dataset.choiceIndex);
+        console.log('Choice clicked:', index);
+        self.handleChoice(index);
       });
     });
   },
