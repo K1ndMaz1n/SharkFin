@@ -89,12 +89,9 @@ const App = {
    * Setup general event listeners
    */
   setupEventListeners() {
-    // Enter Simulation button
+    // Enter Simulation button - launches JRPG sim
     document.getElementById('enterSimBtn')?.addEventListener('click', () => {
-      const scenario = Simulations.getActiveScenario();
-      if (scenario) {
-        Simulations.start(scenario.id);
-      }
+      this.launchJRPGSim();
     });
 
     // Skill tree button
@@ -114,6 +111,40 @@ const App = {
     document.getElementById('intelBackBtn')?.addEventListener('click', () => {
       this.showPage('home');
     });
+    
+    // JRPG Sim exit button
+    document.getElementById('simExitBtn')?.addEventListener('click', () => {
+      if (confirm('Exit simulation? Progress will be lost.')) {
+        this.closeJRPGSim();
+      }
+    });
+  },
+
+  /**
+   * Launch JRPG style simulation
+   */
+  launchJRPGSim() {
+    const simContainer = document.getElementById('jrpgSim');
+    if (simContainer) {
+      simContainer.classList.remove('hidden');
+      document.querySelector('.bottom-nav').style.display = 'none';
+      
+      // Initialize the car dealer sim
+      if (window.CarDealerSim) {
+        CarDealerSim.init();
+      }
+    }
+  },
+
+  /**
+   * Close JRPG simulation
+   */
+  closeJRPGSim() {
+    const simContainer = document.getElementById('jrpgSim');
+    if (simContainer) {
+      simContainer.classList.add('hidden');
+      document.querySelector('.bottom-nav').style.display = 'flex';
+    }
   },
 
   /**
