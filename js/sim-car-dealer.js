@@ -1460,3 +1460,5 @@ Congratulations on your new car!`,
     });
   }
 };
+
+console.log('sim-car-dealer.js loaded, CarDealerSim:', typeof CarDealerSim);
