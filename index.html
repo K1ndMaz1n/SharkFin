@@ -9,6 +9,7 @@
   <title>SharkFin Hub</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/sim-jrpg.css">
 </head>
 <body>
   <!-- Background layers -->
@@ -139,42 +140,23 @@
     </div>
   </div>
 
-  <!-- ========== SIMULATION PAGE ========== -->
+  <!-- ========== SIMULATION PAGE (JRPG Style) ========== -->
   <div class="page simulation-page" id="simulationPage">
-    <div class="sim-header">
-      <button class="back-btn" id="simBackBtn">
-        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-        EXIT
-      </button>
-      <div class="sim-progress">
-        <div class="sim-progress-fill" id="simProgressFill"></div>
-      </div>
-      <div class="sim-step" id="simStep">1/5</div>
-    </div>
-    
-    <div class="sim-content">
-      <div class="sim-scenario" id="simScenario">
-        <!-- Scenario text populated by simulations.js -->
-      </div>
+    <div class="simulation-container" id="simulationContainer">
+      <!-- Background scene -->
+      <div class="sim-background" id="simBackground"></div>
       
-      <div class="sim-speaker" id="simSpeaker">
-        <!-- Speaker info if applicable -->
-      </div>
+      <!-- HUD - Budget, Pressure, Need -->
+      <div id="simHUD"></div>
       
-      <div class="sim-choices" id="simChoices">
-        <!-- Choices populated by simulations.js -->
+      <!-- Character/Speaker area -->
+      <div class="sim-speaker-area" id="simSpeaker"></div>
+      
+      <!-- Dialogue area -->
+      <div class="sim-dialogue-area">
+        <div id="simDialogue"></div>
+        <div class="sim-choices-area" id="simChoices"></div>
       </div>
-    </div>
-    
-    <div class="sim-result hidden" id="simResult">
-      <div class="result-icon" id="resultIcon">✓</div>
-      <div class="result-title" id="resultTitle">Good Call!</div>
-      <div class="result-desc" id="resultDesc">You spotted the manipulation tactic.</div>
-      <div class="result-tactic" id="resultTactic">
-        <div class="tactic-label">TACTIC USED</div>
-        <div class="tactic-name">Artificial Scarcity</div>
-      </div>
-      <button class="cta-btn" id="resultNextBtn">CONTINUE</button>
     </div>
   </div>
 
@@ -286,10 +268,45 @@
     </div>
   </nav>
 
+  <!-- JRPG Simulation Container (hidden by default) -->
+  <div class="jrpg-sim hidden" id="jrpgSim">
+    <!-- Status bar -->
+    <div class="sim-status-bar">
+      <button class="sim-exit-btn" id="simExitBtn">✕ EXIT</button>
+      
+      <div class="pressure-meter">
+        <div class="pressure-label">
+          <span>PRESSURE</span>
+          <span id="pressureLabel">COMPOSED</span>
+        </div>
+        <div class="pressure-bar">
+          <div class="pressure-fill" id="pressureFill"></div>
+        </div>
+      </div>
+      
+      <div class="budget-display">
+        <div class="budget-label">BUDGET</div>
+        <div class="budget-value" id="budgetDisplay">$28,000 left</div>
+        <div class="car-display" id="currentCarDisplay">Honda Civic LX</div>
+      </div>
+    </div>
+    
+    <!-- Background scene -->
+    <div class="sim-background bg-showroom" id="simBackground"></div>
+    
+    <!-- Main content area -->
+    <div class="sim-content-area">
+      <div id="simContent">
+        <!-- Content populated by sim-car-dealer.js -->
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script src="js/state.js"></script>
   <script src="js/missions.js"></script>
   <script src="js/simulations.js"></script>
+  <script src="js/sim-car-dealer.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
