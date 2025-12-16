@@ -1,0 +1,694 @@
+/* ========== JRPG SIMULATION STYLES ========== */
+
+/* Main simulation container */
+.jrpg-sim {
+  position: fixed;
+  inset: 0;
+  max-width: 430px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--abyss);
+  z-index: 500;
+}
+
+/* Status bar at top */
+.sim-status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  padding-top: calc(12px + var(--safe-top));
+  background: linear-gradient(180deg, rgba(4, 8, 16, 0.98), rgba(6, 16, 24, 0.95));
+  border-bottom: 1px solid rgba(77, 216, 232, 0.15);
+  gap: 12px;
+}
+
+.sim-exit-btn {
+  background: none;
+  border: 1px solid rgba(199, 93, 93, 0.4);
+  color: var(--predator-sense);
+  font-family: 'Orbitron';
+  font-size: 10px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sim-exit-btn:active {
+  background: rgba(199, 93, 93, 0.2);
+  transform: scale(0.95);
+}
+
+/* Pressure meter */
+.pressure-meter {
+  flex: 1;
+  max-width: 150px;
+}
+
+.pressure-label {
+  font-family: 'Orbitron';
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: rgba(224, 232, 240, 0.5);
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pressure-bar {
+  height: 6px;
+  background: rgba(224, 232, 240, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.pressure-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--bio-teal), var(--bio-cyan));
+  border-radius: 3px;
+  transition: width 0.5s ease-out;
+}
+
+.pressure-fill.warning {
+  background: linear-gradient(90deg, var(--caution-amber), #e8a84d);
+}
+
+.pressure-fill.critical {
+  background: linear-gradient(90deg, var(--blood-deep), var(--predator-sense));
+  animation: pressurePulse 0.5s ease-in-out infinite;
+}
+
+@keyframes pressurePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Budget display */
+.budget-display {
+  text-align: right;
+}
+
+.budget-label {
+  font-size: 9px;
+  color: rgba(224, 232, 240, 0.5);
+}
+
+.budget-value {
+  font-family: 'Share Tech Mono';
+  font-size: 14px;
+  color: var(--bio-glow);
+}
+
+.budget-value.over-budget {
+  color: var(--predator-sense);
+}
+
+.car-display {
+  font-size: 10px;
+  color: rgba(224, 232, 240, 0.6);
+  margin-top: 2px;
+}
+
+/* Background scene */
+.sim-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.4;
+  transition: opacity 0.5s;
+}
+
+.sim-background.bg-showroom {
+  background: 
+    linear-gradient(180deg, transparent 60%, rgba(4, 8, 16, 0.9) 100%),
+    linear-gradient(45deg, rgba(13, 33, 55, 0.8) 0%, rgba(6, 16, 24, 0.9) 100%);
+}
+
+.sim-background.bg-exterior {
+  background: 
+    linear-gradient(180deg, rgba(20, 40, 60, 0.5) 0%, rgba(4, 8, 16, 0.95) 100%),
+    linear-gradient(180deg, #1a3a5c 0%, #0a1628 100%);
+}
+
+.sim-background.bg-driving {
+  background: 
+    linear-gradient(180deg, transparent 50%, rgba(4, 8, 16, 0.9) 100%),
+    linear-gradient(135deg, #1a3a5c 0%, #2d5a7b 50%, #1a3a5c 100%);
+  animation: drivingBg 3s ease-in-out infinite;
+}
+
+@keyframes drivingBg {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.sim-background.bg-office {
+  background: 
+    linear-gradient(180deg, transparent 60%, rgba(4, 8, 16, 0.95) 100%),
+    radial-gradient(ellipse at 50% 30%, rgba(42, 60, 80, 0.6) 0%, rgba(6, 16, 24, 0.9) 70%);
+}
+
+.sim-background.bg-finance_office {
+  background: 
+    linear-gradient(180deg, transparent 60%, rgba(4, 8, 16, 0.95) 100%),
+    radial-gradient(ellipse at 50% 30%, rgba(60, 50, 40, 0.5) 0%, rgba(6, 16, 24, 0.9) 70%);
+}
+
+/* Main content area */
+.sim-content-area {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 16px;
+  padding-bottom: calc(16px + var(--safe-bottom));
+  overflow: hidden;
+}
+
+#simContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Character display */
+.character-display {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  animation: characterEnter 0.4s ease-out;
+}
+
+@keyframes characterEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.character-sprite {
+  width: 120px;
+  height: 160px;
+  position: relative;
+}
+
+/* Placeholder for character art */
+.sprite-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(42, 181, 160, 0.2), rgba(13, 33, 55, 0.8));
+  border: 2px solid rgba(77, 216, 232, 0.3);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron';
+  font-size: 14px;
+  color: var(--bio-cyan);
+  letter-spacing: 2px;
+}
+
+.character-sprite.jake .sprite-placeholder {
+  background: linear-gradient(180deg, rgba(77, 130, 180, 0.3), rgba(13, 33, 55, 0.8));
+  border-color: rgba(100, 150, 200, 0.4);
+}
+
+.character-sprite.jake.friendly .sprite-placeholder::after {
+  content: '😊';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+}
+
+.character-sprite.jake.concerned .sprite-placeholder::after {
+  content: '😟';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+}
+
+.character-sprite.jake.impressed .sprite-placeholder::after {
+  content: '😮';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+}
+
+.character-sprite.jake.thinking .sprite-placeholder::after {
+  content: '🤔';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+}
+
+.character-sprite.jake.laughing .sprite-placeholder::after {
+  content: '😄';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+}
+
+.character-sprite.jake.sincere .sprite-placeholder::after {
+  content: '🥺';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+}
+
+.character-sprite.jake.proud .sprite-placeholder::after {
+  content: '😌';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+}
+
+.character-sprite.finance .sprite-placeholder {
+  background: linear-gradient(180deg, rgba(120, 100, 80, 0.3), rgba(13, 33, 55, 0.8));
+  border-color: rgba(150, 130, 100, 0.4);
+}
+
+/* Dialogue box */
+.dialogue-box {
+  background: linear-gradient(180deg, rgba(6, 16, 24, 0.95), rgba(4, 8, 16, 0.98));
+  border: 2px solid rgba(77, 216, 232, 0.25);
+  border-radius: 12px;
+  padding: 16px;
+  position: relative;
+  animation: dialogueEnter 0.3s ease-out;
+}
+
+@keyframes dialogueEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.speaker-name {
+  font-family: 'Orbitron';
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(77, 216, 232, 0.15);
+  color: var(--bio-cyan);
+}
+
+.speaker-name.jake {
+  color: #7ab3d4;
+}
+
+.speaker-name.finance {
+  color: #c9a456;
+}
+
+.dialogue-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(224, 232, 240, 0.9);
+  white-space: pre-line;
+}
+
+/* Narrator box */
+.narrator-box {
+  background: linear-gradient(180deg, rgba(13, 33, 55, 0.9), rgba(6, 16, 24, 0.95));
+  border: 1px solid rgba(77, 216, 232, 0.15);
+  border-radius: 12px;
+  padding: 20px;
+  animation: dialogueEnter 0.3s ease-out;
+}
+
+.narrator-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(224, 232, 240, 0.8);
+  white-space: pre-line;
+  font-style: italic;
+}
+
+/* Choices container */
+.choices-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: choicesEnter 0.4s ease-out 0.2s both;
+}
+
+@keyframes choicesEnter {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dialogue choices - JRPG style */
+.dialogue-choice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, rgba(13, 33, 55, 0.7), rgba(6, 16, 24, 0.8));
+  border: 1px solid rgba(77, 216, 232, 0.2);
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.dialogue-choice::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--bio-teal);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.dialogue-choice:hover {
+  border-color: var(--bio-cyan);
+  background: rgba(42, 181, 160, 0.1);
+  transform: translateX(4px);
+}
+
+.dialogue-choice:hover::before {
+  opacity: 1;
+}
+
+.dialogue-choice:active {
+  transform: translateX(4px) scale(0.98);
+}
+
+.choice-label {
+  width: 26px;
+  height: 26px;
+  background: rgba(77, 216, 232, 0.15);
+  border: 1px solid var(--bio-cyan);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron';
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--bio-cyan);
+  flex-shrink: 0;
+}
+
+.choice-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(224, 232, 240, 0.85);
+}
+
+/* Staggered choice animations */
+.dialogue-choice:nth-child(1) { animation-delay: 0.25s; }
+.dialogue-choice:nth-child(2) { animation-delay: 0.35s; }
+.dialogue-choice:nth-child(3) { animation-delay: 0.45s; }
+
+.dialogue-choice {
+  animation: choiceSlide 0.3s ease-out both;
+}
+
+@keyframes choiceSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ========== RESULTS SCREEN ========== */
+.results-screen {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.results-title {
+  font-family: 'Orbitron';
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(224, 232, 240, 0.9);
+}
+
+.results-grade {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron';
+  font-size: 28px;
+  font-weight: 900;
+  border-radius: 12px;
+  border: 3px solid;
+}
+
+.results-grade.grade-S {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: var(--treasure-gold);
+  color: var(--treasure-gold);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.results-grade.grade-A {
+  background: rgba(42, 181, 160, 0.2);
+  border-color: var(--bio-teal);
+  color: var(--bio-glow);
+  box-shadow: 0 0 15px rgba(42, 181, 160, 0.3);
+}
+
+.results-grade.grade-B {
+  background: rgba(77, 216, 232, 0.15);
+  border-color: var(--bio-cyan);
+  color: var(--bio-cyan);
+}
+
+.results-grade.grade-C {
+  background: rgba(201, 164, 86, 0.15);
+  border-color: var(--caution-amber);
+  color: var(--caution-amber);
+}
+
+.results-grade.grade-F {
+  background: rgba(199, 93, 93, 0.2);
+  border-color: var(--predator-sense);
+  color: var(--predator-sense);
+}
+
+/* Summary items */
+.results-summary {
+  background: rgba(13, 33, 55, 0.5);
+  border: 1px solid rgba(77, 216, 232, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.summary-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(224, 232, 240, 0.05);
+}
+
+.summary-item:last-child {
+  border-bottom: none;
+}
+
+.summary-item .label {
+  font-size: 12px;
+  color: rgba(224, 232, 240, 0.5);
+  min-width: 100px;
+}
+
+.summary-item .value {
+  font-family: 'Share Tech Mono';
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(224, 232, 240, 0.9);
+}
+
+.summary-item .badge {
+  font-family: 'Orbitron';
+  font-size: 9px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(199, 93, 93, 0.2);
+  color: var(--predator-sense);
+  letter-spacing: 0.5px;
+}
+
+.summary-item .badge.good {
+  background: rgba(42, 181, 160, 0.2);
+  color: var(--bio-glow);
+}
+
+.summary-item.bad .value {
+  color: var(--predator-sense);
+}
+
+.summary-item.good .value {
+  color: var(--bio-glow);
+}
+
+/* Add-ons breakdown */
+.addons-breakdown {
+  background: rgba(139, 58, 58, 0.1);
+  border: 1px solid rgba(199, 93, 93, 0.2);
+  border-radius: 10px;
+  padding: 12px;
+  margin-top: 12px;
+}
+
+.breakdown-title {
+  font-family: 'Orbitron';
+  font-size: 10px;
+  color: var(--predator-sense);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.addon-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  padding: 6px 0;
+  color: rgba(224, 232, 240, 0.7);
+}
+
+.addon-cost {
+  font-family: 'Share Tech Mono';
+  color: var(--predator-sense);
+}
+
+.addon-value {
+  font-size: 10px;
+  color: rgba(224, 232, 240, 0.4);
+}
+
+.total-waste {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(199, 93, 93, 0.2);
+  font-family: 'Share Tech Mono';
+  font-size: 13px;
+  color: var(--predator-sense);
+}
+
+/* Tactics used */
+.tactics-used {
+  background: rgba(13, 33, 55, 0.5);
+  border: 1px solid rgba(77, 216, 232, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.tactics-title {
+  font-family: 'Orbitron';
+  font-size: 10px;
+  color: var(--bio-cyan);
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.tactic-item {
+  padding: 10px;
+  background: rgba(6, 16, 24, 0.5);
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.tactic-item.highlight {
+  background: rgba(199, 93, 93, 0.15);
+  border: 1px solid rgba(199, 93, 93, 0.3);
+}
+
+.tactic-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(224, 232, 240, 0.9);
+  margin-bottom: 2px;
+}
+
+.tactic-item.highlight .tactic-name {
+  color: var(--predator-sense);
+}
+
+.tactic-desc {
+  font-size: 11px;
+  color: rgba(224, 232, 240, 0.5);
+}
+
+/* Rewards */
+.results-rewards {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.reward-item {
+  flex: 1;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(184, 155, 77, 0.05));
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+}
+
+.reward-label {
+  font-family: 'Orbitron';
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: rgba(212, 175, 55, 0.7);
+  margin-bottom: 4px;
+}
+
+.reward-value {
+  font-family: 'Share Tech Mono';
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--treasure-gold);
+}
