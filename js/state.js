@@ -310,8 +310,55 @@ const State = {
     this.save();
     this.updateUI();
     console.log('State reset to defaults');
+  },
+
+  // ===== DEV MODE =====
+  // Type these in browser console to test:
+  // State.dev.addCoins(500)
+  // State.dev.addXP(200)
+  // State.dev.setLevel(5)
+  // State.dev.reset()
+  
+  dev: {
+    addCoins(amount) {
+      State.addCoins(amount);
+      console.log(`Added ${amount} SC. Total: ${State.current.sharkCoins}`);
+    },
+    addXP(amount) {
+      State.addXP(amount);
+      console.log(`Added ${amount} XP. Level: ${State.current.level}`);
+    },
+    setLevel(level) {
+      State.current.level = level;
+      State.current.xp = 0;
+      State.save();
+      State.updateUI();
+      console.log(`Set level to ${level}`);
+    },
+    maxOut() {
+      State.current.level = 25;
+      State.current.sharkCoins = 99999;
+      State.current.streak = 30;
+      State.save();
+      State.updateUI();
+      console.log('Maxed out stats');
+    },
+    reset() {
+      State.reset();
+      console.log('Reset to defaults');
+    },
+    unlock() {
+      // Unlock radar (set level 5+)
+      State.current.level = 5;
+      State.save();
+      State.updateUI();
+      console.log('Unlocked radar');
+    }
   }
 };
 
 // Initialize on load
 document.addEventListener('DOMContentLoaded', () => State.init());
+
+// Make dev commands available globally
+window.State = State;
