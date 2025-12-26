@@ -1676,6 +1676,7 @@
   padding: 1rem;
   box-shadow: 0 4px 20px rgba(42, 181, 160, 0.3);
   margin-bottom: 2rem;
+  overflow: auto;
 }
 .limited-offer h1 {
   font-size: 1.5rem;
@@ -1693,32 +1694,25 @@
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
 }
-.shop-cards::-webkit-scrollbar { display: none; } /* hide scrollbar */ 
+.shop-cards::-webkit-scrollbar { 
+  height: 4px;
+
+}
 /* (Must be Active)use arrow-keys to navigate cards and swipe on mobile */ 
-.shop-cards::-webkit-scrollbar-thumb { background: var(--bio-teal); }
+.shop-cards::-webkit-scrollbar-thumb { 
+  background: var(--bio-teal); 
+  border-radius: 2px;
+  margin: 4px;
+}
 .shop-card {
   flex: 0 0 100%; /* ONE card per screen */
   scroll-snap-align: center;
 }
-.shop-dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 0.75rem;
+.shop-card button:hover {
+  box-shadow: 0 6px 25px rgba(42, 181, 160, 0.4);
 }
-
-.shop-dots {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(224, 232, 240, 0.3);
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.shop-dots.active {
-  background: #4dd8e8; /* bio-cyan */
-  transform: scale(1.4);
-  opacity: 1;
+.shop-card button:active {
+  transform: scale(0.98);
 }
 
 .shop-card{
