@@ -6,6 +6,16 @@
 const Simulations = {
   // All available scenarios
   scenarios: {
+    'car_dealer': {
+      id: 'car_dealer',
+      title: 'Car Dealer Showdown',
+      desc: 'Jake has sold 400+ cars. His close rate is 78%. Don\'t become a statistic.',
+      reward: 350,
+      difficulty: 'MEDIUM',
+      time: 10,
+      category: 'purchase',
+      isJRPG: true  // Flag to use new system
+    },
     'crypto_rugpull': {
       id: 'crypto_rugpull',
       title: 'Crypto Rug-Pull Survival',
