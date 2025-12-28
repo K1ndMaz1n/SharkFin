@@ -155,7 +155,7 @@ const Skills = {
         ]
       },
       prerequisites: [],
-      position: { x: 120, y: 160 }
+      position: { x: 80, y: 100 }
     },
 
     urgency_resistance: {
@@ -211,7 +211,7 @@ const Skills = {
         ]
       },
       prerequisites: ['fomo_fundamentals'],
-      position: { x: 200, y: 200 }
+      position: { x: 80, y: 170 }
     },
 
     social_proof_traps: {
@@ -263,7 +263,7 @@ const Skills = {
         ]
       },
       prerequisites: ['urgency_resistance'],
-      position: { x: 150, y: 280 }
+      position: { x: 80, y: 240 }
     },
 
     dark_patterns: {
@@ -282,7 +282,7 @@ const Skills = {
         description: 'Unlock: Subscription Trap simulation'
       },
       prerequisites: ['social_proof_traps'],
-      position: { x: 100, y: 360 }
+      position: { x: 80, y: 310 }
     },
 
     predator_spotting: {
@@ -301,7 +301,7 @@ const Skills = {
         description: 'SHARK EYES: All manipulation tactics highlighted in sims'
       },
       prerequisites: ['dark_patterns'],
-      position: { x: 180, y: 440 },
+      position: { x: 80, y: 380 },
       isMaster: true
     },
 
@@ -359,7 +359,7 @@ const Skills = {
         ]
       },
       prerequisites: [],
-      position: { x: 540, y: 160 }
+      position: { x: 400, y: 100 }
     },
 
     walk_away_power: {
@@ -378,7 +378,7 @@ const Skills = {
         description: 'Pressure bar fills 25% slower in all sims'
       },
       prerequisites: ['price_anchoring'],
-      position: { x: 620, y: 200 }
+      position: { x: 350, y: 170 }
     },
 
     financing_tactics: {
@@ -397,7 +397,7 @@ const Skills = {
         description: 'Warning when bad loan terms offered in sims'
       },
       prerequisites: ['price_anchoring'],
-      position: { x: 460, y: 220 }
+      position: { x: 450, y: 170 }
     },
 
     total_cost_ownership: {
@@ -416,7 +416,7 @@ const Skills = {
         description: 'Unlock: True Cost Calculator tool'
       },
       prerequisites: ['financing_tactics'],
-      position: { x: 540, y: 280 }
+      position: { x: 400, y: 240 }
     },
 
     // ========== MAJOR PURCHASES - VEHICLES SPECIALIZATION ==========
@@ -437,7 +437,7 @@ const Skills = {
         description: '+15% coins on car dealer sims'
       },
       prerequisites: ['total_cost_ownership'],
-      position: { x: 440, y: 380 }
+      position: { x: 330, y: 320 }
     },
 
     dealer_tactics: {
@@ -457,7 +457,7 @@ const Skills = {
         description: 'Jake\'s tactics labeled in real-time during car sim'
       },
       prerequisites: ['four_square_defense'],
-      position: { x: 380, y: 440 }
+      position: { x: 300, y: 390 }
     },
 
     trade_in_traps: {
@@ -477,7 +477,7 @@ const Skills = {
         description: 'Unlock: Trade Value Checker tool'
       },
       prerequisites: ['four_square_defense'],
-      position: { x: 500, y: 440 }
+      position: { x: 360, y: 390 }
     },
 
     cold_blood: {
@@ -497,7 +497,7 @@ const Skills = {
         description: 'Vehicle sims: Immune to pressure for first 5 choices'
       },
       prerequisites: ['dealer_tactics', 'trade_in_traps'],
-      position: { x: 440, y: 520 },
+      position: { x: 330, y: 460 },
       isMaster: true
     },
 
@@ -519,7 +519,7 @@ const Skills = {
         description: 'Unlock: Home Buying simulation'
       },
       prerequisites: ['total_cost_ownership'],
-      position: { x: 640, y: 380 }
+      position: { x: 470, y: 320 }
     },
 
     mortgage_mastery: {
@@ -539,7 +539,7 @@ const Skills = {
         description: 'Unlock: Mortgage Comparison tool'
       },
       prerequisites: ['home_buying_basics'],
-      position: { x: 700, y: 440 }
+      position: { x: 440, y: 390 }
     },
 
     agent_games: {
@@ -559,7 +559,7 @@ const Skills = {
         description: 'Agent tactic warnings in housing sims'
       },
       prerequisites: ['home_buying_basics'],
-      position: { x: 580, y: 440 }
+      position: { x: 500, y: 390 }
     },
 
     home_turf: {
@@ -579,7 +579,7 @@ const Skills = {
         description: 'Housing sims: See "fair price" estimate before negotiating'
       },
       prerequisites: ['mortgage_mastery', 'agent_games'],
-      position: { x: 640, y: 520 },
+      position: { x: 470, y: 460 },
       isMaster: true
     },
 
@@ -600,7 +600,7 @@ const Skills = {
         description: 'Unlock: Investment Growth Calculator'
       },
       prerequisites: [],
-      position: { x: 520, y: 600 }
+      position: { x: 200, y: 100 }
     },
 
     index_fund_basics: {
@@ -619,7 +619,7 @@ const Skills = {
         description: '+15% XP from Wealth Building sims'
       },
       prerequisites: ['compound_interest'],
-      position: { x: 600, y: 650 }
+      position: { x: 200, y: 170 }
     },
 
     risk_management: {
@@ -638,7 +638,7 @@ const Skills = {
         description: 'Warning when sim presents high-risk "opportunity"'
       },
       prerequisites: ['index_fund_basics'],
-      position: { x: 520, y: 700 }
+      position: { x: 200, y: 240 }
     },
 
     investment_traps: {
@@ -657,7 +657,7 @@ const Skills = {
         description: 'Unlock: Meme Stock Mania simulation'
       },
       prerequisites: ['risk_management'],
-      position: { x: 600, y: 750 }
+      position: { x: 200, y: 310 }
     },
 
     long_game_mastery: {
@@ -676,7 +676,7 @@ const Skills = {
         description: 'DIAMOND HANDS: Unlock Portfolio Tracker tool'
       },
       prerequisites: ['investment_traps'],
-      position: { x: 520, y: 800 },
+      position: { x: 200, y: 380 },
       isMaster: true
     },
 
@@ -697,7 +697,7 @@ const Skills = {
         description: 'Unlock: Salary Research tool'
       },
       prerequisites: [],
-      position: { x: 100, y: 600 }
+      position: { x: 560, y: 100 }
     },
 
     negotiation_openers: {
@@ -716,7 +716,7 @@ const Skills = {
         description: '+15% coins on negotiation sims'
       },
       prerequisites: ['know_your_number'],
-      position: { x: 180, y: 650 }
+      position: { x: 560, y: 170 }
     },
 
     counter_tactics: {
@@ -735,7 +735,7 @@ const Skills = {
         description: 'Unlock: Salary Negotiation simulation'
       },
       prerequisites: ['negotiation_openers'],
-      position: { x: 100, y: 700 }
+      position: { x: 560, y: 240 }
     },
 
     side_hustle_math: {
@@ -754,7 +754,7 @@ const Skills = {
         description: 'Unlock: Side Hustle Evaluator tool'
       },
       prerequisites: ['counter_tactics'],
-      position: { x: 180, y: 750 }
+      position: { x: 560, y: 310 }
     },
 
     income_stacking: {
@@ -773,7 +773,7 @@ const Skills = {
         description: 'APEX EARNER: Income Tracker tool unlocked'
       },
       prerequisites: ['side_hustle_math'],
-      position: { x: 100, y: 800 },
+      position: { x: 560, y: 380 },
       isMaster: true
     },
 
@@ -794,7 +794,7 @@ const Skills = {
         description: 'Unlock: Credit Score Simulator tool'
       },
       prerequisites: [],
-      position: { x: 300, y: 850 }
+      position: { x: 680, y: 100 }
     },
 
     tax_fundamentals: {
@@ -813,7 +813,7 @@ const Skills = {
         description: '+10% XP from all sims'
       },
       prerequisites: ['credit_score_decoded'],
-      position: { x: 380, y: 850 }
+      position: { x: 680, y: 170 }
     },
 
     insurance_essentials: {
@@ -832,7 +832,7 @@ const Skills = {
         description: 'Warning when unnecessary insurance pushed in sims'
       },
       prerequisites: ['tax_fundamentals'],
-      position: { x: 300, y: 900 }
+      position: { x: 680, y: 240 }
     },
 
     contract_red_flags: {
@@ -851,7 +851,7 @@ const Skills = {
         description: 'Unlock: Contract Checker simulation'
       },
       prerequisites: ['insurance_essentials'],
-      position: { x: 380, y: 900 }
+      position: { x: 680, y: 310 }
     },
 
     budget_architecture: {
@@ -870,7 +870,7 @@ const Skills = {
         description: 'SYSTEM SHARK: All tools unlocked, +25% all coins'
       },
       prerequisites: ['contract_red_flags'],
-      position: { x: 340, y: 950 },
+      position: { x: 680, y: 380 },
       isMaster: true
     }
   },
