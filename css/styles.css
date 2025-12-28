@@ -578,15 +578,46 @@
     
     /* THE MAP - using absolute positioning for everything */
     .skill-map {
-      width: 800px; height: 900px; 
+      width: 800px; height: 550px; 
       position: relative;
-      background: radial-gradient(circle at 400px 450px, rgba(0, 230, 255, 0.05) 0%, transparent 40%);
+      background: radial-gradient(circle at 400px 300px, rgba(0, 230, 255, 0.05) 0%, transparent 40%);
     }
     .map-grid {
       position: absolute; inset: 0;
       background-image: linear-gradient(rgba(0,230,255,0.02) 1px, transparent 1px),
                         linear-gradient(90deg, rgba(0,230,255,0.02) 1px, transparent 1px);
       background-size: 40px 40px;
+    }
+
+    /* Connection lines SVG layer */
+    .connection-lines {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Branch labels container */
+    .branch-labels {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .branch-label {
+      padding: 4px 8px;
+      background: rgba(4, 8, 16, 0.7);
+      border-radius: 4px;
+      border-bottom: 2px solid currentColor;
+    }
+
+    .spec-label {
+      background: rgba(4, 8, 16, 0.5);
+      padding: 2px 6px;
+      border-radius: 4px;
     }
 
     /* UNDERWATER BACKGROUND ELEMENTS */
@@ -1279,17 +1310,19 @@
 
 .center-emblem {
   position: absolute;
-  top: 400px;
-  left: 360px;
-  width: 80px;
-  height: 80px;
+  top: 220px;
+  left: 370px;
+  width: 60px;
+  height: 60px;
   background: radial-gradient(circle, rgba(42, 181, 160, 0.2) 0%, transparent 70%);
   border: 2px solid rgba(77, 216, 232, 0.3);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 36px;
+  font-size: 28px;
+  z-index: 2;
+  animation: centerPulse 3s ease-in-out infinite;
 }
 
 .hidden {
