@@ -17,7 +17,13 @@ const State = {
     completedScenarios: [],
     
     // Skill progress: { skillId: { unlocked: bool, mastered: bool, progress: 0-100 } }
-    skills: {},
+    skills: {
+      // Start with first node of each branch unlocked
+      unlockedNodes: ['fomo_fundamentals', 'price_anchoring', 'compound_interest', 'know_your_number', 'credit_score_decoded'],
+      masteredNodes: [],
+      completedLessons: [],
+      activePerks: []
+    },
     
     // Mission progress
     dailyMissions: {
@@ -34,7 +40,8 @@ const State = {
       scenariosCompleted: 0,
       tacticsResisted: 0,
       totalCoinsEarned: 0,
-      perfectScenarios: 0
+      perfectScenarios: 0,
+      lessonsCompleted: 0
     }
   },
 
@@ -299,6 +306,105 @@ const State = {
     }
     this.current.skills[skillId] = { ...this.current.skills[skillId], ...updates };
     this.save();
+  },
+
+  /**
+   * Check if a node is unlocked
+   */
+  isNodeUnlocked(nodeId) {
+    return this.current.skills.unlockedNodes?.includes(nodeId) || false;
+  },
+
+  /**
+   * Check if a node is mastered
+   */
+  isNodeMastered(nodeId) {
+    return this.current.skills.masteredNodes?.includes(nodeId) || false;
+  },
+
+  /**
+   * Check if a lesson is completed
+   */
+  isLessonCompleted(lessonId) {
+    return this.current.skills.completedLessons?.includes(lessonId) || false;
+  },
+
+  /**
+   * Unlock a skill node
+   */
+  unlockNode(nodeId) {
+    if (!this.current.skills.unlockedNodes) {
+      this.current.skills.unlockedNodes = [];
+    }
+    if (!this.current.skills.unlockedNodes.includes(nodeId)) {
+      this.current.skills.unlockedNodes.push(nodeId);
+      this.save();
+      return true;
+    }
+    return false;
+  },
+
+  /**
+   * Complete a lesson and unlock node
+   */
+  completeLesson(lessonId, nodeId, reward) {
+    // Mark lesson as completed
+    if (!this.current.skills.completedLessons) {
+      this.current.skills.completedLessons = [];
+    }
+    if (!this.current.skills.completedLessons.includes(lessonId)) {
+      this.current.skills.completedLessons.push(lessonId);
+      this.current.stats.lessonsCompleted++;
+    }
+
+    // Mark node as mastered (completed lesson = mastered)
+    if (!this.current.skills.masteredNodes) {
+      this.current.skills.masteredNodes = [];
+    }
+    if (!this.current.skills.masteredNodes.includes(nodeId)) {
+      this.current.skills.masteredNodes.push(nodeId);
+    }
+
+    // Give rewards
+    this.addCoins(reward);
+    this.addXP(Math.floor(reward / 2));
+
+    this.save();
+    console.log(`Lesson ${lessonId} completed! Node ${nodeId} mastered. +${reward} SC`);
+  },
+
+  /**
+   * Activate a perk
+   */
+  activatePerk(perkId) {
+    if (!this.current.skills.activePerks) {
+      this.current.skills.activePerks = [];
+    }
+    if (!this.current.skills.activePerks.includes(perkId)) {
+      this.current.skills.activePerks.push(perkId);
+      this.save();
+    }
+  },
+
+  /**
+   * Check if a perk is active
+   */
+  hasPerk(perkId) {
+    return this.current.skills.activePerks?.includes(perkId) || false;
+  },
+
+  /**
+   * Get all unlocked nodes
+   */
+  getUnlockedNodes() {
+    return this.current.skills.unlockedNodes || [];
+  },
+
+  /**
+   * Get all mastered nodes
+   */
+  getMasteredNodes() {
+    return this.current.skills.masteredNodes || [];
   },
 
   /**
