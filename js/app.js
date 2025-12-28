@@ -313,9 +313,11 @@ const App = {
       return;
     }
 
-    // Add background elements first
+    // Clear and setup base structure
     skillMap.innerHTML = `
       <div class="map-grid"></div>
+      <svg class="connection-lines" id="connectionLines"></svg>
+      <div class="branch-labels"></div>
       <div class="center-emblem">🦈</div>
     `;
 
@@ -328,6 +330,7 @@ const App = {
     const recommended = Skills.getRecommendedNode(playerLevel, unlockedNodes);
 
     // Render all skill nodes
+    const nodeElements = {};
     Object.values(Skills.nodes).forEach(skill => {
       // Determine node state
       let nodeState = Skills.getNodeState(skill.id, playerLevel, unlockedNodes, masteredNodes);
@@ -340,21 +343,144 @@ const App = {
       const node = document.createElement('div');
       node.className = `snode ${nodeState}`;
       if (skill.isMaster) node.classList.add('master-node');
+      if (skill.specialization) node.classList.add(`spec-${skill.specialization}`);
       node.style.cssText = `top: ${skill.position.y}px; left: ${skill.position.x}px;`;
       node.dataset.skillId = skill.id;
+      node.dataset.branch = skill.branch;
       node.innerHTML = `<div class="snode-shape">${skill.icon}</div>`;
       skillMap.appendChild(node);
+
+      // Store for connection lines
+      nodeElements[skill.id] = {
+        el: node,
+        x: skill.position.x + 27, // center of node
+        y: skill.position.y + 27,
+        skill: skill
+      };
 
       // Store skill data for detail panel
       node._skillData = skill;
       node._nodeState = nodeState;
     });
 
+    // Draw connection lines
+    this.drawConnectionLines(nodeElements);
+
+    // Add branch labels
+    this.addBranchLabels(skillMap);
+
     // Add click handlers
     skillMap.querySelectorAll('.snode').forEach(node => {
       node.addEventListener('click', () => {
         this.showSkillDetail(node._skillData, node._nodeState);
       });
+    });
+  },
+
+  /**
+   * Draw SVG connection lines between nodes
+   */
+  drawConnectionLines(nodeElements) {
+    const svg = document.getElementById('connectionLines');
+    if (!svg) return;
+
+    let paths = '';
+    
+    // Branch colors
+    const branchColors = {
+      defense: 'rgba(45, 122, 156, 0.6)',
+      wealth: 'rgba(61, 155, 122, 0.6)',
+      purchase: 'rgba(184, 107, 77, 0.6)',
+      income: 'rgba(184, 155, 77, 0.6)',
+      systems: 'rgba(107, 91, 140, 0.6)'
+    };
+
+    Object.values(Skills.nodes).forEach(skill => {
+      if (skill.prerequisites && skill.prerequisites.length > 0) {
+        const toNode = nodeElements[skill.id];
+        if (!toNode) return;
+
+        skill.prerequisites.forEach(prereqId => {
+          const fromNode = nodeElements[prereqId];
+          if (!fromNode) return;
+
+          const color = branchColors[skill.branch] || 'rgba(77, 216, 232, 0.4)';
+          
+          // Draw curved line
+          const dx = toNode.x - fromNode.x;
+          const dy = toNode.y - fromNode.y;
+          const cx = fromNode.x + dx / 2;
+          const cy = fromNode.y + dy / 2;
+
+          paths += `
+            <path 
+              d="M ${fromNode.x} ${fromNode.y} Q ${cx} ${fromNode.y}, ${cx} ${cy} T ${toNode.x} ${toNode.y}"
+              stroke="${color}"
+              stroke-width="2"
+              fill="none"
+              stroke-linecap="round"
+            />
+          `;
+        });
+      }
+    });
+
+    svg.innerHTML = paths;
+  },
+
+  /**
+   * Add branch labels to the skill map
+   */
+  addBranchLabels(skillMap) {
+    const labels = [
+      { branch: 'defense', text: '🛡️ DEFENSE', x: 50, y: 60, color: '#2d7a9c' },
+      { branch: 'wealth', text: '📈 WEALTH', x: 170, y: 60, color: '#3d9b7a' },
+      { branch: 'purchase', text: '🏷️ PURCHASES', x: 350, y: 60, color: '#b86b4d' },
+      { branch: 'income', text: '💰 INCOME', x: 530, y: 60, color: '#b89b4d' },
+      { branch: 'systems', text: '⚙️ SYSTEMS', x: 650, y: 60, color: '#6b5b8c' }
+    ];
+
+    const labelContainer = skillMap.querySelector('.branch-labels');
+    if (!labelContainer) return;
+
+    labels.forEach(label => {
+      const el = document.createElement('div');
+      el.className = 'branch-label';
+      el.style.cssText = `
+        position: absolute;
+        left: ${label.x}px;
+        top: ${label.y}px;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        color: ${label.color};
+        text-shadow: 0 0 10px ${label.color}40;
+        white-space: nowrap;
+      `;
+      el.textContent = label.text;
+      labelContainer.appendChild(el);
+    });
+
+    // Add specialization labels for Purchase branch
+    const specLabels = [
+      { text: '🚗', x: 310, y: 295, tip: 'Vehicles' },
+      { text: '🏠', x: 450, y: 295, tip: 'Housing' }
+    ];
+
+    specLabels.forEach(spec => {
+      const el = document.createElement('div');
+      el.className = 'spec-label';
+      el.style.cssText = `
+        position: absolute;
+        left: ${spec.x}px;
+        top: ${spec.y}px;
+        font-size: 16px;
+        opacity: 0.7;
+      `;
+      el.textContent = spec.text;
+      el.title = spec.tip;
+      labelContainer.appendChild(el);
     });
   },
 
