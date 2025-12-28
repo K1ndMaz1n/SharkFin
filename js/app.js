@@ -132,6 +132,22 @@ const App = {
       simContainer.classList.remove('hidden');
       document.querySelector('.bottom-nav').style.display = 'none';
       
+      // Setup exit button listener
+      const exitBtn = document.getElementById('simExitBtn');
+      if (exitBtn) {
+        // Remove old listeners by cloning
+        const newExitBtn = exitBtn.cloneNode(true);
+        exitBtn.parentNode.replaceChild(newExitBtn, exitBtn);
+        
+        // Add new listener
+        newExitBtn.addEventListener('click', () => {
+          console.log('Exit button clicked');
+          if (confirm('Exit simulation? Progress will be lost.')) {
+            this.closeJRPGSim();
+          }
+        });
+      }
+      
       // Initialize the car dealer sim
       console.log('CarDealerSim exists:', typeof CarDealerSim !== 'undefined');
       if (typeof CarDealerSim !== 'undefined') {
@@ -288,37 +304,14 @@ const App = {
    * Setup skill node interactions
    */
   setupSkillNodes() {
-    // Define skills
-    const skills = [
-      // Defense territory (top-left)
-      { id: 'fomo', icon: '😰', name: 'FOMO Defense', tier: 'TIER 2 • DEFENSE', x: 120, y: 160, state: 'unlocked' },
-      { id: 'urgency', icon: '⏰', name: 'Urgency Tactics', tier: 'TIER 1 • DEFENSE', x: 200, y: 200, state: 'mastered' },
-      { id: 'scarcity', icon: '📦', name: 'Artificial Scarcity', tier: 'TIER 2 • DEFENSE', x: 280, y: 170, state: 'unlocked' },
-      { id: 'social', icon: '👥', name: 'Social Proof', tier: 'TIER 3 • DEFENSE', x: 150, y: 260, state: 'locked' },
-      
-      // Wealth territory (top-right)
-      { id: 'compound', icon: '📈', name: 'Compound Interest', tier: 'TIER 1 • WEALTH', x: 520, y: 170, state: 'recommended' },
-      { id: 'index', icon: '📊', name: 'Index Funds', tier: 'TIER 2 • WEALTH', x: 600, y: 200, state: 'locked' },
-      { id: 'diversify', icon: '🎯', name: 'Diversification', tier: 'TIER 2 • WEALTH', x: 550, y: 260, state: 'locked' },
-      
-      // Income territory (bottom-left)
-      { id: 'paycheck', icon: '💵', name: 'Paycheck Anatomy', tier: 'TIER 1 • INCOME', x: 100, y: 610, state: 'unlocked' },
-      { id: 'taxes', icon: '🏛️', name: 'Tax Basics', tier: 'TIER 2 • INCOME', x: 180, y: 660, state: 'locked' },
-      { id: 'negotiate', icon: '🤝', name: 'Salary Negotiation', tier: 'TIER 3 • INCOME', x: 260, y: 620, state: 'locked' },
-      
-      // Purchase territory (bottom-right)
-      { id: 'anchoring', icon: '⚓', name: 'Price Anchoring', tier: 'TIER 1 • PURCHASE', x: 540, y: 620, state: 'unlocked' },
-      { id: 'upsell', icon: '📢', name: 'Upsell Defense', tier: 'TIER 2 • PURCHASE', x: 620, y: 660, state: 'locked' },
-      { id: 'warranty', icon: '🛡️', name: 'Warranty Traps', tier: 'TIER 2 • PURCHASE', x: 660, y: 610, state: 'locked' },
-      
-      // Systems territory (bottom-center)
-      { id: 'credit', icon: '💳', name: 'Credit Scores', tier: 'TIER 1 • SYSTEMS', x: 350, y: 780, state: 'unlocked' },
-      { id: 'insurance', icon: '🔒', name: 'Insurance Basics', tier: 'TIER 2 • SYSTEMS', x: 450, y: 780, state: 'locked' }
-    ];
-
-    // Render skills
     const skillMap = document.getElementById('skillMap');
     if (!skillMap) return;
+
+    // Check if Skills module is loaded
+    if (typeof Skills === 'undefined') {
+      console.error('Skills module not loaded');
+      return;
+    }
 
     // Add background elements first
     skillMap.innerHTML = `
@@ -326,23 +319,41 @@ const App = {
       <div class="center-emblem">🦈</div>
     `;
 
-    // Add skill nodes
-    skills.forEach(skill => {
+    // Get player state
+    const playerLevel = State.current?.level || 1;
+    const unlockedNodes = State.getUnlockedNodes();
+    const masteredNodes = State.getMasteredNodes();
+
+    // Get recommended node
+    const recommended = Skills.getRecommendedNode(playerLevel, unlockedNodes);
+
+    // Render all skill nodes
+    Object.values(Skills.nodes).forEach(skill => {
+      // Determine node state
+      let nodeState = Skills.getNodeState(skill.id, playerLevel, unlockedNodes, masteredNodes);
+      
+      // Mark recommended
+      if (recommended && recommended.id === skill.id) {
+        nodeState = 'recommended';
+      }
+
       const node = document.createElement('div');
-      node.className = `snode ${skill.state}`;
-      node.style.cssText = `top: ${skill.y}px; left: ${skill.x}px;`;
+      node.className = `snode ${nodeState}`;
+      if (skill.isMaster) node.classList.add('master-node');
+      node.style.cssText = `top: ${skill.position.y}px; left: ${skill.position.x}px;`;
       node.dataset.skillId = skill.id;
       node.innerHTML = `<div class="snode-shape">${skill.icon}</div>`;
       skillMap.appendChild(node);
 
       // Store skill data for detail panel
       node._skillData = skill;
+      node._nodeState = nodeState;
     });
 
     // Add click handlers
     skillMap.querySelectorAll('.snode').forEach(node => {
       node.addEventListener('click', () => {
-        this.showSkillDetail(node._skillData, node.classList.contains('locked'));
+        this.showSkillDetail(node._skillData, node._nodeState);
       });
     });
   },
@@ -350,22 +361,55 @@ const App = {
   /**
    * Show skill detail panel
    */
-  showSkillDetail(skill, isLocked) {
+  showSkillDetail(skill, nodeState) {
     document.getElementById('detailIcon').textContent = skill.icon;
     document.getElementById('detailName').textContent = skill.name;
-    document.getElementById('detailTier').textContent = skill.tier;
-    document.getElementById('detailReward').textContent = '+350 SC'; // TODO: Dynamic
+    document.getElementById('detailTier').textContent = `TIER ${skill.tier} • ${skill.branch.toUpperCase()}`;
+    document.getElementById('detailReward').textContent = `+${skill.reward} SC`;
+    
+    // Update threat box with tactic info
+    const threatNm = document.getElementById('detailThreat');
+    const threatQt = document.getElementById('detailQuote');
+    if (threatNm) threatNm.textContent = skill.tactic || 'Manipulation Tactic';
+    if (threatQt) threatQt.textContent = skill.quote ? `"${skill.quote}"` : '';
 
     const startBtn = document.getElementById('startSkillBtn');
-    if (isLocked) {
-      startBtn.textContent = '🔒 LOCKED';
+    
+    if (nodeState === 'locked') {
+      startBtn.textContent = `🔒 UNLOCK AT LEVEL ${skill.unlockLevel}`;
+      startBtn.classList.add('locked-btn');
+    } else if (nodeState === 'mastered') {
+      startBtn.innerHTML = '✓ MASTERED';
       startBtn.classList.add('locked-btn');
     } else {
       startBtn.innerHTML = 'BEGIN TRAINING <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
       startBtn.classList.remove('locked-btn');
+      startBtn.onclick = () => {
+        document.getElementById('detailPanel').classList.remove('open');
+        this.startLesson(skill);
+      };
     }
 
     document.getElementById('detailPanel').classList.add('open');
+  },
+
+  /**
+   * Start a lesson for a skill
+   */
+  startLesson(skill) {
+    if (skill.lesson) {
+      // Launch lesson system
+      if (typeof Lessons !== 'undefined') {
+        Lessons.start(skill);
+      } else {
+        console.log('Lesson system not implemented yet. Skill:', skill.id);
+        // For now, just mark it as complete for testing
+        // State.completeLesson(skill.lesson.id, skill.id, skill.reward);
+        alert(`Lesson "${skill.lesson.title}" coming soon!`);
+      }
+    } else {
+      alert('This skill has no lesson yet.');
+    }
   },
 
   /**
@@ -377,15 +421,7 @@ const App = {
       document.getElementById('detailPanel').classList.remove('open');
     });
 
-    // Start training button
-    document.getElementById('startSkillBtn')?.addEventListener('click', () => {
-      const btn = document.getElementById('startSkillBtn');
-      if (!btn.classList.contains('locked-btn')) {
-        // TODO: Start skill-specific training
-        document.getElementById('detailPanel').classList.remove('open');
-        Simulations.start('crypto_rugpull'); // Placeholder
-      }
-    });
+    // Start training button - handler is set dynamically in showSkillDetail
 
     // Heat map toggle
     document.getElementById('heatBtn')?.addEventListener('click', function() {
