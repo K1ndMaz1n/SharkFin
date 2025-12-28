@@ -808,10 +808,25 @@ container.innerHTML = html;
 // Add choice handlers - need to preserve 'this' context
 const self = this;
 container.querySelectorAll('.dialogue-choice').forEach(btn => {
-  btn.addEventListener('click', function() {
+  // Use both click and touchend for better mobile support
+  const handleSelect = function(e) {
+    e.preventDefault();
     const index = parseInt(this.dataset.choiceIndex);
-    console.log('Choice clicked:', index);
+    console.log('Choice selected:', index);
     self.handleChoice(index);
+  };
+  
+  btn.addEventListener('click', handleSelect);
+  
+  // Prevent double-firing on touch devices
+  let touchMoved = false;
+  btn.addEventListener('touchstart', () => { touchMoved = false; }, { passive: true });
+  btn.addEventListener('touchmove', () => { touchMoved = true; }, { passive: true });
+  btn.addEventListener('touchend', function(e) {
+    if (!touchMoved) {
+      e.preventDefault();
+      this.click();
+    }
   });
 });
 ```
