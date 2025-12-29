@@ -2189,3 +2189,974 @@
   font-size: 12px;
   color: var(--treasure-gold);
 }
+
+/* ========== MODULAR LESSON COMPONENTS ========== */
+
+/* Common lesson step styles */
+.lesson-step {
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.step-icon {
+  font-size: 48px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.step-title {
+  font-family: 'Orbitron';
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.step-subtitle {
+  font-size: 14px;
+  color: rgba(224, 232, 240, 0.6);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.step-content {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(224, 232, 240, 0.8);
+}
+
+/* ARTIFACT - Real world documents */
+.artifact-context {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: rgba(224, 232, 240, 0.5);
+}
+
+.artifact-container {
+  position: relative;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.artifact-hotspots {
+  position: absolute;
+  inset: 0;
+}
+
+.artifact-hotspot {
+  position: absolute;
+  border: 2px dashed rgba(77, 216, 232, 0.5);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.artifact-hotspot:hover {
+  background: rgba(77, 216, 232, 0.2);
+}
+
+.artifact-hotspot.tapped.correct {
+  background: rgba(42, 181, 160, 0.4);
+  border: 2px solid var(--bio-teal);
+}
+
+.artifact-hotspot.tapped.wrong {
+  background: rgba(199, 93, 93, 0.4);
+  border: 2px solid var(--predator-sense);
+}
+
+.artifact-prompt {
+  text-align: center;
+  font-size: 14px;
+  color: var(--bio-cyan);
+  margin-bottom: 16px;
+}
+
+.artifact-feedback {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.artifact-feedback.correct {
+  background: rgba(42, 181, 160, 0.15);
+  border: 1px solid rgba(42, 181, 160, 0.3);
+}
+
+.artifact-feedback.wrong {
+  background: rgba(199, 93, 93, 0.15);
+  border: 1px solid rgba(199, 93, 93, 0.3);
+}
+
+/* Fake ad styling */
+.fake-ad {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  color: #fff;
+  padding: 20px;
+  font-family: system-ui, sans-serif;
+}
+
+.ad-badge { font-size: 10px; color: #888; margin-bottom: 8px; }
+.ad-headline { font-size: 18px; font-weight: bold; margin-bottom: 4px; }
+.ad-product { font-size: 14px; color: #aaa; margin-bottom: 16px; }
+.ad-offer {
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #00d4aa, #00a8cc);
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+.big-zero { font-size: 48px; font-weight: 900; }
+.apr-text { font-size: 16px; }
+.ad-details { font-size: 13px; margin-bottom: 16px; }
+.detail-row { margin-bottom: 4px; }
+.fine-print { font-size: 9px; color: #666; margin-top: 8px; }
+.ad-cta {
+  background: #ff6b35;
+  text-align: center;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+/* REDPEN - Contract slashing */
+.redpen-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.redpen-timer {
+  font-family: 'Share Tech Mono';
+  font-size: 20px;
+  color: var(--bio-cyan);
+  padding: 4px 12px;
+  background: rgba(77, 216, 232, 0.1);
+  border-radius: 8px;
+}
+
+.redpen-timer.warning {
+  color: var(--predator-sense);
+  background: rgba(199, 93, 93, 0.2);
+  animation: timerPulse 0.5s ease-in-out infinite;
+}
+
+@keyframes timerPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.contract-document {
+  background: #f5f5f0;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.contract-header {
+  background: #333;
+  color: #fff;
+  padding: 10px 16px;
+  font-family: 'Orbitron';
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.contract-body {
+  padding: 16px;
+  color: #333;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.contract-clause {
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  background: #fff;
+  border: 1px solid #ddd;
+}
+
+.contract-clause:hover {
+  border-color: var(--predator-sense);
+}
+
+.contract-clause.slashed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.contract-clause.slashed.predatory {
+  background: rgba(42, 181, 160, 0.2);
+  border-color: var(--bio-teal);
+}
+
+.contract-clause.slashed.safe.mistake {
+  background: rgba(199, 93, 93, 0.2);
+  border-color: var(--predator-sense);
+}
+
+.contract-clause.missed {
+  background: rgba(199, 93, 93, 0.3);
+  border-color: var(--predator-sense);
+}
+
+.slash-mark {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: var(--predator-sense);
+}
+
+.clause-number {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.redpen-score {
+  text-align: center;
+  font-size: 14px;
+  color: rgba(224, 232, 240, 0.7);
+  margin-bottom: 16px;
+}
+
+.redpen-feedback {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.redpen-result {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.redpen-result.perfect { background: rgba(212, 175, 55, 0.2); border: 1px solid var(--treasure-gold); }
+.redpen-result.good { background: rgba(42, 181, 160, 0.15); border: 1px solid var(--bio-teal); }
+.redpen-result.failed { background: rgba(199, 93, 93, 0.15); border: 1px solid var(--predator-sense); }
+
+.redpen-teach {
+  padding: 12px;
+  background: rgba(77, 216, 232, 0.1);
+  border-radius: 8px;
+  font-size: 13px;
+  color: rgba(224, 232, 240, 0.8);
+}
+
+/* BSDETECTOR - Guru videos */
+.video-container {
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.video-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background: rgba(255,255,255,0.1);
+}
+
+.guru-name {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.guru-badge {
+  font-size: 11px;
+  margin-left: auto;
+}
+
+.video-content {
+  padding: 30px 20px;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.guru-avatar {
+  font-size: 48px;
+}
+
+.speech-bubble {
+  background: rgba(255,255,255,0.1);
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 15px;
+  text-align: center;
+  min-height: 60px;
+  transition: all 0.3s;
+}
+
+.speech-bubble.speaking {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.speech-bubble.missed-lie {
+  background: rgba(199, 93, 93, 0.3);
+  border: 1px solid var(--predator-sense);
+}
+
+.video-progress {
+  height: 3px;
+  background: rgba(255,255,255,0.2);
+}
+
+.video-progress-fill {
+  height: 100%;
+  background: var(--bio-cyan);
+  transition: width 0.3s;
+}
+
+.bs-button {
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(135deg, #c75d5d, #ff6b6b);
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: all 0.2s;
+  margin-bottom: 16px;
+}
+
+.bs-button:active { transform: scale(0.95); }
+.bs-button.correct { background: var(--bio-teal); }
+.bs-button.wrong { background: #666; }
+.bs-button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.bs-score {
+  text-align: center;
+  font-size: 14px;
+  color: rgba(224, 232, 240, 0.6);
+  margin-bottom: 16px;
+}
+
+.bs-feedback {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.bs-result, .bs-final {
+  padding: 16px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.bs-result.correct { background: rgba(42, 181, 160, 0.2); }
+.bs-result.wrong { background: rgba(199, 93, 93, 0.2); }
+.bs-final.perfect { background: rgba(212, 175, 55, 0.2); }
+.bs-final.done { background: rgba(77, 216, 232, 0.1); }
+
+/* SHARKLENS - Jargon decoder */
+.document-container {
+  background: #f9f9f5;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.document-header {
+  background: #2c3e50;
+  color: #fff;
+  padding: 10px 16px;
+  font-family: 'Orbitron';
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.document-body {
+  padding: 16px;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.jargon-term {
+  background: rgba(77, 216, 232, 0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-bottom: 2px dashed var(--bio-cyan);
+}
+
+.jargon-term:hover {
+  background: rgba(77, 216, 232, 0.5);
+}
+
+.jargon-term.decoded {
+  background: rgba(42, 181, 160, 0.4);
+  border-bottom: none;
+  cursor: default;
+}
+
+.decode-counter {
+  text-align: center;
+  font-size: 14px;
+  color: rgba(224, 232, 240, 0.6);
+  margin-bottom: 16px;
+}
+
+.sharklens-reveal {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--deep-trench);
+  border: 2px solid var(--bio-cyan);
+  border-radius: 12px;
+  padding: 16px 24px;
+  z-index: 100;
+  animation: revealPop 0.3s ease-out;
+  max-width: 350px;
+}
+
+@keyframes revealPop {
+  0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.reveal-original {
+  font-size: 14px;
+  color: rgba(224, 232, 240, 0.6);
+  text-align: center;
+}
+
+.reveal-arrow {
+  text-align: center;
+  font-size: 20px;
+  color: var(--bio-cyan);
+  margin: 8px 0;
+}
+
+.reveal-translation {
+  font-size: 15px;
+  color: var(--bio-glow);
+  text-align: center;
+  font-weight: 600;
+}
+
+/* REVERSE - Build the trap */
+.reverse-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.villain-icon {
+  font-size: 32px;
+}
+
+.trap-builder {
+  background: rgba(13, 33, 55, 0.6);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.slider-group {
+  margin-bottom: 16px;
+}
+
+.slider-group:last-child {
+  margin-bottom: 0;
+}
+
+.slider-group label {
+  display: block;
+  font-size: 12px;
+  color: rgba(224, 232, 240, 0.6);
+  margin-bottom: 8px;
+}
+
+.slider-group input[type="range"] {
+  width: 100%;
+  height: 8px;
+  -webkit-appearance: none;
+  background: rgba(77, 216, 232, 0.2);
+  border-radius: 4px;
+  outline: none;
+}
+
+.slider-group input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--bio-cyan);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.slider-value {
+  display: block;
+  text-align: right;
+  font-family: 'Share Tech Mono';
+  font-size: 14px;
+  color: var(--bio-cyan);
+  margin-top: 4px;
+}
+
+.trap-result {
+  background: rgba(6, 16, 24, 0.8);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(77, 216, 232, 0.1);
+}
+
+.result-row:last-child { border-bottom: none; }
+
+.result-row.highlight .result-value {
+  color: var(--treasure-gold);
+  font-size: 18px;
+}
+
+.result-row.danger {
+  background: rgba(199, 93, 93, 0.15);
+  margin: 8px -16px -16px;
+  padding: 12px 16px;
+  border-radius: 0 0 12px 12px;
+}
+
+.result-row.danger .result-value {
+  color: var(--predator-sense);
+  font-weight: bold;
+}
+
+.result-label {
+  color: rgba(224, 232, 240, 0.6);
+  font-size: 13px;
+}
+
+.result-value {
+  font-family: 'Share Tech Mono';
+  font-size: 16px;
+  color: #fff;
+}
+
+.trap-goal {
+  text-align: center;
+  padding: 12px;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px dashed rgba(212, 175, 55, 0.3);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--treasure-gold);
+  margin-bottom: 16px;
+}
+
+.trap-feedback {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.trap-success {
+  background: rgba(42, 181, 160, 0.15);
+  border: 1px solid var(--bio-teal);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+.trap-success .success-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+/* SCENARIO - Mini stories */
+.scenario-speaker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: rgba(13, 33, 55, 0.6);
+  border-radius: 10px;
+}
+
+.scenario-speaker .speaker-avatar {
+  font-size: 28px;
+}
+
+.scenario-speaker .speaker-name {
+  font-weight: 600;
+  color: var(--bio-cyan);
+}
+
+.scenario-text {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(224, 232, 240, 0.85);
+  margin-bottom: 20px;
+}
+
+.scenario-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.scenario-choice {
+  padding: 14px 16px;
+  background: rgba(13, 33, 55, 0.5);
+  border: 2px solid rgba(77, 216, 232, 0.2);
+  border-radius: 10px;
+  color: rgba(224, 232, 240, 0.85);
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.scenario-choice:hover:not(:disabled) {
+  border-color: var(--bio-cyan);
+}
+
+.scenario-choice.selected.correct {
+  background: rgba(42, 181, 160, 0.2);
+  border-color: var(--bio-teal);
+}
+
+.scenario-choice.selected.wrong {
+  background: rgba(199, 93, 93, 0.2);
+  border-color: var(--predator-sense);
+}
+
+.scenario-choice.show-correct {
+  border-color: var(--bio-teal);
+}
+
+.scenario-feedback {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.feedback-box {
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.feedback-box.correct {
+  background: rgba(42, 181, 160, 0.15);
+  border: 1px solid rgba(42, 181, 160, 0.3);
+}
+
+.feedback-box.wrong {
+  background: rgba(199, 93, 93, 0.15);
+  border: 1px solid rgba(199, 93, 93, 0.3);
+}
+
+.feedback-box p {
+  margin-top: 8px;
+  font-size: 13px;
+  color: rgba(224, 232, 240, 0.7);
+}
+
+/* WEAPON - Takeaway tools */
+.weapon-step {
+  text-align: center;
+}
+
+.weapon-unlock {
+  margin-bottom: 20px;
+}
+
+.weapon-unlock .weapon-icon {
+  font-size: 48px;
+  margin-bottom: 8px;
+  animation: weaponPop 0.5s ease-out;
+}
+
+@keyframes weaponPop {
+  0% { transform: scale(0) rotate(-180deg); }
+  60% { transform: scale(1.2) rotate(10deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
+.weapon-label {
+  font-family: 'Orbitron';
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--treasure-gold);
+}
+
+.weapon-card {
+  background: linear-gradient(165deg, rgba(212, 175, 55, 0.15), rgba(184, 155, 77, 0.1));
+  border: 2px solid rgba(212, 175, 55, 0.4);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.weapon-name {
+  font-family: 'Orbitron';
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--treasure-gold);
+  margin-bottom: 12px;
+}
+
+.weapon-description {
+  font-size: 14px;
+  color: rgba(224, 232, 240, 0.8);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.weapon-phrase {
+  background: rgba(4, 8, 16, 0.5);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.phrase-label {
+  display: block;
+  font-size: 10px;
+  color: rgba(224, 232, 240, 0.5);
+  margin-bottom: 6px;
+}
+
+.phrase-text {
+  font-size: 15px;
+  color: var(--bio-glow);
+  font-style: italic;
+}
+
+.weapon-saved {
+  font-size: 12px;
+  color: rgba(224, 232, 240, 0.4);
+}
+
+/* SUMMARY - Final review */
+.summary-step {
+  text-align: center;
+}
+
+.summary-grade {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron';
+  font-size: 36px;
+  font-weight: 900;
+}
+
+.summary-grade.grade-S {
+  background: linear-gradient(135deg, var(--treasure-gold), var(--caution-amber));
+  color: var(--abyss);
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+}
+
+.summary-grade.grade-A {
+  background: linear-gradient(135deg, var(--bio-teal), var(--bio-cyan));
+  color: var(--abyss);
+}
+
+.summary-grade.grade-B {
+  background: rgba(77, 216, 232, 0.3);
+  color: var(--bio-cyan);
+  border: 2px solid var(--bio-cyan);
+}
+
+.summary-grade.grade-C {
+  background: rgba(224, 232, 240, 0.1);
+  color: rgba(224, 232, 240, 0.6);
+  border: 2px solid rgba(224, 232, 240, 0.3);
+}
+
+.summary-title {
+  margin-bottom: 8px;
+}
+
+.summary-score {
+  font-family: 'Share Tech Mono';
+  font-size: 14px;
+  color: rgba(224, 232, 240, 0.5);
+  margin-bottom: 24px;
+}
+
+.summary-weapons {
+  background: rgba(212, 175, 55, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.weapons-label {
+  font-size: 11px;
+  color: var(--treasure-gold);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.weapon-mini {
+  font-size: 13px;
+  color: rgba(224, 232, 240, 0.8);
+  padding: 4px 0;
+}
+
+.summary-takeaways {
+  background: rgba(77, 216, 232, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: left;
+}
+
+.takeaways-label {
+  font-size: 11px;
+  color: var(--bio-cyan);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.summary-takeaways ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.summary-takeaways li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: rgba(224, 232, 240, 0.8);
+  line-height: 1.4;
+}
+
+.summary-takeaways li::before {
+  content: '◆';
+  position: absolute;
+  left: 0;
+  color: var(--bio-cyan);
+  font-size: 8px;
+}
+
+/* COMPLETION SCREEN */
+.lesson-complete {
+  text-align: center;
+  padding-top: 40px;
+}
+
+.complete-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, var(--bio-teal), var(--bio-cyan));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  animation: completeBounce 0.6s ease-out;
+}
+
+.complete-icon.perfect {
+  background: linear-gradient(135deg, var(--treasure-gold), var(--caution-amber));
+  box-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
+}
+
+@keyframes completeBounce {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+.complete-title {
+  font-family: 'Orbitron';
+  font-size: 24px;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, var(--bio-glow), #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.complete-skill {
+  font-size: 14px;
+  color: rgba(224, 232, 240, 0.6);
+  margin-bottom: 24px;
+}
+
+.complete-rewards {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 24px;
+}
+
+.reward-item {
+  text-align: center;
+}
+
+.reward-value {
+  display: block;
+  font-family: 'Share Tech Mono';
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--treasure-gold);
+}
+
+.reward-label {
+  font-size: 11px;
+  color: rgba(224, 232, 240, 0.5);
+  text-transform: uppercase;
+}
+
+.complete-perk {
+  background: rgba(42, 181, 160, 0.15);
+  border: 1px solid rgba(42, 181, 160, 0.3);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.perk-unlocked {
+  font-family: 'Orbitron';
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--bio-cyan);
+  margin-bottom: 8px;
+}
+
+.perk-desc {
+  font-size: 14px;
+  color: rgba(224, 232, 240, 0.85);
+}
