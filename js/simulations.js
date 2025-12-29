@@ -16,6 +16,7 @@ const Simulations = {
       category: 'purchase',
       isJRPG: true  // Flag to use new system
     },
+    
     'crypto_rugpull': {
       id: 'crypto_rugpull',
       title: 'Crypto Rug-Pull Survival',
@@ -147,109 +148,6 @@ const Simulations = {
           'Loss Recovery - Targeting victims again with "revival" schemes'
         ],
         realWorld: 'In 2022, over $2.8 billion was lost to crypto rug-pulls. Always verify: Who are the devs? Is the LP truly locked? What does the contract code do?'
-      }
-    },
-
-    'car_dealer': {
-      id: 'car_dealer',
-      title: 'Car Dealer Showdown',
-      desc: 'A salesperson is using every trick in the book. Can you get a fair deal?',
-      reward: 350,
-      difficulty: 'MEDIUM',
-      time: 8,
-      category: 'purchase',
-      
-      steps: [
-        {
-          id: 1,
-          text: "You walk into a car dealership. You've researched a specific car - the 2024 Honda Civic - and know it should cost around $26,000.\n\nA salesperson approaches immediately:\n\n\"Welcome! I'm Jake. You've got GREAT timing - we just got a shipment of Civics but they're moving FAST. Had three sold this morning. Let me show you one before they're gone.\"",
-          speaker: { name: "Jake", avatar: "🚗", role: "Sales Associate" },
-          choices: [
-            { 
-              id: 'a', 
-              text: "Oh no, let's hurry then! Show me what you have.",
-              isCorrect: false,
-              result: {
-                title: "Artificial Urgency",
-                desc: "Jake created false scarcity. Dealerships rarely 'run out' of common models.",
-                tactic: "False Scarcity",
-                coinsLost: 50
-              }
-            },
-            { 
-              id: 'b', 
-              text: "I'm in no rush. I'm comparing a few dealerships today.",
-              isCorrect: true,
-              result: {
-                title: "Power Move",
-                desc: "Showing you have options and time removes their urgency pressure.",
-                tactic: "Leverage Establishment",
-                coinsEarned: 50
-              }
-            },
-            { 
-              id: 'c', 
-              text: "Can you tell me the out-the-door price on a base Civic first?",
-              isCorrect: true,
-              result: {
-                title: "Direct and Smart",
-                desc: "Asking for the total price upfront prevents hidden fee surprises later.",
-                tactic: "Price Anchoring Defense",
-                coinsEarned: 75
-              }
-            }
-          ]
-        },
-        {
-          id: 2,
-          text: "Jake shows you a Civic with a sticker price of $28,500.\n\n\"This one has the premium package - trust me, it's worth it. The base model doesn't have CarPlay, and you definitely want that. Plus, my manager can probably knock a few hundred off for you today.\"",
-          speaker: { name: "Jake", avatar: "🚗", role: "Sales Associate" },
-          choices: [
-            { 
-              id: 'a', 
-              text: "A few hundred off sounds good! Let's do it.",
-              isCorrect: false,
-              result: {
-                title: "Upsell Accepted",
-                desc: "He shifted you from a $26k car to a $28k car and made $200 off feel like a 'deal.'",
-                tactic: "Upselling + Anchoring",
-                coinsLost: 75
-              }
-            },
-            { 
-              id: 'b', 
-              text: "I actually need to see the base model. That's what I came for.",
-              isCorrect: true,
-              result: {
-                title: "Staying on Target",
-                desc: "You knew what you wanted and didn't get distracted by the upsell.",
-                tactic: "Goal Persistence",
-                coinsEarned: 50
-              }
-            },
-            { 
-              id: 'c', 
-              text: "What's the out-the-door price including all fees?",
-              isCorrect: true,
-              result: {
-                title: "Cutting Through the Fog",
-                desc: "The 'sticker price' is never the real price. Always ask for total cost.",
-                tactic: "Transparency Demand",
-                coinsEarned: 75
-              }
-            }
-          ]
-        }
-      ],
-      
-      summary: {
-        tactics: [
-          'False Scarcity - "Selling fast" creates artificial urgency',
-          'Upselling - Showing expensive models first',
-          'Anchoring - Making high price seem normal',
-          'Hidden Fees - Final price often $2-5k higher than sticker'
-        ],
-        realWorld: 'The average car buyer pays $1,000+ more than necessary due to dealer tactics. Always get out-the-door pricing in writing before negotiating.'
       }
     }
   },
