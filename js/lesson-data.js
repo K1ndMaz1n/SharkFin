@@ -1,17 +1,234 @@
 /**
  * LESSON-DATA.JS
- * Example lessons using the modular lesson components
- * These get attached to skills in skills.js
+ * Full lesson content for all skills
+ * Lessons are keyed by skill ID and looked up by Lessons.start()
  */
 
 const LessonData = {
   
-  // ============== FINANCING TACTICS LESSON ==============
+  // ============== FOMO FUNDAMENTALS ==============
+  fomo_fundamentals: {
+    id: 'lesson_fomo',
+    title: 'FOMO Fundamentals',
+    steps: [
+      // STEP 1: INFO - Intro
+      {
+        type: 'info',
+        icon: '😰',
+        title: 'The Fear That Empties Wallets',
+        content: `FOMO - Fear Of Missing Out - is the anxious feeling that others are experiencing something you're not.<br><br>
+          Marketers have weaponized this. They don't sell products. They sell the fear of <em>not</em> having them.<br><br>
+          That knot in your stomach when you see "LIMITED TIME"? That's not excitement. <strong>That's manipulation.</strong>`
+      },
+
+      // STEP 2: ARTIFACT - Instagram Ad
+      {
+        type: 'artifact',
+        context: "You're scrolling Instagram and see this ad...",
+        contextIcon: '📱',
+        artifactType: 'social-ad',
+        artifactHTML: `
+          <div class="fake-instagram-ad">
+            <div class="ad-header">
+              <span class="sponsored">SPONSORED</span>
+            </div>
+            <div class="ad-content">
+              <div class="fire-banner">🔥 FLASH SALE - 73% OFF 🔥</div>
+              <div class="product-name">CloudComfort™ Sneakers</div>
+              <div class="product-tagline">"The shoe that broke the internet"</div>
+              <div class="price-row">
+                <span class="old-price">$249</span>
+                <span class="new-price">$67</span>
+              </div>
+              <div class="urgency-timer">⚡ Sale ends in <strong>2:47:33</strong></div>
+              <div class="scarcity-warning">⚠️ Only 4 left at this price</div>
+              <div class="cta-button">SHOP NOW</div>
+            </div>
+            <div class="ad-footer">❤️ 12,847 likes</div>
+          </div>
+        `,
+        prompt: 'This ad is designed to trigger FOMO. Tap the hook.',
+        hotspots: [
+          { 
+            x: 15, y: 22, width: 70, height: 8,
+            isHook: false, 
+            explanation: "Discounts feel urgent, but this isn't the main hook. The original $249 price is probably inflated anyway."
+          },
+          { 
+            x: 10, y: 55, width: 80, height: 8,
+            isHook: true, 
+            explanation: "FOUND IT. The countdown timer is fake - it resets when it hits zero, or shows different times to different people. It exists only to make you panic."
+          },
+          { 
+            x: 10, y: 65, width: 80, height: 8,
+            isHook: true, 
+            explanation: "Manufactured scarcity. They're not running out. This number is designed to trigger loss aversion - the fear of missing out."
+          }
+        ],
+        points: 100
+      },
+
+      // STEP 3: INFO - Brain Science
+      {
+        type: 'info',
+        icon: '🧠',
+        title: 'Your Brain on FOMO',
+        content: `When you see "Only 3 left!" your amygdala fires a <strong>threat response</strong>.<br><br>
+          Your brain literally thinks you're about to lose something - even though you never had it.<br><br>
+          This is called <strong>loss aversion</strong>. Losing feels 2x worse than gaining feels good.<br><br>
+          That countdown timer isn't tracking real inventory. It's hacking your threat detection system.`
+      },
+
+      // STEP 4: ARTIFACT - Amazon Listing
+      {
+        type: 'artifact',
+        context: "Now you're shopping on Amazon...",
+        contextIcon: '🛒',
+        artifactType: 'product-listing',
+        artifactHTML: `
+          <div class="fake-amazon-listing">
+            <div class="product-title">Wireless Earbuds Pro X</div>
+            <div class="rating">⭐⭐⭐⭐☆ (2,847 reviews)</div>
+            <div class="price">$79.99</div>
+            <div class="prime">✓ Prime FREE delivery tomorrow</div>
+            <div class="stock-warning">🔴 Only 2 left in stock - order soon</div>
+            <div class="more-coming">"More on the way"</div>
+            <div class="buttons">
+              <div class="cart-btn">Add to Cart</div>
+              <div class="buy-btn">Buy Now</div>
+            </div>
+            <div class="social-proof">
+              <div>📦 Frequently bought together</div>
+              <div>👥 847 people are viewing this right now</div>
+            </div>
+          </div>
+        `,
+        prompt: 'Find the FOMO triggers hiding in this listing.',
+        hotspots: [
+          { 
+            x: 5, y: 48, width: 90, height: 8,
+            isHook: true, 
+            explanation: "Classic artificial scarcity. Amazon shows this on tons of products. Check back tomorrow - there will magically still be '2 left.'"
+          },
+          { 
+            x: 5, y: 82, width: 90, height: 8,
+            isHook: true, 
+            explanation: "Social pressure tactic. This number is often inflated or made up. It's designed to make you feel like you're in a race."
+          },
+          { 
+            x: 5, y: 38, width: 70, height: 6,
+            isHook: false, 
+            explanation: "This is just shipping info - not a manipulation tactic. Prime delivery is actually useful."
+          }
+        ],
+        points: 100
+      },
+
+      // STEP 5: REVERSE - Build the FOMO Machine
+      {
+        type: 'reverse',
+        title: 'Build the FOMO Machine',
+        villainIcon: '🎰',
+        instruction: "You're a marketer. Your job: make people panic-buy a $50 t-shirt. Adjust the sliders to maximize FOMO.",
+        sliders: [
+          { label: 'Countdown Timer', min: 0, max: 3, default: 0, step: 1, suffix: ' hrs' },
+          { label: '"Only X Left" Stock', min: 1, max: 100, default: 50, step: 1, suffix: ' left' },
+          { label: '"X People Viewing"', min: 0, max: 500, default: 0, step: 10, suffix: ' viewing' }
+        ],
+        calculate: (values) => {
+          const [timer, stock, viewing] = values;
+          let fomoScore = 0;
+          fomoScore += timer > 0 ? 30 : 0;
+          fomoScore += stock <= 5 ? 40 : stock <= 15 ? 25 : stock <= 30 ? 10 : 0;
+          fomoScore += viewing >= 200 ? 30 : viewing >= 50 ? 15 : 0;
+          const conversionRate = 2 + (fomoScore * 0.12);
+          return {
+            monthly: fomoScore,
+            total: conversionRate,
+            hidden: Math.round((conversionRate - 2) * 1000)
+          };
+        },
+        checkGoal: (result) => result.total >= 10,
+        goal: 'Get conversion rate above 10%',
+        revelation: "See how easy that was? You just turned a mediocre product into an 'urgent' buy. None of those numbers have to be real. Now you know what they're doing to you.",
+        resultLabels: {
+          monthly: 'FOMO Score',
+          total: 'Conversion Rate',
+          hidden: 'Extra Sales per 1000 visitors'
+        },
+        points: 100
+      },
+
+      // STEP 6: INFO - Defense Stack
+      {
+        type: 'info',
+        icon: '🛡️',
+        title: 'The FOMO Defense Stack',
+        content: `Three questions to kill FOMO instantly:<br><br>
+          <strong>1. "Will this exist tomorrow?"</strong><br>
+          Most "limited" things aren't. Sales come back. Stock replenishes.<br><br>
+          <strong>2. "Did I want this BEFORE I saw the urgency?"</strong><br>
+          If no, the urgency is manufacturing desire.<br><br>
+          <strong>3. "What's the worst case if I miss it?"</strong><br>
+          Usually: nothing. You just... don't have the thing you didn't know you wanted.`
+      },
+
+      // STEP 7: SCENARIO - Email
+      {
+        type: 'scenario',
+        speaker: { avatar: '📧', name: 'Email Notification' },
+        content: `You get an email from a course you looked at once:<br><br>
+          <strong>"FINAL NOTICE: Enrollment closes at MIDNIGHT"</strong><br><br>
+          <em>"This is your LAST CHANCE to join Financial Freedom Academy. After tonight, the doors close and won't reopen until next year. 847 students already enrolled. Don't be left behind."</em><br><br>
+          You kinda wanted to take a finance course eventually...`,
+        choices: [
+          {
+            text: "Sign up before midnight - I've been meaning to learn this",
+            correct: false,
+            explanation: "'Doors close' is fake scarcity. Digital courses don't run out. They're using a deadline to prevent you from researching competitors. The 'LAST CHANCE' will come again in 2 weeks."
+          },
+          {
+            text: "Google '[course name] review' before deciding",
+            correct: true,
+            explanation: "Smart. Taking 10 minutes to research can save you hundreds. And if the reviews are bad, that 'last chance' just protected you."
+          },
+          {
+            text: "Unsubscribe - done with manipulative emails",
+            correct: true,
+            explanation: "Also valid. A course using these tactics probably uses similar manipulation in its content. The unsubscribe button is underrated."
+          }
+        ],
+        points: 100
+      },
+
+      // STEP 8: WEAPON
+      {
+        type: 'weapon',
+        name: 'The 24-Hour Rule',
+        description: "When you feel urgency to buy something, wait 24 hours. If it's gone tomorrow, it wasn't meant to be. If it's still there, the 'urgency' was fake.",
+        phrase: "If it's a good deal today, it'll be a good deal tomorrow."
+      },
+
+      // STEP 9: SUMMARY
+      {
+        type: 'summary',
+        title: 'FOMO Fundamentals Complete',
+        keyTakeaways: [
+          'Countdown timers and "only X left" are usually fake',
+          'Your brain treats "missing out" like physical danger - it\'s not',
+          'Ask: "Did I want this BEFORE I saw the urgency?"',
+          'The 24-Hour Rule kills most impulse purchases',
+          'Real opportunities don\'t require panic'
+        ]
+      }
+    ]
+  },
+
+  // ============== FINANCING TACTICS (existing) ==============
   financing_tactics: {
     id: 'lesson_financing',
     title: 'The 0% APR Trap',
     steps: [
-      // Step 1: THE BAIT - Real artifact
       {
         type: 'artifact',
         context: 'You see this ad while browsing...',
@@ -42,8 +259,6 @@ const LessonData = {
         ],
         points: 100
       },
-
-      // Step 2: THE REVEAL - Info with visual
       {
         type: 'info',
         icon: '💡',
@@ -53,8 +268,6 @@ const LessonData = {
           <strong>Reality:</strong> Interest is BUILDING silently. If you owe even $1 on month 13, you pay ALL the built-up interest at once.<br><br>
           On a $2,000 purchase at 24.99% APR, that's <strong>$500+ in instant charges.</strong>`
       },
-
-      // Step 3: BUILD THE TRAP - Reverse engineer
       {
         type: 'reverse',
         title: 'Build the Trap Yourself',
@@ -67,7 +280,7 @@ const LessonData = {
         ],
         calculate: (values) => {
           const [price, months, apr] = values;
-          const monthlyMin = Math.max(25, price * 0.02); // Minimum payment
+          const monthlyMin = Math.max(25, price * 0.02);
           const paidDuringPromo = monthlyMin * months;
           const remainingBalance = Math.max(0, price - paidDuringPromo);
           const deferredInterest = remainingBalance > 0 ? price * (apr / 100) * (months / 12) : 0;
@@ -87,8 +300,6 @@ const LessonData = {
         },
         points: 100
       },
-
-      // Step 4: SCENARIO - Test understanding
       {
         type: 'scenario',
         speaker: { avatar: '🛒', name: 'Store Clerk' },
@@ -112,16 +323,12 @@ const LessonData = {
         ],
         points: 100
       },
-
-      // Step 5: THE WEAPON
       {
         type: 'weapon',
         name: 'The Deferred Interest Question',
         description: 'Before signing any 0% financing deal, ask this question to reveal the trap.',
         phrase: 'Is this interest WAIVED or DEFERRED? What happens if I have any balance at the end?'
       },
-
-      // Step 6: SUMMARY
       {
         type: 'summary',
         title: 'Financing Tactics Complete',
@@ -135,20 +342,17 @@ const LessonData = {
     ]
   },
 
-  // ============== CONTRACT RED FLAGS LESSON ==============
+  // ============== CONTRACT RED FLAGS (existing) ==============
   contract_red_flags: {
     id: 'lesson_contracts',
     title: 'Contract Surgeon',
     steps: [
-      // Step 1: Intro
       {
         type: 'info',
         icon: '📜',
         title: 'The Fine Print Trap',
         content: 'Companies bury dangerous clauses in walls of text, betting you won\'t read them. Today you learn to spot the traps in seconds.'
       },
-
-      // Step 2: SHARKLENS - Decode jargon
       {
         type: 'sharklens',
         instruction: 'Tap each highlighted term to see what it REALLY means.',
@@ -173,8 +377,6 @@ const LessonData = {
           { jargon: 'Annual Rate Adjustment', realMeaning: 'They can raise prices 10% every year forever' }
         ]
       },
-
-      // Step 3: REDPEN - Slash the traps
       {
         type: 'redpen',
         documentTitle: 'APARTMENT LEASE AGREEMENT',
@@ -191,16 +393,12 @@ const LessonData = {
         ],
         teachAfter: 'In most states, you CAN cross out clauses before signing. If they refuse to negotiate, that\'s a red flag about the landlord.'
       },
-
-      // Step 4: WEAPON
       {
         type: 'weapon',
         name: 'The Take-Home Rule',
         description: 'Never sign anything the same day you receive it. Pressure to "sign now" is always a red flag.',
         phrase: 'I\'ll need to take this home and review it before signing.'
       },
-
-      // Step 5: SUMMARY
       {
         type: 'summary',
         title: 'Contract Red Flags Complete',
@@ -214,7 +412,7 @@ const LessonData = {
     ]
   },
 
-  // ============== TAX FUNDAMENTALS - BS DETECTOR ==============
+  // ============== TAX FUNDAMENTALS (existing) ==============
   tax_fundamentals: {
     id: 'lesson_tax',
     title: 'Tax Myth Busters',
@@ -225,8 +423,6 @@ const LessonData = {
         title: 'Tax Lies Are Everywhere',
         content: 'Social media is full of "gurus" spreading tax misinformation. Let\'s train your BS detector.'
       },
-
-      // BS DETECTOR
       {
         type: 'bsdetector',
         platform: '📱 TikTok',
@@ -268,15 +464,12 @@ const LessonData = {
           }
         ]
       },
-
-      // WEAPON
       {
         type: 'weapon',
         name: 'The Marginal Rate Reality Check',
         description: 'When someone quotes tax percentages, ask yourself: "Is that the marginal rate or effective rate?"',
         phrase: 'What\'s your EFFECTIVE tax rate, not your marginal bracket?'
       },
-
       {
         type: 'summary',
         title: 'Tax Fundamentals Complete',
