@@ -28,17 +28,27 @@ const Lessons = {
    * Start a lesson for a skill
    */
   start(skill) {
-    if (!skill.lesson) {
+    // Check LessonData first for new-style lessons
+    let lesson = null;
+    
+    if (typeof LessonData !== 'undefined' && LessonData[skill.id]) {
+      lesson = LessonData[skill.id];
+    } else if (skill.lesson) {
+      lesson = skill.lesson;
+    }
+    
+    if (!lesson) {
       console.error('No lesson defined for skill:', skill.id);
+      alert('Lesson coming soon!');
       return;
     }
 
     this.current = {
       skill: skill,
-      lesson: skill.lesson,
+      lesson: lesson,
       stepIndex: 0,
       score: 0,
-      maxScore: this.calculateMaxScore(skill.lesson),
+      maxScore: this.calculateMaxScore(lesson),
       weapons: []
     };
 
