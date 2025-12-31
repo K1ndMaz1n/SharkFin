@@ -523,15 +523,16 @@ const App = {
    * Start a lesson for a skill
    */
   startLesson(skill) {
-    if (skill.lesson) {
+    // Check if lesson exists in LessonData or on skill itself
+    const hasLesson = (typeof LessonData !== 'undefined' && LessonData[skill.id]) || skill.lesson;
+    
+    if (hasLesson) {
       // Launch lesson system
       if (typeof Lessons !== 'undefined') {
         Lessons.start(skill);
       } else {
-        console.log('Lesson system not implemented yet. Skill:', skill.id);
-        // For now, just mark it as complete for testing
-        // State.completeLesson(skill.lesson.id, skill.id, skill.reward);
-        alert(`Lesson "${skill.lesson.title}" coming soon!`);
+        console.log('Lesson system not loaded. Skill:', skill.id);
+        alert(`Lesson "${skill.name}" coming soon!`);
       }
     } else {
       alert('This skill has no lesson yet.');
