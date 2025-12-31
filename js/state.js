@@ -357,6 +357,14 @@ const State = {
       this.current.stats.lessonsCompleted++;
     }
 
+    // Mark node as unlocked (for prerequisite checking)
+    if (!this.current.skills.unlockedNodes) {
+      this.current.skills.unlockedNodes = [];
+    }
+    if (!this.current.skills.unlockedNodes.includes(nodeId)) {
+      this.current.skills.unlockedNodes.push(nodeId);
+    }
+
     // Mark node as mastered (completed lesson = mastered)
     if (!this.current.skills.masteredNodes) {
       this.current.skills.masteredNodes = [];
@@ -424,6 +432,8 @@ const State = {
   // State.dev.addXP(200)
   // State.dev.setLevel(5)
   // State.dev.reset()
+  // State.dev.unlockSkill('fomo_fundamentals')
+  // State.dev.unlockAllDefense()
   
   dev: {
     addCoins(amount) {
@@ -459,6 +469,46 @@ const State = {
       State.save();
       State.updateUI();
       console.log('Unlocked radar');
+    },
+    unlockSkill(skillId) {
+      if (!State.current.skills.unlockedNodes.includes(skillId)) {
+        State.current.skills.unlockedNodes.push(skillId);
+        State.save();
+        console.log(`Unlocked skill: ${skillId}`);
+        console.log('Refresh the page to see changes, or call App.showSkillTree()');
+      } else {
+        console.log(`Skill ${skillId} already unlocked`);
+      }
+    },
+    unlockAllDefense() {
+      const defenseSkills = ['fomo_fundamentals', 'urgency_resistance', 'social_proof_traps', 'dark_patterns', 'predator_spotting'];
+      defenseSkills.forEach(id => {
+        if (!State.current.skills.unlockedNodes.includes(id)) {
+          State.current.skills.unlockedNodes.push(id);
+        }
+      });
+      State.current.level = Math.max(State.current.level, 10);
+      State.save();
+      State.updateUI();
+      console.log('Unlocked all Defense Reef skills. Refresh or call App.showSkillTree()');
+    },
+    unlockAll() {
+      // Unlock all skills
+      if (typeof Skills !== 'undefined') {
+        Object.keys(Skills.nodes).forEach(id => {
+          if (!State.current.skills.unlockedNodes.includes(id)) {
+            State.current.skills.unlockedNodes.push(id);
+          }
+        });
+      }
+      State.current.level = 25;
+      State.save();
+      State.updateUI();
+      console.log('Unlocked ALL skills. Refresh or call App.showSkillTree()');
+    },
+    listSkills() {
+      console.log('Unlocked:', State.current.skills.unlockedNodes);
+      console.log('Mastered:', State.current.skills.masteredNodes);
     }
   }
 };
