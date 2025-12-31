@@ -2512,6 +2512,383 @@
   margin-bottom: 6px;
 }
 
+/* Fake SMS Message */
+.fake-sms {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  font-family: -apple-system, sans-serif;
+}
+
+.sms-header {
+  font-size: 12px;
+  color: #8e8e93;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.sms-bubble {
+  background: #e5e5ea;
+  color: #000;
+  padding: 12px 16px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.sms-bubble p {
+  margin: 0 0 8px 0;
+}
+
+.sms-bubble p:last-child {
+  margin-bottom: 0;
+}
+
+.sms-link {
+  color: #007aff;
+}
+
+.sms-small {
+  font-size: 11px;
+  color: #8e8e93;
+}
+
+/* Fake Landing Page */
+.fake-landing-page {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  color: #fff;
+  padding: 20px;
+  font-family: system-ui, sans-serif;
+  text-align: center;
+}
+
+.countdown-box {
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.countdown-label {
+  font-size: 12px;
+  color: #ffd700;
+  margin-bottom: 8px;
+}
+
+.countdown-timer {
+  font-size: 32px;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+.countdown-units {
+  font-size: 10px;
+  color: rgba(255,255,255,0.6);
+}
+
+.social-proof-line {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+.price-compare {
+  margin-bottom: 16px;
+}
+
+.reg-price {
+  display: block;
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  text-decoration: line-through;
+  margin-bottom: 4px;
+}
+
+.sale-price {
+  display: block;
+  font-size: 24px;
+  font-weight: bold;
+  color: #00ff88;
+}
+
+.cta-btn {
+  background: #00ff88;
+  color: #000;
+  padding: 14px 24px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.warning-text {
+  font-size: 11px;
+  color: #ff6b6b;
+}
+
+/* Fake Amazon Reviews */
+.fake-amazon-reviews {
+  background: #fff;
+  padding: 16px;
+  font-family: Arial, sans-serif;
+  color: #111;
+}
+
+.review {
+  margin-bottom: 16px;
+}
+
+.review-stars {
+  color: #ffa41c;
+  font-size: 14px;
+}
+
+.review-title {
+  font-weight: bold;
+  font-size: 14px;
+  margin: 4px 0;
+}
+
+.review-meta {
+  font-size: 12px;
+  color: #565959;
+  margin-bottom: 8px;
+}
+
+.review-body {
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.review-helpful {
+  font-size: 12px;
+  color: #565959;
+}
+
+.review-divider {
+  height: 1px;
+  background: #ddd;
+  margin: 16px 0;
+}
+
+/* Fake Facebook Ad */
+.fake-facebook-ad {
+  background: #fff;
+  border-radius: 8px;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #1c1e21;
+}
+
+.fb-sponsored {
+  padding: 12px 16px;
+  font-size: 12px;
+  color: #65676b;
+}
+
+.fb-content {
+  padding: 0 16px 16px;
+}
+
+.fb-headline {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.fb-testimonials {
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.fb-testimonials div {
+  margin-bottom: 6px;
+}
+
+.fb-stat {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1877f2;
+  margin-bottom: 12px;
+}
+
+.fb-cta {
+  background: #1877f2;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Fake Unsubscribe Page */
+.fake-unsubscribe {
+  background: #fff;
+  padding: 20px;
+  font-family: system-ui, sans-serif;
+  color: #333;
+  text-align: center;
+}
+
+.unsub-sad {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.unsub-guilt {
+  text-align: left;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.unsub-guilt ul {
+  margin: 8px 0 0 20px;
+}
+
+.unsub-guilt li {
+  margin-bottom: 4px;
+}
+
+.unsub-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.unsub-yes {
+  padding: 10px;
+  font-size: 12px;
+  color: #888;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.unsub-no {
+  background: #4CAF50;
+  color: #fff;
+  padding: 14px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.unsub-fine-print {
+  font-size: 10px;
+  color: #999;
+  line-height: 1.4;
+}
+
+/* Fake Checkout Page */
+.fake-checkout {
+  background: #fff;
+  padding: 16px;
+  font-family: system-ui, sans-serif;
+  color: #333;
+}
+
+.checkout-header {
+  font-size: 14px;
+  font-weight: 600;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 12px;
+}
+
+.checkout-summary {
+  margin-bottom: 16px;
+}
+
+.line-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.line-item.subtotal {
+  font-weight: 600;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
+}
+
+.checkout-extras {
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+
+.checkout-extras label {
+  display: block;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.checkout-extras label.checked {
+  color: #333;
+}
+
+.checkout-extras input {
+  margin-right: 8px;
+}
+
+.checkout-btn {
+  background: #ff9900;
+  color: #111;
+  text-align: center;
+  padding: 14px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.checkout-terms {
+  font-size: 10px;
+  color: #888;
+  line-height: 1.4;
+}
+
+/* Fake Instagram DM */
+.fake-instagram-dm {
+  background: #fff;
+  border-radius: 12px;
+  font-family: -apple-system, sans-serif;
+  color: #262626;
+}
+
+.dm-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #efefef;
+}
+
+.dm-avatar {
+  font-size: 28px;
+}
+
+.dm-name {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.dm-messages {
+  padding: 16px;
+}
+
+.dm-bubble {
+  background: #efefef;
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 14px;
+  margin-bottom: 6px;
+  max-width: 85%;
+  line-height: 1.4;
+}
+
 /* REDPEN - Contract slashing */
 .redpen-header {
   display: flex;
