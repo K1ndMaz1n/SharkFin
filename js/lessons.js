@@ -591,15 +591,15 @@ const Lessons = {
         <div class="trap-result">
           <div class="result-row">
             <span class="result-label">${step.resultLabels?.monthly || 'Monthly Payment'}</span>
-            <span class="result-value" id="monthlyResult">$0</span>
+            <span class="result-value" id="monthlyResult">0</span>
           </div>
           <div class="result-row highlight">
             <span class="result-label">${step.resultLabels?.total || 'Total You\'ll Pay'}</span>
-            <span class="result-value" id="totalResult">$0</span>
+            <span class="result-value" id="totalResult">0</span>
           </div>
           <div class="result-row danger hidden" id="trapReveal">
             <span class="result-label">💀 ${step.resultLabels?.hidden || 'Hidden Cost'}</span>
-            <span class="result-value" id="hiddenCost">$0</span>
+            <span class="result-value" id="hiddenCost">0</span>
           </div>
         </div>
 
@@ -620,12 +620,23 @@ const Lessons = {
       });
 
       const result = step.calculate(values);
-      document.getElementById('monthlyResult').textContent = `$${result.monthly.toFixed(0)}`;
-      document.getElementById('totalResult').textContent = `$${result.total.toLocaleString()}`;
+      
+      // Format based on result type (check if it looks like a percentage vs currency)
+      const monthlyDisplay = result.monthly < 100 && step.resultLabels?.monthly?.toLowerCase().includes('score') 
+        ? result.monthly 
+        : `$${result.monthly.toFixed(0)}`;
+      const totalDisplay = result.total < 100 && step.resultLabels?.total?.toLowerCase().includes('rate')
+        ? `${result.total.toFixed(1)}%`
+        : `$${result.total.toLocaleString()}`;
+      
+      document.getElementById('monthlyResult').textContent = monthlyDisplay;
+      document.getElementById('totalResult').textContent = totalDisplay;
 
       if (result.hidden > 0) {
         document.getElementById('trapReveal').classList.remove('hidden');
-        document.getElementById('hiddenCost').textContent = `$${result.hidden.toLocaleString()}`;
+        document.getElementById('hiddenCost').textContent = step.resultLabels?.hidden?.toLowerCase().includes('sales')
+          ? `+${result.hidden}`
+          : `$${result.hidden.toLocaleString()}`;
       }
 
       // Check if goal met
