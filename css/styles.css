@@ -2326,6 +2326,192 @@
   font-weight: bold;
 }
 
+/* Fake Instagram Ad */
+.fake-instagram-ad {
+  background: #fff;
+  color: #262626;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  border-radius: 0;
+}
+
+.fake-instagram-ad .ad-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #efefef;
+}
+
+.fake-instagram-ad .sponsored {
+  font-size: 10px;
+  color: #8e8e8e;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.fake-instagram-ad .ad-content {
+  padding: 16px;
+}
+
+.fake-instagram-ad .fire-banner {
+  background: linear-gradient(90deg, #ff6b35, #ff3366);
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 14px;
+  margin: -16px -16px 16px -16px;
+}
+
+.fake-instagram-ad .product-name {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.fake-instagram-ad .product-tagline {
+  font-size: 13px;
+  color: #8e8e8e;
+  font-style: italic;
+  margin-bottom: 16px;
+}
+
+.fake-instagram-ad .price-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.fake-instagram-ad .old-price {
+  font-size: 16px;
+  color: #8e8e8e;
+  text-decoration: line-through;
+}
+
+.fake-instagram-ad .new-price {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ed4956;
+}
+
+.fake-instagram-ad .urgency-timer {
+  background: #fff3cd;
+  color: #856404;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.fake-instagram-ad .scarcity-warning {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.fake-instagram-ad .cta-button {
+  background: #0095f6;
+  color: #fff;
+  text-align: center;
+  padding: 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.fake-instagram-ad .ad-footer {
+  padding: 12px 16px;
+  border-top: 1px solid #efefef;
+  font-size: 14px;
+  color: #262626;
+}
+
+/* Fake Amazon Listing */
+.fake-amazon-listing {
+  background: #fff;
+  color: #0f1111;
+  font-family: Arial, sans-serif;
+  padding: 16px;
+}
+
+.fake-amazon-listing .product-title {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.3;
+  margin-bottom: 8px;
+  color: #007185;
+}
+
+.fake-amazon-listing .rating {
+  font-size: 13px;
+  color: #007185;
+  margin-bottom: 8px;
+}
+
+.fake-amazon-listing .price {
+  font-size: 28px;
+  color: #0f1111;
+  margin-bottom: 8px;
+}
+
+.fake-amazon-listing .prime {
+  font-size: 13px;
+  color: #007600;
+  margin-bottom: 12px;
+}
+
+.fake-amazon-listing .stock-warning {
+  font-size: 14px;
+  color: #b12704;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.fake-amazon-listing .more-coming {
+  font-size: 12px;
+  color: #565959;
+  margin-bottom: 16px;
+}
+
+.fake-amazon-listing .buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.fake-amazon-listing .cart-btn {
+  background: #ffd814;
+  color: #0f1111;
+  text-align: center;
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.fake-amazon-listing .buy-btn {
+  background: #ffa41c;
+  color: #0f1111;
+  text-align: center;
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.fake-amazon-listing .social-proof {
+  border-top: 1px solid #ddd;
+  padding-top: 12px;
+  font-size: 12px;
+  color: #565959;
+}
+
+.fake-amazon-listing .social-proof div {
+  margin-bottom: 6px;
+}
+
 /* REDPEN - Contract slashing */
 .redpen-header {
   display: flex;
