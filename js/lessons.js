@@ -157,6 +157,9 @@ const Lessons = {
       case 'scenario':
         this.renderScenario(step, content, continueBtn);
         break;
+      case 'gauntlet':
+        this.renderGauntlet(step, content, continueBtn);
+        break;
       case 'weapon':
         this.renderWeapon(step, content);
         break;
@@ -562,8 +565,209 @@ const Lessons = {
   },
 
   /**
-   * REVERSE - Build the trap yourself with sliders
+   * GAUNTLET - Multi-screen escape challenge
    */
+  renderGauntlet(step, content, continueBtn) {
+    this.gauntletState = {
+      screen: 0,
+      trapsTriggered: 0,
+      almostRenewed: 0,
+      startTime: Date.now(),
+      screens: step.screens
+    };
+
+    content.innerHTML = `
+      <div class="lesson-step gauntlet-step">
+        <div class="gauntlet-header">
+          <div class="gauntlet-context">${step.context}</div>
+          <div class="gauntlet-timer">⏱️ Trial ends in: <span id="gauntletTimer">23:00</span></div>
+        </div>
+        <div class="gauntlet-screen-container" id="gauntletScreen"></div>
+        <div class="gauntlet-status">
+          <span>🪤 Traps: <span id="trapCount">0</span></span>
+          <span>⚠️ Close calls: <span id="renewCount">0</span></span>
+        </div>
+      </div>
+    `;
+
+    // Start fake countdown
+    this.startGauntletTimer();
+    
+    // Render first screen
+    this.renderGauntletScreen(0, continueBtn);
+  },
+
+  startGauntletTimer() {
+    let minutes = 22;
+    let seconds = 59;
+    const timerEl = document.getElementById('gauntletTimer');
+    
+    this.gauntletTimerInterval = setInterval(() => {
+      seconds--;
+      if (seconds < 0) { seconds = 59; minutes--; }
+      if (timerEl) {
+        timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        if (minutes < 5) timerEl.style.color = '#ff4444';
+      }
+    }, 1000);
+  },
+
+  renderGauntletScreen(index, continueBtn) {
+    const screen = this.gauntletState.screens[index];
+    const container = document.getElementById('gauntletScreen');
+    
+    if (!screen) {
+      this.finishGauntlet(continueBtn);
+      return;
+    }
+
+    container.innerHTML = `
+      <div class="gauntlet-card ${screen.type || ''}">
+        ${screen.html}
+      </div>
+      <div class="gauntlet-feedback hidden" id="gauntletFeedback"></div>
+    `;
+
+    // Setup interactions based on screen type
+    this.setupGauntletScreen(screen, index, continueBtn);
+  },
+
+  setupGauntletScreen(screen, index, continueBtn) {
+    const container = document.getElementById('gauntletScreen');
+    
+    screen.traps?.forEach(trap => {
+      const el = container.querySelector(trap.selector);
+      if (el) {
+        el.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (trap.isCorrect) {
+            this.gauntletAdvance(index, trap.successMsg, continueBtn);
+          } else {
+            this.gauntletTrap(trap.trapType, trap.message);
+          }
+        });
+      }
+    });
+
+    // Special screen behaviors
+    if (screen.swapButtons) {
+      setTimeout(() => {
+        const btns = container.querySelectorAll('.swap-btn');
+        if (btns.length === 2) {
+          const parent = btns[0].parentElement;
+          parent.insertBefore(btns[1], btns[0]);
+        }
+      }, screen.swapDelay || 2000);
+    }
+
+    if (screen.hiddenElement) {
+      const hidden = container.querySelector(screen.hiddenElement.selector);
+      if (hidden) {
+        setTimeout(() => {
+          hidden.classList.add('barely-visible');
+        }, screen.hiddenElement.showAfter || 500);
+      }
+    }
+
+    if (screen.requiresInput) {
+      const input = container.querySelector('input[type="text"]');
+      const btn = container.querySelector(screen.requiresInput.buttonSelector);
+      if (input && btn) {
+        btn.classList.add('disabled');
+        input.addEventListener('input', () => {
+          if (input.value.length >= 3) {
+            btn.classList.remove('disabled');
+            btn.addEventListener('click', () => {
+              this.gauntletAdvance(index, screen.requiresInput.successMsg, continueBtn);
+            });
+          }
+        });
+      }
+    }
+  },
+
+  gauntletTrap(trapType, message) {
+    const feedback = document.getElementById('gauntletFeedback');
+    this.gauntletState.trapsTriggered++;
+    
+    if (trapType === 'renew') {
+      this.gauntletState.almostRenewed++;
+      document.getElementById('renewCount').textContent = this.gauntletState.almostRenewed;
+    }
+    
+    document.getElementById('trapCount').textContent = this.gauntletState.trapsTriggered;
+    
+    feedback.innerHTML = `<div class="trap-message">❌ ${message}</div>`;
+    feedback.classList.remove('hidden');
+    
+    setTimeout(() => {
+      feedback.classList.add('hidden');
+    }, 2500);
+  },
+
+  gauntletAdvance(currentIndex, message, continueBtn) {
+    const feedback = document.getElementById('gauntletFeedback');
+    feedback.innerHTML = `<div class="success-message">✓ ${message}</div>`;
+    feedback.classList.remove('hidden');
+    
+    setTimeout(() => {
+      this.gauntletState.screen = currentIndex + 1;
+      this.renderGauntletScreen(currentIndex + 1, continueBtn);
+    }, 1500);
+  },
+
+  finishGauntlet(continueBtn) {
+    clearInterval(this.gauntletTimerInterval);
+    
+    const elapsed = Math.floor((Date.now() - this.gauntletState.startTime) / 1000);
+    const minutes = Math.floor(elapsed / 60);
+    const seconds = elapsed % 60;
+    
+    const container = document.getElementById('gauntletScreen');
+    container.innerHTML = `
+      <div class="gauntlet-complete">
+        <div class="gauntlet-victory">🎉 YOU ESCAPED!</div>
+        
+        <div class="gauntlet-stats">
+          <div class="stat-row">
+            <span class="stat-label">Time:</span>
+            <span class="stat-value">${minutes}:${seconds.toString().padStart(2, '0')}</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-label">Traps triggered:</span>
+            <span class="stat-value">${this.gauntletState.trapsTriggered}</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-label">Almost renewed:</span>
+            <span class="stat-value">${this.gauntletState.almostRenewed}</span>
+          </div>
+        </div>
+
+        <div class="gauntlet-tactics">
+          <div class="tactics-header">TACTICS USED AGAINST YOU:</div>
+          <div class="tactic-item">✓ Confirm-shaming <span class="tactic-note">("I hate entertainment")</span></div>
+          <div class="tactic-item">✓ Fake surveys <span class="tactic-note">(stalling tactic)</span></div>
+          <div class="tactic-item">✓ Button-swapping <span class="tactic-note">(misdirection)</span></div>
+          <div class="tactic-item">✓ Confusing language <span class="tactic-note">(trick questions)</span></div>
+          <div class="tactic-item">✓ Guilt-trip video <span class="tactic-note">(emotional manipulation)</span></div>
+          <div class="tactic-item">✓ Friction typing <span class="tactic-note">(exhaustion tactic)</span></div>
+        </div>
+
+        <div class="gauntlet-lesson">
+          Real companies do ALL of this.<br>
+          <strong>Now you know what to expect.</strong>
+        </div>
+      </div>
+    `;
+
+    // Award points based on performance
+    const bonus = Math.max(0, 100 - (this.gauntletState.trapsTriggered * 15) - (this.gauntletState.almostRenewed * 25));
+    this.current.score += bonus;
+    document.getElementById('lessonScore').textContent = this.current.score;
+
+    continueBtn.classList.remove('hidden');
+    continueBtn.textContent = 'CONTINUE';
+  },
   renderReverse(step, content, continueBtn) {
     content.innerHTML = `
       <div class="lesson-step reverse-step">
