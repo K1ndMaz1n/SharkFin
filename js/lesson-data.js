@@ -638,8 +638,447 @@ const LessonData = {
   },
 
   // ============================================================
-  // WEALTH CURRENTS - 5 LESSONS
+  // PURCHASE SHALLOWS - 4 CORE LESSONS
   // ============================================================
+
+  // ============== LESSON 1: PRICE ANCHORING ==============
+  price_anchoring: {
+    id: 'lesson_anchoring',
+    title: 'Price Anchoring',
+    steps: [
+      {
+        type: 'info',
+        icon: '⚓',
+        title: 'The Invisible Cage',
+        content: `When someone says "MSRP $45,000" - your brain just got anchored.<br><br>Now every price feels like a discount from $45,000. Even $42,000 feels like a "deal" - despite being way more than the car cost to make.<br><br><strong>Anchoring</strong> is the most powerful negotiation tactic in existence. The first number thrown out shapes everything after.<br><br>Whoever sets the anchor controls the game.`
+      },
+      {
+        type: 'artifact',
+        context: "You're at a car dealership...",
+        contextIcon: '🚗',
+        artifactType: 'car-sticker',
+        artifactHTML: `<div class="fake-car-sticker"><div class="sticker-header">2024 LUXURA SEDAN XLE</div><div class="sticker-line"><span>MSRP</span><span>$47,995</span></div><div class="sticker-line"><span>Destination Charge</span><span>$1,295</span></div><div class="sticker-line highlight"><span>Market Adjustment</span><span>$3,500</span></div><div class="sticker-total"><span>TOTAL AS SHOWN</span><span>$52,790</span></div><div class="sticker-tagline">"A GREAT VALUE AT THIS PRICE!"</div><div class="sticker-footer">See your salesperson for special financing!</div></div>`,
+        prompt: 'This sticker is designed to anchor you high. Find the inflated numbers.',
+        hotspots: [
+          { x: 5, y: 18, width: 90, height: 10, isHook: true, explanation: "This is the anchor. MSRP is the manufacturer SUGGESTED price - not dealer cost. They paid $38-42k for this car. Everything is negotiable from much lower." },
+          { x: 5, y: 38, width: 90, height: 10, isHook: true, explanation: "Pure profit padding. 'Market adjustment' = 'we think we can get away with it.' This should be the FIRST thing you negotiate off." },
+          { x: 5, y: 28, width: 90, height: 8, isHook: false, explanation: "Actually legitimate - this covers shipping the car. It's standardized and typically non-negotiable." }
+        ],
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '🧠',
+        title: 'How Anchoring Hijacks Your Brain',
+        content: `In studies, even RANDOM numbers affect negotiation:<br><br>Researchers had people spin a wheel (rigged to land on 10 or 65), then estimate what percentage of African countries are in the UN.<br><br>People who saw 65 guessed WAY higher than those who saw 10.<br><br><strong>A completely irrelevant number changed their estimates.</strong><br><br>Now imagine what a salesperson's "MSRP" does to your sense of a "good deal."`
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '👔', name: 'Car Salesman' },
+        content: `You're looking at a used car listed at $28,500. You've researched - similar cars sell for $24,000-26,000.<br><br>The salesman says: <em>"I can see you're a serious buyer. Tell you what - I'll knock $500 off right now. $28,000 even. That's the best I can do."</em>`,
+        choices: [
+          { text: "How about $27,000?", correct: false, explanation: "You're negotiating from HIS anchor. You just mentally accepted that $28k is the starting point. You'll end up around $27k - still $2-3k overpaying." },
+          { text: "I've seen similar cars for $24,000. I'd pay $23,500.", correct: true, explanation: "You set a counter-anchor based on research. Now the negotiation happens between $23,500 and $28,000 - you'll land around $25-26k." },
+          { text: "Let me think about it.", correct: false, explanation: "Walking away is good, but you missed a chance to reset the anchor. When you come back, they'll start at $28k again." }
+        ],
+        points: 100
+      },
+      {
+        type: 'reverse',
+        title: 'Set the Anchor',
+        villainIcon: '🏷️',
+        instruction: "You're selling a used laptop worth ~$400. See how your asking price anchors the buyer's offer.",
+        sliders: [
+          { label: 'Your Asking Price', min: 300, max: 700, default: 400, step: 25, suffix: '' }
+        ],
+        calculate: (values) => {
+          const [askPrice] = values;
+          const fairValue = 400;
+          const buyerAnchorEffect = (askPrice - fairValue) * 0.4;
+          const counterOffer = Math.round(fairValue - 50 + buyerAnchorEffect * 0.5);
+          const finalPrice = Math.round((askPrice + counterOffer) / 2);
+          const profit = finalPrice - fairValue;
+          return { monthly: counterOffer, total: finalPrice, hidden: profit };
+        },
+        checkGoal: (result) => result.total >= 450,
+        goal: 'Get final sale price above $450',
+        revelation: "See how a high ask pulls the final price up? This is what every seller does to you. Your defense: research the REAL value before you ever hear their number.",
+        resultLabels: { monthly: "Buyer's Counter", total: 'Final Price', hidden: 'Your Profit vs Fair' },
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '🛡️',
+        title: 'The Counter-Anchor Strategy',
+        content: `<strong>Before ANY negotiation:</strong><br><br>1. Research the real value (not their asking price)<br>2. Decide YOUR anchor before hearing theirs<br>3. Speak FIRST if you can - or immediately counter their anchor<br><br><strong>Example:</strong><br>They say: "Asking $30,000"<br>You say: "Based on KBB and recent sales, I'm seeing $24,000. I'd start at $23,000."<br><br>Now you're negotiating in YOUR range, not theirs.`
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '💼', name: 'Job Interviewer' },
+        content: `In a job interview, the hiring manager asks:<br><br><em>"What are your salary expectations?"</em><br><br>You've researched - the role pays $75,000-$95,000 in your market.`,
+        choices: [
+          { text: "I'm flexible - what's the budget for the role?", correct: false, explanation: "You just gave up anchor power. They'll lowball you, and you'll negotiate from their floor." },
+          { text: "Based on my experience and market rates, I'm targeting $90,000-$100,000.", correct: true, explanation: "You anchored HIGH within the reasonable range. Even if they negotiate down, you'll land higher than if they'd anchored first." },
+          { text: "I made $65,000 at my last job, so maybe $70,000?", correct: false, explanation: "You anchored yourself LOW with your past salary. Never reveal old salary - it limits your upside." }
+        ],
+        points: 100
+      },
+      {
+        type: 'weapon',
+        name: 'The Counter-Anchor',
+        description: "Never negotiate from their first number. Before any major purchase or negotiation, research the true market value and set YOUR anchor first. If they anchor first, immediately counter with your researched number.",
+        phrase: "Based on my research, I'm seeing [your number]."
+      },
+      {
+        type: 'summary',
+        title: 'Price Anchoring Complete',
+        keyTakeaways: [
+          'The first number mentioned shapes the entire negotiation',
+          'MSRP and "asking price" are anchors, not real values',
+          'Research the TRUE value before hearing their price',
+          'Counter-anchor immediately with your researched number',
+          'This works in salary negotiations too - anchor high'
+        ]
+      }
+    ]
+  },
+
+  // ============== LESSON 2: WALK AWAY POWER ==============
+  walk_away_power: {
+    id: 'lesson_walkaway',
+    title: 'Walk Away Power',
+    steps: [
+      {
+        type: 'info',
+        icon: '🚪',
+        title: 'The Power They Fear Most',
+        content: `Every salesperson's nightmare: a buyer who can walk away.<br><br>Your willingness to leave is your ONLY real leverage. The moment you "need" to buy TODAY, you've already lost.<br><br><strong>BATNA</strong> = Best Alternative To Negotiated Agreement<br><br>Translation: What happens if you don't make this deal? The better your BATNA, the more power you have.`
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '🚗', name: 'Car Salesman' },
+        content: `You've been at the dealership for 3 hours. You're exhausted. The salesman says:<br><br><em>"Look, I've gone back to my manager five times. This is truly the lowest we can go. $31,500, and I'm throwing in the floor mats. I need to know right now - are we doing this?"</em>`,
+        choices: [
+          { text: "Fine, let's do it. I'm tired of negotiating.", correct: false, explanation: "Exhaustion is their strategy. The 'I need to know now' is a pressure tactic. You'll regret this price tomorrow." },
+          { text: "I appreciate your time. I'm going to sleep on it and check one more dealer.", correct: true, explanation: "Magic words. Watch how fast a 'final offer' improves when you actually stand up to leave." },
+          { text: "Can you throw in oil changes too?", correct: false, explanation: "You're negotiating extras because you've mentally accepted the price. You've lost the main battle." }
+        ],
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '⏰',
+        title: 'The Time Trap',
+        content: `Salespeople use time as a weapon:<br><br>• Keep you there for hours until you're exhausted<br>• Make you feel invested ("we've come so far!")<br>• Use "today only" urgency<br>• Know that hungry/tired people make bad decisions<br><br><strong>Your defense:</strong> Set a hard stop time. Tell them upfront: "I have to leave by 3pm regardless." Then actually leave.<br><br>The deal will still be there tomorrow. It always is.`
+      },
+      {
+        type: 'artifact',
+        context: "Texts from the salesman after you left...",
+        contextIcon: '📱',
+        artifactType: 'text-messages',
+        artifactHTML: `<div class="fake-text-chain"><div class="text-header">Mike from AutoMax</div><div class="text-message"><span class="text-time">4:23 PM</span><p>Hey! Great meeting you today. I talked to my manager - we might have some room to move.</p></div><div class="text-message"><span class="text-time">4:47 PM</span><p>Just found out we have a $1,000 rebate I forgot to mention. That brings us to $30,500.</p></div><div class="text-message"><span class="text-time">6:15 PM</span><p>Look, I want to earn your business. What if I could get it to $29,800?</p></div><div class="text-message"><span class="text-time">9:02 PM</span><p>Last one - $29,000 flat, out the door. This is manager override pricing. Let me know by noon tomorrow.</p></div></div>`,
+        prompt: 'You left the dealership. Look what happened.',
+        hotspots: [
+          { x: 5, y: 18, width: 90, height: 18, isHook: true, explanation: "Suddenly they 'have room to move' after you left? There was ALWAYS room. Walking away revealed it." },
+          { x: 5, y: 38, width: 90, height: 18, isHook: true, explanation: "He didn't 'forget' the rebate. This is a manufactured concession to make you feel like you're winning." },
+          { x: 5, y: 75, width: 90, height: 18, isHook: true, explanation: "From $31,500 to $29,000 in 5 hours? Imagine where it'd be if you waited two days. Your walkaway power is working." }
+        ],
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '🎭',
+        title: 'Build Your BATNA',
+        content: `Before ANY major negotiation, build alternatives:<br><br><strong>Buying a car?</strong><br>• Get quotes from 3+ dealers<br>• Know the exact model you'd buy elsewhere<br>• Have financing pre-approved from your bank<br><br><strong>Negotiating salary?</strong><br>• Have another offer (or be willing to stay put)<br>• Know what competitors pay<br>• Be prepared to walk away<br><br>The better your backup plan, the less you need THIS deal.`
+      },
+      {
+        type: 'reverse',
+        title: 'The Pressure Game',
+        villainIcon: '😰',
+        instruction: "You're a salesperson. Your buyer has been here 2 hours. See what breaks their resistance.",
+        sliders: [
+          { label: 'Hours Invested', min: 0.5, max: 4, default: 2, step: 0.5, suffix: ' hrs' },
+          { label: "Buyer's Other Options", min: 0, max: 5, default: 2, step: 1, suffix: '' },
+          { label: 'Urgency Pressure', min: 0, max: 10, default: 5, step: 1, suffix: '/10' }
+        ],
+        calculate: (values) => {
+          const [hours, options, urgency] = values;
+          const timeEffect = hours * 12;
+          const optionEffect = options * 15;
+          const urgencyEffect = urgency * 5;
+          const resistance = Math.max(5, 80 - timeEffect - urgencyEffect + optionEffect);
+          const discountNeeded = Math.round(resistance / 10);
+          return { monthly: Math.round(resistance), total: discountNeeded, hidden: Math.round(100 - resistance) };
+        },
+        checkGoal: (result) => result.monthly <= 30,
+        goal: 'Get buyer resistance below 30%',
+        revelation: "Notice what kills buyer resistance? Time invested + no alternatives + urgency. This is why dealers keep you there for hours. Your defense: always have options and a hard stop time.",
+        resultLabels: { monthly: 'Buyer Resistance %', total: 'Discount Needed %', hidden: 'Chance They Cave' },
+        points: 100
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '🏠', name: 'Real Estate Agent' },
+        content: `You found a house you love. Your realtor says:<br><br><em>"There's another offer coming in tonight. If you want this house, you need to offer over asking and waive the inspection contingency. I've seen buyers lose out by hesitating."</em>`,
+        choices: [
+          { text: "Let's do it - I don't want to lose this house.", correct: false, explanation: "Classic urgency pressure. Waiving inspection can cost you $50,000+ in hidden problems. Another house will come along." },
+          { text: "I'll offer asking price with inspection contingency. If they don't accept, that's okay.", correct: true, explanation: "You're showing you have alternatives. Many 'competing offers' are exaggerated or fabricated. Call the bluff." },
+          { text: "Can we at least keep the inspection?", correct: false, explanation: "You've accepted the over-asking premise. You're negotiating against yourself now." }
+        ],
+        points: 100
+      },
+      {
+        type: 'weapon',
+        name: 'The BATNA Check',
+        description: "Before any major negotiation, ask: \"What's my best alternative if this falls through?\" If the answer is \"nothing,\" you're not ready to negotiate. Build alternatives first - they're your only real leverage.",
+        phrase: "What's my best alternative if I walk away?"
+      },
+      {
+        type: 'summary',
+        title: 'Walk Away Power Complete',
+        keyTakeaways: [
+          'Your willingness to walk away is your only real leverage',
+          "Time investment is a trap - set hard stop times",
+          '"Final offers" magically improve when you actually leave',
+          'Always have alternatives (BATNA) before negotiating',
+          'The best deal often comes AFTER you walk away'
+        ]
+      }
+    ]
+  },
+
+  // ============== LESSON 3: FINANCING TACTICS ==============
+  financing_tactics: {
+    id: 'lesson_financing',
+    title: 'Financing Tactics',
+    steps: [
+      {
+        type: 'info',
+        icon: '💳',
+        title: 'The Monthly Payment Trap',
+        content: `"What monthly payment are you looking for?"<br><br>This question is a trap. The moment you answer, they stop negotiating PRICE and start manipulating TERMS.<br><br>Want $400/month? Easy:<br>• Extend the loan to 84 months<br>• Bury negative equity<br>• Add hidden fees to principal<br><br>You hit $400/month - but pay $8,000 more total.<br><br>Never negotiate monthly payment. Negotiate PRICE, then figure out payment.`
+      },
+      {
+        type: 'artifact',
+        context: "The financing office hands you this...",
+        contextIcon: '📋',
+        artifactType: 'loan-breakdown',
+        artifactHTML: `<div class="fake-loan-doc"><div class="loan-header">FINANCING SUMMARY</div><div class="loan-vehicle">2024 Luxura Sedan</div><div class="loan-payment"><span class="payment-amount">$399</span><span class="payment-label">/month</span></div><div class="loan-details"><div class="loan-row"><span>Sale Price</span><span>$34,000</span></div><div class="loan-row"><span>Term</span><span>84 months</span></div><div class="loan-row"><span>APR</span><span>8.9%</span></div><div class="loan-row"><span>Down Payment</span><span>$2,000</span></div><div class="loan-row warn"><span>Trade-in Payoff</span><span>-$3,000</span></div><div class="loan-row"><span>Amount Financed</span><span>$35,000</span></div><div class="loan-row"><span>Total of Payments</span><span>$33,516</span></div></div><div class="loan-total"><span>TOTAL COST</span><span>$69,516</span></div></div>`,
+        prompt: 'They hit your payment target. Find out how.',
+        hotspots: [
+          { x: 10, y: 35, width: 80, height: 8, isHook: true, explanation: "84 months = 7 years! You'll be paying for this car 2-3 years AFTER it's out of warranty. It'll be worth $15k while you still owe $20k." },
+          { x: 10, y: 43, width: 80, height: 8, isHook: true, explanation: "Highway robbery. Average auto loan rates are 5-7%. This rate adds thousands to your total cost. Should've gotten pre-approved elsewhere." },
+          { x: 10, y: 55, width: 80, height: 8, isHook: true, explanation: "They rolled $3,000 of your OLD car's debt into the NEW loan. You're paying interest on money you already owed. This is how people stay trapped." },
+          { x: 10, y: 18, width: 80, height: 12, isHook: true, explanation: "They hit your 'target payment' by manipulating everything else. The car cost $34k but you're paying $69,516. That's the trap." }
+        ],
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '🎰',
+        title: 'The Four-Box Shuffle',
+        content: `Dealers negotiate four things at once:<br><br>1. <strong>Price</strong> of the new car<br>2. <strong>Trade-in</strong> value<br>3. <strong>Financing</strong> rate/terms<br>4. <strong>Add-ons</strong> (warranties, protection packages)<br><br>They'll lose on one box to win on three others.<br><br>"Great news! I got you $2,000 more for your trade-in!"<br>(But they added $3,000 to the price and marked up your rate)<br><br><strong>Your defense:</strong> Negotiate each box SEPARATELY. Never discuss them together.`
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '💼', name: 'Finance Manager' },
+        content: `In the finance office, the manager says:<br><br><em>"Great news! The bank approved you at 7.9% APR. I know you wanted lower, but with your credit score, that's actually a good rate. Want me to see if extending to 72 months helps the payment?"</em><br><br>You have a pre-approval from your credit union at 5.2%.`,
+        choices: [
+          { text: "Yeah, let's try 72 months to lower the payment.", correct: false, explanation: "You're extending debt to hide a bad rate. You'll pay thousands more in interest. And you haven't mentioned your pre-approval yet." },
+          { text: "I have a 5.2% pre-approval. Can you beat that?", correct: true, explanation: "Now they have to compete. Dealers often CAN beat outside rates - they just don't offer it unless forced." },
+          { text: "7.9% sounds fair. Let's move forward.", correct: false, explanation: "It's not fair - you have proof with your pre-approval. You just volunteered to overpay by thousands." }
+        ],
+        points: 100
+      },
+      {
+        type: 'sharklens',
+        instruction: 'Tap each term to see what it really costs you.',
+        documentType: 'finance-contract',
+        documentTitle: 'RETAIL INSTALLMENT CONTRACT',
+        documentText: `This agreement establishes financing terms for the described vehicle.<br><br><strong>Amount Financed:</strong> $38,459.00<br><strong>APR:</strong> 7.9%<br><strong>Finance Charge:</strong> $9,847.33<br><strong>Total of Payments:</strong> $48,306.33<br><br><strong>Included Products:</strong><br>• GAP Insurance: $895<br>• Paint Protection: $599<br>• Extended Warranty: $2,400<br>• Fabric Protection: $399`,
+        terms: [
+          { jargon: 'Finance Charge', realMeaning: "Pure interest - nearly $10,000 paid to borrow money. At 5% APR, this would be ~$6,200 instead." },
+          { jargon: 'GAP Insurance', realMeaning: "Legit product but massively overpriced here. Your car insurance company sells this for $50-100/year, not $895." },
+          { jargon: 'Paint Protection', realMeaning: "A $599 bottle of wax. Worth maybe $30. Pure dealer profit." },
+          { jargon: 'Extended Warranty', realMeaning: "Might have value, but dealer cost is ~$800. They're charging $2,400. Shop this separately." }
+        ]
+      },
+      {
+        type: 'reverse',
+        title: 'The Payment Illusion',
+        villainIcon: '🎩',
+        instruction: "You're a finance manager. Customer wants $450/month for a $30,000 car. Make it happen.",
+        sliders: [
+          { label: 'Loan Term (months)', min: 36, max: 84, default: 60, step: 12, suffix: ' mo' },
+          { label: 'APR %', min: 4, max: 12, default: 7, step: 0.5, suffix: '%' },
+          { label: 'Hidden Fees Added', min: 0, max: 3000, default: 0, step: 250, suffix: '' }
+        ],
+        calculate: (values) => {
+          const [term, apr, fees] = values;
+          const principal = 30000 + fees;
+          const monthlyRate = (apr / 100) / 12;
+          const payment = principal * (monthlyRate * Math.pow(1 + monthlyRate, term)) / (Math.pow(1 + monthlyRate, term) - 1);
+          const totalInterest = (payment * term) - principal;
+          const totalCost = 30000 + fees + totalInterest;
+          return { monthly: Math.round(payment), total: Math.round(totalCost), hidden: Math.round(fees + totalInterest) };
+        },
+        checkGoal: (result) => result.monthly <= 450 && result.hidden >= 5000,
+        goal: 'Hit $450/month while adding $5,000+ in fees/interest',
+        revelation: "See how easy it is to hit any payment number? Extend terms, raise rates, add fees - the customer never notices. Always ask for the TOTAL cost, not the monthly payment.",
+        resultLabels: { monthly: 'Monthly Payment', total: 'Total Cost', hidden: 'Hidden Costs' },
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '🛡️',
+        title: 'The Financing Defense',
+        content: `<strong>Before buying anything on financing:</strong><br><br>1. Get pre-approved elsewhere (bank, credit union)<br>2. Know your credit score<br>3. Never reveal your target monthly payment<br>4. Negotiate PRICE first, financing second<br>5. Ask: "What is the TOTAL cost including interest?"<br><br><strong>In the finance office:</strong><br>• Decline ALL add-ons by default<br>• Compare their APR to your pre-approval<br>• Anything over 60 months is a warning sign`
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '🏪', name: 'Furniture Store' },
+        content: `You're buying a $3,000 couch. The store offers:<br><br><em>"0% APR for 24 months! No payments for 6 months! Just sign up for our store credit card."</em><br><br>Sounds great, right?`,
+        choices: [
+          { text: "Perfect - free financing!", correct: false, explanation: "Read the fine print. Many 0% offers have DEFERRED interest. If you have any balance at 24 months, you owe ALL the back interest (often 25%+)." },
+          { text: "What happens if I have a balance at month 24?", correct: true, explanation: "This question reveals the trap. They'll explain deferred interest. If you wouldn't pay it off in full, this deal is worse than a regular loan." },
+          { text: "I'll just pay cash instead.", correct: false, explanation: "Safe, but you might benefit from 0% if you KNOW you'll pay it off. The key is understanding the terms." }
+        ],
+        points: 100
+      },
+      {
+        type: 'weapon',
+        name: 'The Total Cost Question',
+        description: "Never negotiate monthly payment. Instead, ask: \"What is the TOTAL amount I'll pay including principal, interest, and all fees?\" This one question exposes the real cost and prevents term manipulation.",
+        phrase: "What's the total cost - everything included?"
+      },
+      {
+        type: 'summary',
+        title: 'Financing Tactics Complete',
+        keyTakeaways: [
+          'Never negotiate monthly payment - negotiate PRICE',
+          'Long loan terms (72-84 months) hide inflated costs',
+          'Always get pre-approved financing before shopping',
+          'Dealer finance office add-ons are massively overpriced',
+          '0% APR often has deferred interest traps',
+          'Always ask: "What\'s the TOTAL cost?"'
+        ]
+      }
+    ]
+  },
+
+  // ============== LESSON 4: TOTAL COST OF OWNERSHIP ==============
+  total_cost_ownership: {
+    id: 'lesson_tco',
+    title: 'Total Cost of Ownership',
+    steps: [
+      {
+        type: 'info',
+        icon: '📊',
+        title: 'The Price Tag Lies',
+        content: `A $25,000 car doesn't cost $25,000.<br><br>Over 5 years, you'll pay for:<br>• Insurance<br>• Fuel<br>• Maintenance<br>• Repairs (out of warranty)<br>• Registration fees<br>• Depreciation (the big one)<br><br>Some $25,000 cars actually cost $45,000. Others cost $35,000.<br><br>The sticker price tells you almost nothing.`
+      },
+      {
+        type: 'reverse',
+        title: 'True Cost Calculator',
+        villainIcon: '🔍',
+        instruction: "Compare two cars. Which one REALLY costs less over 5 years?",
+        sliders: [
+          { label: 'Car A: Price', min: 20000, max: 40000, default: 25000, step: 1000, suffix: '' },
+          { label: 'Car A: MPG', min: 20, max: 50, default: 28, step: 2, suffix: ' mpg' },
+          { label: 'Car B: Price', min: 20000, max: 40000, default: 32000, step: 1000, suffix: '' },
+          { label: 'Car B: MPG', min: 20, max: 50, default: 42, step: 2, suffix: ' mpg' }
+        ],
+        calculate: (values) => {
+          const [priceA, mpgA, priceB, mpgB] = values;
+          const milesPerYear = 12000;
+          const gasPrice = 3.50;
+          const years = 5;
+          const fuelA = (milesPerYear / mpgA) * gasPrice * years;
+          const fuelB = (milesPerYear / mpgB) * gasPrice * years;
+          const depreciationA = priceA * 0.5;
+          const depreciationB = priceB * 0.45;
+          const insuranceA = 1500 * years;
+          const insuranceB = 1400 * years;
+          const totalA = priceA + fuelA + insuranceA + depreciationA * 0.5;
+          const totalB = priceB + fuelB + insuranceB + depreciationB * 0.5;
+          return { monthly: Math.round(totalA), total: Math.round(totalB), hidden: Math.round(totalA - totalB) };
+        },
+        checkGoal: (result) => result.hidden > 0,
+        goal: 'Find settings where the expensive car costs LESS over 5 years',
+        revelation: "A car that costs $7,000 more upfront can cost LESS over 5 years with better MPG and lower depreciation. Always calculate total cost of ownership, not sticker price.",
+        resultLabels: { monthly: 'Car A: 5yr Cost', total: 'Car B: 5yr Cost', hidden: 'Difference (A-B)' },
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '📉',
+        title: 'The Depreciation Bomb',
+        content: `Depreciation is the silent killer of car value:<br><br><strong>Year 1:</strong> Car loses 20-30% of value (the "drive off the lot" hit)<br><strong>Year 3:</strong> Worth about 60% of original price<br><strong>Year 5:</strong> Worth about 40% of original price<br><br>A $40,000 new car is worth ~$16,000 after 5 years.<br><br>That's $24,000 in depreciation - more than most repairs would ever cost.<br><br><strong>This is why buying 2-3 year old cars is often smarter.</strong> Let someone else eat the depreciation.`
+      },
+      {
+        type: 'artifact',
+        context: "Comparing two options...",
+        contextIcon: '🚗',
+        artifactType: 'car-comparison',
+        artifactHTML: `<div class="fake-comparison"><div class="compare-header"><div class="compare-col"><div class="car-badge new">NEW</div>2024 Camry</div><div class="compare-col"><div class="car-badge used">CERTIFIED</div>2022 Camry</div></div><div class="compare-row"><span class="row-label">Purchase Price</span><span>$32,000</span><span>$24,000</span></div><div class="compare-row"><span class="row-label">5yr Insurance</span><span>$8,500</span><span>$7,200</span></div><div class="compare-row"><span class="row-label">5yr Fuel</span><span>$6,300</span><span>$6,300</span></div><div class="compare-row"><span class="row-label">Maintenance</span><span>$1,800</span><span>$2,400</span></div><div class="compare-row highlight"><span class="row-label">Depreciation</span><span>-$14,000</span><span>-$7,000</span></div><div class="compare-row total"><span class="row-label">5yr Total Cost</span><span>$33,500</span><span>$25,900</span></div></div>`,
+        prompt: 'Which car actually costs less? Find the real numbers.',
+        hotspots: [
+          { x: 5, y: 62, width: 90, height: 12, isHook: true, explanation: "This is the biggest difference. The new car loses TWICE as much value. You're paying $7,000 extra just for 'new car smell.'" },
+          { x: 5, y: 50, width: 90, height: 10, isHook: false, explanation: "Yes, the used car needs slightly more maintenance. But $600 vs $7,000 in depreciation savings? Not even close." },
+          { x: 5, y: 75, width: 90, height: 12, isHook: true, explanation: "The 'cheaper' new car costs $7,600 MORE over 5 years. The sticker price lied to you." }
+        ],
+        points: 100
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '👩‍💼', name: 'Your Coworker' },
+        content: `Your coworker is bragging about her new car:<br><br><em>"I got an amazing deal on my Range Rover - $65,000, down from $72,000! The payments are high but it's basically a luxury tank. I'll have it forever."</em><br><br>Based on what you know about total cost of ownership...`,
+        choices: [
+          { text: "That sounds like a great deal on a luxury car!", correct: false, explanation: "Luxury cars have luxury maintenance: $1,500+ oil changes, expensive parts, premium fuel. And Range Rover depreciation is brutal - worth $30k in 5 years." },
+          { text: "What's the annual maintenance and insurance on that?", correct: true, explanation: "You're thinking TCO. Range Rovers have some of the highest maintenance costs and worst reliability. That 'deal' will cost $100k+ over 5 years." },
+          { text: "You should have bought a Tesla.", correct: false, explanation: "Different car, same principle. The lesson is evaluating total cost, not recommending brands." }
+        ],
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '🏠',
+        title: 'Houses Have Hidden Costs Too',
+        content: `A $400,000 house doesn't cost $400,000.<br><br><strong>Annual hidden costs:</strong><br>• Property taxes: $4,000-$12,000+<br>• Insurance: $1,500-$3,000<br>• Maintenance (1% rule): $4,000<br>• HOA fees: $0-$500/month<br>• Utilities (often higher than renting)<br><br>Over 30 years with a mortgage, that $400k house costs $700k-$900k.<br><br>That doesn't mean don't buy - just know the REAL number.`
+      },
+      {
+        type: 'sharklens',
+        instruction: 'Tap each term to see the true 30-year cost.',
+        documentType: 'mortgage-doc',
+        documentTitle: 'LOAN ESTIMATE',
+        documentText: `Property: 123 Main Street<br>Purchase Price: $375,000<br><br><strong>Loan Amount:</strong> $337,500 (10% down)<br><strong>Interest Rate:</strong> 7.125%<br><strong>Monthly P&I:</strong> $2,274<br><strong>Monthly Tax:</strong> $312<br><strong>Monthly Insurance:</strong> $142<br><strong>Monthly PMI:</strong> $185<br><strong>Monthly HOA:</strong> $125<br><br><strong>Total Monthly:</strong> $3,038<br><strong>Total Interest (30yr):</strong> $481,140`,
+        terms: [
+          { jargon: 'PMI', realMeaning: "Private Mortgage Insurance - you pay because you put less than 20% down. It protects the LENDER, not you. Adds ~$2,200/year until you hit 20% equity." },
+          { jargon: 'Total Interest', realMeaning: "You're paying $481k in interest on a $337k loan. Total cost: $856k for a $375k house." },
+          { jargon: 'HOA', realMeaning: "Can increase annually. Over 30 years at 3% increases, you'll pay $70k+ in HOA fees alone." },
+          { jargon: 'Monthly Tax', realMeaning: "Property taxes usually increase annually. Budget for this to double over 30 years." }
+        ]
+      },
+      {
+        type: 'weapon',
+        name: 'The 5-Year Cost',
+        description: "Before any major purchase, calculate the 5-year total cost - not just purchase price. Include insurance, fuel/utilities, maintenance, repairs, and depreciation. The 'cheapest' option often isn't.",
+        phrase: "What will this cost me over 5 years - everything included?"
+      },
+      {
+        type: 'summary',
+        title: 'Total Cost of Ownership Complete',
+        keyTakeaways: [
+          'Purchase price is often less than half the true cost',
+          'Depreciation is usually the biggest hidden cost for cars',
+          '2-3 year old cars often cost much less than new',
+          'Luxury items have luxury maintenance costs',
+          'A $400k house costs $700k-$900k over 30 years',
+          'Always calculate the 5-year total cost'
+        ]
+      }
+    ]
+  },
 
   // ============== LESSON 1: COMPOUND INTEREST ==============
   compound_interest: {
