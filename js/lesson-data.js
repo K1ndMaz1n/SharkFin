@@ -353,15 +353,129 @@ const LessonData = {
         points: 100
       },
       {
-        type: 'scenario',
-        speaker: { avatar: '💻', name: 'Streaming Service Website' },
-        content: `You signed up for a free trial 2 weeks ago. You want to cancel before it charges.<br><br>You click "Account" → "Subscription" → "Manage Plan"<br><br>The page shows:<br><strong>"Are you sure? You'll lose access to:"</strong><br>• 10,000+ movies and shows<br>• Ad-free streaming<br>• Downloads for offline viewing<br><br><strong>[KEEP MY SUBSCRIPTION]</strong> ← Big red button<br><br><em>"I understand I'll lose everything"</em> ← Small underlined text<br><br>Then another page asking why you're leaving. Then another with a "special offer." Then finally a confirmation.`,
-        choices: [
-          { text: "This is annoying but I'll click through all of it", correct: true, explanation: "Yes, this is the 'roach motel' pattern. Keep clicking the small text until you're actually canceled. Don't give up." },
-          { text: "I'll just let it charge and cancel next month", correct: false, explanation: "That's what they want. You'll pay this month and probably forget again next month. Canceling now is worth 5 minutes of frustration." },
-          { text: "Maybe I should keep it since canceling is so hard", correct: false, explanation: "This is exactly why dark patterns work. The difficulty is manufactured. The service isn't worth more just because leaving is hard." }
+        type: 'gauntlet',
+        context: "Cancel your StreamFlix+ subscription before your free trial ends",
+        screens: [
+          {
+            // Screen 1: The Guilt Trip
+            html: `
+              <div class="sad-emoji">😢</div>
+              <h3>We'll miss you...</h3>
+              <div class="stat-callout">
+                You've watched <strong>47 hours</strong> of content this month!<br>
+                That's like $0.21 per hour of entertainment.
+              </div>
+              <p>Are you SURE you want to give that up?</p>
+              <button class="main-btn" data-action="renew">KEEP STREAMING - $15.99/mo</button>
+              <a class="sneaky-link" data-action="cancel">I hate entertainment</a>
+            `,
+            traps: [
+              { selector: '[data-action="renew"]', isCorrect: false, trapType: 'renew', message: "Oops! That would have renewed you. Look for the small text." },
+              { selector: '[data-action="cancel"]', isCorrect: true, successMsg: "Good! You found the shame-link. On to the next obstacle..." }
+            ]
+          },
+          {
+            // Screen 2: The Fake Survey
+            html: `
+              <div style="position:relative;">
+                <span class="close-x" data-action="skip">✕</span>
+                <h3>Before you go, help us improve!</h3>
+                <p>Why are you leaving?</p>
+                <div class="survey-options">
+                  <label><input type="radio" name="reason"> Too expensive</label>
+                  <label><input type="radio" name="reason"> Not enough content</label>
+                  <label><input type="radio" name="reason"> Technical issues</label>
+                  <label><input type="radio" name="reason"> Found another service</label>
+                  <label><input type="radio" name="reason"> Other</label>
+                </div>
+                <button class="main-btn" data-action="submit">SUBMIT & CONTINUE</button>
+              </div>
+            `,
+            hiddenElement: { selector: '.close-x', showAfter: 800 },
+            traps: [
+              { selector: '[data-action="submit"]', isCorrect: false, trapType: 'stall', message: "That leads to MORE surveys. They're stalling you. Look for another way out..." },
+              { selector: '[data-action="skip"]', isCorrect: true, successMsg: "Nice! Surveys are optional. They're just stalling tactics." }
+            ]
+          },
+          {
+            // Screen 3: The Button Swap
+            html: `
+              <h3>🎁 WAIT! Special offer just for you!</h3>
+              <p>Stay and get <strong>50% off</strong> for 3 months!</p>
+              <div class="stat-callout">$15.99 → <strong>$7.99/mo</strong></div>
+              <div class="button-row">
+                <button class="swap-btn btn-secondary" data-action="decline">NO THANKS</button>
+                <button class="swap-btn btn-primary" data-action="accept">ACCEPT OFFER</button>
+              </div>
+            `,
+            swapButtons: true,
+            swapDelay: 1800,
+            traps: [
+              { selector: '[data-action="accept"]', isCorrect: false, trapType: 'renew', message: "Gotcha! The buttons swapped positions. Classic misdirection." },
+              { selector: '[data-action="decline"]', isCorrect: true, successMsg: "You tracked the button! Most people don't notice the swap." }
+            ]
+          },
+          {
+            // Screen 4: The Double Negative
+            html: `
+              <h3>⚠️ Cancel Confirmation</h3>
+              <p>Please confirm your cancellation preferences:</p>
+              <div class="confusing-text">
+                <label>
+                  <input type="checkbox" checked>
+                  Don't uncheck this box if you wouldn't not like to discontinue your non-renewal of subscription services.
+                </label>
+              </div>
+              <button class="main-btn" data-action="confirm">CONFIRM</button>
+              <a class="reveal-link shown" data-action="actual-cancel">Cancel my subscription →</a>
+            `,
+            traps: [
+              { selector: '[data-action="confirm"]', isCorrect: false, trapType: 'stall', message: "That word salad was designed to confuse you. Look for a clearer option..." },
+              { selector: '[data-action="actual-cancel"]', isCorrect: true, successMsg: "Yes! When you see confusing language, ignore it and find the real cancel link." }
+            ]
+          },
+          {
+            // Screen 5: The Hostage Video
+            html: `
+              <div class="video-container">
+                <span class="skip-btn" data-action="skip">Skip</span>
+                <div class="video-ceo">
+                  "Hi, I'm Todd, CEO of StreamFlix.<br><br>
+                  I personally wanted to ask you to stay.
+                  Our team works SO hard on this content.
+                  Think of the artists. The writers. The dreams...<br><br>
+                  Please reconsider."
+                </div>
+              </div>
+              <button class="main-btn" data-action="stay">I'LL STAY, TODD</button>
+            `,
+            hiddenElement: { selector: '.skip-btn', showAfter: 1500 },
+            traps: [
+              { selector: '[data-action="stay"]', isCorrect: false, trapType: 'renew', message: "Todd doesn't care about you. He cares about metrics. Find the skip button." },
+              { selector: '[data-action="skip"]', isCorrect: true, successMsg: "Never let them guilt you! You don't owe Todd anything." }
+            ]
+          },
+          {
+            // Screen 6: The Final Boss
+            html: `
+              <h3>🛑 FINAL STEP</h3>
+              <p>Type "I want to cancel" to confirm:</p>
+              <input type="text" class="type-input" placeholder="Type here...">
+              <ul class="forfeit-list">
+                <li>47 hours of watch history</li>
+                <li>Your personalized recommendations</li>
+                <li>The #47 spot on the leaderboard</li>
+                <li>Todd's respect</li>
+              </ul>
+              <button class="final-btn disabled" data-action="final-cancel">CANCEL SUBSCRIPTION</button>
+            `,
+            requiresInput: {
+              buttonSelector: '[data-action="final-cancel"]',
+              successMsg: "🎉 FREEDOM! You made it through the gauntlet!"
+            }
+          }
         ],
-        points: 100
+        points: 150
       },
       {
         type: 'redpen',
