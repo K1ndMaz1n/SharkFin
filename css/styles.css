@@ -3706,6 +3706,414 @@
   font-size: 14px;
 }
 
+/* ========== INCOME DEPTHS ARTIFACTS ========== */
+
+/* Fake Salary Site */
+.fake-salary-site {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  font-family: system-ui, sans-serif;
+  color: #333;
+}
+
+.fake-salary-site .salary-header {
+  font-size: 12px;
+  color: #6366f1;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.fake-salary-site .salary-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.fake-salary-site .salary-range {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.fake-salary-site .range-item {
+  text-align: center;
+  flex: 1;
+}
+
+.fake-salary-site .range-item.featured {
+  background: #f0fdf4;
+  padding: 12px 8px;
+  border-radius: 8px;
+  margin: -12px 8px;
+}
+
+.fake-salary-site .range-value {
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.fake-salary-site .range-item.featured .range-value {
+  font-size: 24px;
+  color: #16a34a;
+}
+
+.fake-salary-site .range-label {
+  font-size: 11px;
+  color: #888;
+  text-transform: uppercase;
+}
+
+.fake-salary-site .salary-meta {
+  font-size: 12px;
+  color: #888;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.fake-salary-site .salary-likely {
+  background: #f3f4f6;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.fake-salary-site .salary-note {
+  font-size: 12px;
+  color: #6366f1;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.fake-salary-site .salary-cta {
+  text-align: center;
+  font-size: 12px;
+  color: #888;
+}
+
+/* Fake Side Hustle Ad */
+.fake-hustle-ad {
+  background: linear-gradient(135deg, #1e1e1e, #2d2d2d);
+  color: #fff;
+  padding: 20px;
+  font-family: system-ui, sans-serif;
+  border-radius: 12px;
+}
+
+.fake-hustle-ad .hustle-header {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+.fake-hustle-ad .hustle-body {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.fake-hustle-ad .hustle-body p {
+  margin: 0 0 12px 0;
+}
+
+.fake-hustle-ad .hustle-bullets {
+  margin-bottom: 16px;
+}
+
+.fake-hustle-ad .hustle-bullets div {
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.fake-hustle-ad .hustle-cta {
+  background: #10b981;
+  color: #fff;
+  text-align: center;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.fake-hustle-ad .hustle-tags {
+  font-size: 12px;
+  color: #888;
+  text-align: center;
+}
+
+/* ========== SYSTEMS ABYSS ARTIFACTS ========== */
+
+/* Fake Credit Report */
+.fake-credit-report {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  font-family: system-ui, sans-serif;
+  color: #333;
+}
+
+.fake-credit-report .credit-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #eee;
+  margin-bottom: 16px;
+}
+
+.fake-credit-report .credit-label {
+  font-size: 11px;
+  color: #888;
+  text-transform: uppercase;
+}
+
+.fake-credit-report .credit-score {
+  font-size: 36px;
+  font-weight: bold;
+  color: #f59e0b;
+}
+
+.fake-credit-report .credit-rating {
+  font-size: 14px;
+  color: #f59e0b;
+  font-weight: 500;
+}
+
+.fake-credit-report .credit-section {
+  margin-bottom: 14px;
+}
+
+.fake-credit-report .section-title {
+  font-size: 10px;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.fake-credit-report .account-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  padding: 4px 0;
+}
+
+.fake-credit-report .credit-stat {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.fake-credit-report .credit-note {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.fake-credit-report .warn {
+  color: #dc2626;
+}
+
+.fake-credit-report .muted {
+  color: #888;
+}
+
+/* Fake Tax Document */
+.fake-tax-doc {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  font-family: 'Courier New', monospace;
+  color: #333;
+  font-size: 12px;
+}
+
+.fake-tax-doc .tax-header {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #333;
+  margin-bottom: 12px;
+}
+
+.fake-tax-doc .tax-section {
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.fake-tax-doc .tax-label {
+  font-size: 10px;
+  font-weight: bold;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.fake-tax-doc .tax-value {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.fake-tax-doc .tax-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+}
+
+.fake-tax-doc .tax-row.result {
+  font-weight: bold;
+  border-top: 1px solid #ccc;
+  margin-top: 4px;
+  padding-top: 4px;
+}
+
+.fake-tax-doc .tax-footer {
+  display: flex;
+  justify-content: space-around;
+  background: #f5f5f5;
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 4px;
+}
+
+.fake-tax-doc .tax-stat {
+  text-align: center;
+}
+
+.fake-tax-doc .tax-stat span:first-child {
+  display: block;
+  font-size: 10px;
+  color: #666;
+}
+
+.fake-tax-doc .tax-stat .highlight {
+  font-size: 18px;
+  font-weight: bold;
+  color: #16a34a;
+}
+
+/* Fake Insurance Comparison */
+.fake-insurance-compare {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  font-family: system-ui, sans-serif;
+  color: #333;
+}
+
+.fake-insurance-compare .ins-header {
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.fake-insurance-compare .ins-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.fake-insurance-compare .ins-col {
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.fake-insurance-compare .ins-col.highlight {
+  background: #fef3c7;
+  border: 2px solid #f59e0b;
+}
+
+.fake-insurance-compare .ins-type {
+  font-size: 11px;
+  font-weight: bold;
+  color: #666;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.fake-insurance-compare .ins-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 4px 0;
+}
+
+.fake-insurance-compare .ins-row .good {
+  color: #16a34a;
+  font-weight: bold;
+}
+
+.fake-insurance-compare .ins-row .warn {
+  color: #dc2626;
+  font-weight: bold;
+}
+
+.fake-insurance-compare .ins-pitch {
+  margin-top: 12px;
+  text-align: center;
+  font-style: italic;
+  font-size: 12px;
+  color: #666;
+}
+
+/* Fake Contract */
+.fake-contract {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  font-family: 'Times New Roman', serif;
+  color: #333;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.fake-contract .contract-header {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #333;
+  margin-bottom: 12px;
+}
+
+.fake-contract .contract-section {
+  margin-bottom: 12px;
+}
+
+.fake-contract .contract-label {
+  font-size: 10px;
+  font-weight: bold;
+  color: #666;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.fake-contract .contract-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+}
+
+.fake-contract .contract-row.warn span:last-child {
+  color: #dc2626;
+}
+
+.fake-contract .contract-text {
+  font-size: 11px;
+  color: #444;
+  line-height: 1.6;
+}
+
 /* REDPEN - Contract slashing */
 .redpen-header {
   display: flex;
