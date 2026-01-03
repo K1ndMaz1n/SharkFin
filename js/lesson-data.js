@@ -638,8 +638,1115 @@ const LessonData = {
   },
 
   // ============================================================
-  // PURCHASE SHALLOWS - 4 CORE LESSONS
+  // SYSTEMS ABYSS - 5 LESSONS
   // ============================================================
+
+  // ============== LESSON 1: CREDIT SCORE DECODED ==============
+  credit_score_decoded: {
+    id: 'lesson_credit',
+    title: 'Credit Score Decoded',
+    steps: [
+      {
+        type: 'info',
+        icon: '🔢',
+        title: 'The Number That Controls Your Life',
+        content: `Your credit score affects:<br>• Whether you can rent an apartment<br>• What interest rate you pay on everything<br>• Whether you get approved for loans<br>• Sometimes even job offers<br><br>A 650 score vs 750 score on a $300,000 mortgage = <strong>$50,000+ more in interest</strong> over 30 years.<br><br>Yet most people have no idea how the score actually works.`
+      },
+      {
+        type: 'info',
+        icon: '📊',
+        title: 'The Five Factors',
+        content: `Your FICO score (300-850) is calculated from:<br><br><strong>Payment History (35%)</strong> - Do you pay on time?<br><strong>Credit Utilization (30%)</strong> - How much of your available credit are you using?<br><strong>Length of History (15%)</strong> - How old are your accounts?<br><strong>Credit Mix (10%)</strong> - Different types of credit?<br><strong>New Credit (10%)</strong> - Recent applications?<br><br>The first two = 65% of your score. Master those first.`
+      },
+      {
+        type: 'artifact',
+        context: "Your credit report shows this...",
+        contextIcon: '📋',
+        artifactType: 'credit-report',
+        artifactHTML: `<div class="fake-credit-report"><div class="credit-header"><span class="credit-label">CREDIT SCORE</span><span class="credit-score">672</span><span class="credit-rating">Fair</span></div><div class="credit-section"><div class="section-title">ACCOUNTS</div><div class="account-row"><span>Chase Visa</span><span class="warn">$4,200 / $5,000 (84%)</span></div><div class="account-row"><span>Capital One</span><span>$0 / $2,000 (0%)</span></div><div class="account-row"><span>Car Loan</span><span>$12,400 remaining</span></div><div class="account-row"><span>Store Card</span><span class="muted">Closed 2019</span></div></div><div class="credit-section"><div class="section-title">PAYMENT HISTORY</div><div class="credit-stat">97% on-time</div><div class="credit-note warn">1 late payment (32 days) - March 2023</div></div><div class="credit-section"><div class="section-title">HARD INQUIRIES (12 mo)</div><div class="credit-stat warn">4</div></div><div class="credit-section"><div class="section-title">AVG ACCOUNT AGE</div><div class="credit-stat">3.2 years</div></div></div>`,
+        prompt: "Your score is 672. Find what's holding it back.",
+        hotspots: [
+          { x: 55, y: 25, width: 40, height: 8, isHook: true, explanation: "84% utilization is killing your score. Over 30% hurts. Pay this down to under $1,500 and watch your score jump 30-50 points." },
+          { x: 55, y: 33, width: 40, height: 8, isHook: true, explanation: "0% isn't ideal either. Use this card for a small recurring charge ($10/month), then autopay. Shows active positive history." },
+          { x: 5, y: 55, width: 90, height: 8, isHook: true, explanation: "One late payment drags you down for 7 years. Can drop your score 100+ points. Set up autopay for at least the minimum." },
+          { x: 5, y: 68, width: 90, height: 8, isHook: true, explanation: "4 inquiries looks like you're desperate for credit. Each dings 5-10 points. Stop applying for a while." }
+        ],
+        points: 100
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '💳', name: 'Credit Card Offer' },
+        content: `You get a letter:<br><br><em>"Congratulations! You're pre-approved for the Platinum Rewards Card! 50,000 bonus points! 0% APR for 18 months! Apply now - this exclusive offer expires in 7 days!"</em><br><br>You already have 3 credit cards and just applied for a car loan last month.`,
+        choices: [
+          { text: "Apply - 50,000 points is valuable!", correct: false, explanation: "You just applied for a car loan, so another inquiry hurts. Plus a new account lowers your average age. Wait 6+ months." },
+          { text: "Ignore it - I don't need more credit cards.", correct: true, explanation: "Right move. Another inquiry and new account would hurt more than the points are worth. Let your score recover." },
+          { text: "Apply but don't use it.", correct: false, explanation: "The damage happens at application (hard inquiry). Opening it still hurts your average account age." }
+        ],
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '🚫',
+        title: 'Credit Score Myths Busted',
+        content: `<strong>Myth:</strong> Checking your own score hurts it.<br><strong>Truth:</strong> That's a "soft inquiry" - no impact. Check monthly.<br><br><strong>Myth:</strong> Carrying a balance builds credit.<br><strong>Truth:</strong> Paying in full is better. Utilization is measured at statement date.<br><br><strong>Myth:</strong> Closing old cards helps your score.<br><strong>Truth:</strong> It HURTS - reduces available credit and shortens history.<br><br><strong>Myth:</strong> Income affects your score.<br><strong>Truth:</strong> Income isn't on your credit report at all.`
+      },
+      {
+        type: 'bsdetector',
+        platform: '📺 TV Commercial',
+        guruName: 'CreditBoost Pro',
+        guruAvatar: '📈',
+        script: [
+          { text: "Is your credit score holding you back?", isLie: false, duration: 2000 },
+          { text: "Our proprietary system can boost your score 100 points in 30 days - GUARANTEED!", isLie: true, truth: "No legitimate service can guarantee specific increases. Only paying down balances, time, and fixing errors reliably work.", duration: 4500 },
+          { text: "We'll dispute ALL negative items on your report!", isLie: true, truth: "Disputing accurate information is fraud. Legitimate negatives can't be legally removed.", duration: 4000 },
+          { text: "For just $99/month, you'll get premium credit monitoring!", isLie: true, truth: "Free options exist: Credit Karma, your bank's app, AnnualCreditReport.com. You're paying for something free.", duration: 4000 },
+          { text: "Join thousands who've transformed their financial future!", isLie: false, duration: 2000 }
+        ]
+      },
+      {
+        type: 'reverse',
+        title: 'Credit Score Simulator',
+        villainIcon: '📊',
+        instruction: "You have a 650 score. See what moves the needle.",
+        sliders: [
+          { label: 'Pay Down Utilization (from 60% to)', min: 5, max: 60, default: 60, step: 5, suffix: '%' },
+          { label: 'Months On-Time Payments', min: 0, max: 24, default: 0, step: 3, suffix: ' mo' },
+          { label: 'New Credit Applications', min: 0, max: 5, default: 0, step: 1, suffix: '' },
+          { label: 'Close Old Card?', min: 0, max: 1, default: 0, step: 1, suffix: '' }
+        ],
+        calculate: (values) => {
+          const [utilization, months, applications, closedCard] = values;
+          let score = 650;
+          if (utilization <= 30) score += 35;
+          else if (utilization <= 50) score += 15;
+          score += months * 2;
+          score -= applications * 7;
+          if (closedCard) score -= 12;
+          const projected = Math.min(850, Math.max(300, score));
+          return { monthly: Math.round(60 - utilization), total: projected, hidden: projected - 650 };
+        },
+        checkGoal: (result) => result.total >= 720,
+        goal: 'Get projected score above 720',
+        revelation: "Fastest wins: pay down utilization (instant at next statement) and stop applying for things. Time and consistency do the rest. No magic tricks needed.",
+        resultLabels: { monthly: 'Utilization Drop', total: 'Projected Score', hidden: 'Point Change' },
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '🏗️',
+        title: 'Building Credit From Scratch',
+        content: `No credit history? Here's the path:<br><br><strong>Step 1:</strong> Get a secured credit card ($200-500 deposit)<br><strong>Step 2:</strong> Use it for one small purchase per month<br><strong>Step 3:</strong> Pay FULL balance every month (autopay!)<br><strong>Step 4:</strong> After 6-12 months, request upgrade to regular card<br><strong>Step 5:</strong> Never close that first card - it's your oldest account<br><br><strong>Alternative:</strong> Become authorized user on parent's OLD card with good history.`
+      },
+      {
+        type: 'weapon',
+        name: 'The Credit Checkup',
+        description: "Check your credit score monthly (free via Credit Karma or your bank). Focus on utilization (keep under 30%) and payment history (never miss, use autopay). That's 65% of your score controlled.",
+        phrase: "What's my utilization, and are all payments on autopay?"
+      },
+      {
+        type: 'summary',
+        title: 'Credit Score Decoded Complete',
+        keyTakeaways: [
+          'Payment history (35%) + utilization (30%) = 65% of your score',
+          'Keep utilization under 30% - under 10% is even better',
+          'One late payment can drop your score 100+ points',
+          "Checking your own score doesn't hurt it",
+          'Never close old cards - it hurts more than helps',
+          'Credit repair companies are mostly scams'
+        ]
+      }
+    ]
+  },
+
+  // ============== LESSON 2: TAX FUNDAMENTALS ==============
+  tax_fundamentals: {
+    id: 'lesson_tax',
+    title: 'Tax Fundamentals',
+    steps: [
+      {
+        type: 'info',
+        icon: '🏛️',
+        title: 'The Most Misunderstood System',
+        content: `"I don't want a raise - it'll put me in a higher tax bracket!"<br><br>This is the most expensive misunderstanding in personal finance.<br><br>Tax brackets are MARGINAL. Only the money ABOVE each threshold is taxed at that rate - not all your income.<br><br><strong>A raise NEVER results in less take-home pay. Never.</strong>`
+      },
+      {
+        type: 'info',
+        icon: '📊',
+        title: 'How Brackets Actually Work',
+        content: `2024 Single Filer brackets (simplified):<br><br>$0 - $11,600: <strong>10%</strong><br>$11,601 - $47,150: <strong>12%</strong><br>$47,151 - $100,525: <strong>22%</strong><br>$100,526 - $191,950: <strong>24%</strong><br><br>If you earn $60,000:<br>• First $11,600 × 10% = $1,160<br>• Next $35,550 × 12% = $4,266<br>• Last $12,850 × 22% = $2,827<br><br><strong>Total tax: $8,253</strong> (effective rate: 13.8%)<br><br>NOT $60,000 × 22% = $13,200!`
+      },
+      {
+        type: 'artifact',
+        context: "You're calculating your taxes...",
+        contextIcon: '🧮',
+        artifactType: 'tax-breakdown',
+        artifactHTML: `<div class="fake-tax-doc"><div class="tax-header">TAX CALCULATION</div><div class="tax-section"><div class="tax-label">GROSS INCOME</div><div class="tax-value">$75,000</div></div><div class="tax-section"><div class="tax-label">ADJUSTMENTS</div><div class="tax-row"><span>401(k) Contribution</span><span>-$6,000</span></div><div class="tax-row"><span>HSA Contribution</span><span>-$3,000</span></div><div class="tax-row result"><span>Adjusted Gross Income</span><span>$66,000</span></div></div><div class="tax-section"><div class="tax-label">DEDUCTION</div><div class="tax-row"><span>Standard Deduction</span><span>-$14,600</span></div><div class="tax-row result"><span>Taxable Income</span><span>$51,400</span></div></div><div class="tax-section"><div class="tax-label">TAX (MARGINAL)</div><div class="tax-row"><span>$11,600 @ 10%</span><span>$1,160</span></div><div class="tax-row"><span>$35,550 @ 12%</span><span>$4,266</span></div><div class="tax-row"><span>$4,250 @ 22%</span><span>$935</span></div><div class="tax-row result"><span>Total Tax</span><span>$6,361</span></div></div><div class="tax-footer"><div class="tax-stat"><span>Effective Rate</span><span class="highlight">8.5%</span></div><div class="tax-stat"><span>Marginal Rate</span><span>22%</span></div></div></div>`,
+        prompt: 'Find how the tax calculation actually works.',
+        hotspots: [
+          { x: 5, y: 22, width: 90, height: 8, isHook: false, explanation: "401(k) is pre-tax - you saved $6,000 AND reduced taxable income. At 22% marginal rate, this saves $1,320 in taxes." },
+          { x: 5, y: 42, width: 90, height: 8, isHook: true, explanation: "Everyone gets this - it's why most people don't itemize. Your first $14,600 is completely tax-free." },
+          { x: 5, y: 82, width: 45, height: 10, isHook: true, explanation: "This is what you ACTUALLY pay. Much lower than your '22% bracket' sounds." },
+          { x: 5, y: 68, width: 90, height: 8, isHook: true, explanation: "Only $4,250 is taxed at 22% - not all $75,000. The marginal system at work." }
+        ],
+        points: 100
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '👨‍💼', name: 'Your Coworker' },
+        content: `Your coworker says:<br><br><em>"I'm turning down the overtime. After taxes, it's barely worth it. They take like 40% of everything extra I make!"</em><br><br>He's in the 22% tax bracket. Overtime is taxed the same as regular income.`,
+        choices: [
+          { text: "Yeah, the government takes most of it.", correct: false, explanation: "Overtime is taxed at his marginal rate (22%), not 40%. He keeps 78 cents of every extra dollar." },
+          { text: "That's not how taxes work. You keep most of it.", correct: true, explanation: "Withholding LOOKS high because it's calculated differently, but actual tax is still 22%. The 'extra' comes back as a refund." },
+          { text: "You should adjust your W-4 to keep more.", correct: false, explanation: "You could, but the better lesson is understanding that high withholding is temporary - you get it back at tax time." }
+        ],
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '🧾',
+        title: 'Deductions and Credits',
+        content: `Two ways to reduce taxes:<br><br><strong>Deductions</strong> = Reduce taxable income<br>• Standard: $14,600 (single) or $29,200 (married)<br>• Itemized: mortgage interest, state taxes, charity<br><br><strong>Credits</strong> = Direct reduction of tax owed (more valuable!)<br>• Child Tax Credit: up to $2,000 per child<br>• Earned Income Credit: for lower incomes<br>• Education credits: up to $2,500/year<br><br>$1,000 deduction at 22% saves $220<br>$1,000 credit saves $1,000<br><br><strong>Credits > Deductions</strong>`
+      },
+      {
+        type: 'bsdetector',
+        platform: '📱 Social Media',
+        guruName: 'WealthTok Advisor',
+        guruAvatar: '💵',
+        script: [
+          { text: "Want to pay ZERO taxes like the rich?", isLie: false, duration: 2000 },
+          { text: "Just put EVERYTHING in an LLC and write off your lifestyle!", isLie: true, truth: "LLCs don't make personal expenses deductible. Writing off vacations as 'business trips' is tax fraud.", duration: 4500 },
+          { text: "Your car, your phone, your meals - all business expenses!", isLie: true, truth: "Only ACTUAL business expenses are deductible. Your personal car isn't a business expense because you have an LLC.", duration: 4000 },
+          { text: "The tax code has loopholes only the rich know about!", isLie: true, truth: "The 'loopholes' are retirement accounts and HSAs - available to everyone. Rich strategies require being rich.", duration: 4000 },
+          { text: "DM me to learn how to pay no taxes legally!", isLie: true, truth: "They're selling courses on illegal tax evasion. This gets people audited and fined.", duration: 4000 }
+        ]
+      },
+      {
+        type: 'sharklens',
+        instruction: 'Tap each section to understand how W-4 affects your paycheck.',
+        documentType: 'w4-form',
+        documentTitle: 'W-4 EMPLOYEE WITHHOLDING',
+        documentText: `Use this form to determine federal income tax withholding.<br><br><strong>Step 1:</strong> Personal Information<br><strong>Step 2:</strong> Multiple Jobs or Spouse Works<br><strong>Step 3:</strong> Claim Dependents ($2,000 × children)<br><strong>Step 4a:</strong> Other Income (not from jobs)<br><strong>Step 4b:</strong> Deductions (if > standard)<br><strong>Step 4c:</strong> Extra Withholding (per paycheck)`,
+        terms: [
+          { jargon: 'Step 2: Multiple Jobs', realMeaning: "If you or spouse have multiple jobs, you'll owe MORE than single-job withholding calculates. Use the IRS calculator or you'll owe at tax time." },
+          { jargon: 'Step 3: Claim Dependents', realMeaning: "This REDUCES withholding. Claim accurately or you'll owe. Better to under-claim than over-claim." },
+          { jargon: 'Step 4c: Extra Withholding', realMeaning: "If you always owe at tax time, add extra here. Getting a big refund? You've given the government an interest-free loan." },
+          { jargon: 'Standard Deduction', realMeaning: "If mortgage interest + state taxes + charity exceeds $14,600, you might itemize. Otherwise standard applies automatically." }
+        ]
+      },
+      {
+        type: 'reverse',
+        title: 'Tax Strategy Playground',
+        villainIcon: '🧮',
+        instruction: "You earn $80,000. See how different moves affect your taxes.",
+        sliders: [
+          { label: '401(k) Contribution', min: 0, max: 23000, default: 0, step: 1000, suffix: '' },
+          { label: 'HSA Contribution', min: 0, max: 4150, default: 0, step: 500, suffix: '' },
+          { label: 'Child Tax Credits', min: 0, max: 4000, default: 0, step: 2000, suffix: '' }
+        ],
+        calculate: (values) => {
+          const [k401, hsa, childCredits] = values;
+          const gross = 80000;
+          const agi = gross - k401 - hsa;
+          const taxable = Math.max(0, agi - 14600);
+          let tax = 0;
+          if (taxable > 0) tax += Math.min(taxable, 11600) * 0.10;
+          if (taxable > 11600) tax += Math.min(taxable - 11600, 35550) * 0.12;
+          if (taxable > 47150) tax += (taxable - 47150) * 0.22;
+          const finalTax = Math.max(0, tax - childCredits);
+          const effectiveRate = ((finalTax / gross) * 100).toFixed(1);
+          const saved = Math.round(((80000 - 14600) * 0.15) - finalTax);
+          return { monthly: Math.round(taxable), total: parseFloat(effectiveRate), hidden: Math.round(finalTax) };
+        },
+        checkGoal: (result) => result.total < 10,
+        goal: 'Get effective tax rate below 10%',
+        revelation: "Without optimizing: 12-13% effective rate. With 401(k) and HSA maxed: under 10% - while building wealth. Tax optimization and retirement savings are the same thing.",
+        resultLabels: { monthly: 'Taxable Income', total: 'Effective Rate %', hidden: 'Tax Owed' },
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '💰',
+        title: 'The Big Three Tax Reducers',
+        content: `For most people, three moves do 90% of the work:<br><br><strong>1. 401(k) / 403(b) / IRA</strong><br>Contribute pre-tax, reduce taxable income NOW, pay taxes later in retirement (likely lower bracket)<br><br><strong>2. HSA (if eligible)</strong><br>Triple tax advantage: tax-free in, tax-free growth, tax-free out for medical. Best account in the tax code.<br><br><strong>3. Don't over-withhold</strong><br>Big refund = interest-free loan to government. Adjust W-4 to break even.`
+      },
+      {
+        type: 'weapon',
+        name: 'The Marginal Rate Reality',
+        description: "When evaluating financial decisions involving taxes: you pay your MARGINAL rate on additional income, but your EFFECTIVE rate on total income. A raise always increases take-home pay. Extra income is always worth earning.",
+        phrase: "What's my marginal rate, and what's my effective rate?"
+      },
+      {
+        type: 'summary',
+        title: 'Tax Fundamentals Complete',
+        keyTakeaways: [
+          'Tax brackets are marginal - only income ABOVE each threshold is taxed at that rate',
+          'A raise never results in less take-home pay',
+          "Standard deduction ($14,600) means most people don't itemize",
+          'Credits > Deductions (credits reduce tax directly)',
+          '401(k) and HSA are the biggest tax reducers for most people',
+          'Big refunds = interest-free loans to the government'
+        ]
+      }
+    ]
+  },
+
+  // ============== LESSON 3: INSURANCE ESSENTIALS ==============
+  insurance_essentials: {
+    id: 'lesson_insurance',
+    title: 'Insurance Essentials',
+    steps: [
+      {
+        type: 'info',
+        icon: '🛡️',
+        title: 'Insurance is Risk Transfer',
+        content: `Insurance isn't about hope or fear. It's a simple trade:<br><br><strong>You pay:</strong> Predictable small amounts (premiums)<br><strong>They pay:</strong> Unpredictable large amounts (claims)<br><br>The question for ANY insurance:<br><strong>"Would this cost ruin me financially?"</strong><br><br>If yes → insure it<br>If no → you might be overpaying for peace of mind`
+      },
+      {
+        type: 'info',
+        icon: '✅',
+        title: 'Insurance You Probably Need',
+        content: `<strong>Health Insurance</strong> - Medical bankruptcy is #1 cause of bankruptcy. Non-negotiable.<br><br><strong>Auto Insurance</strong> - Required by law + liability protects your assets.<br><br><strong>Renters/Homeowners</strong> - Your stuff + liability. Cheap for the protection.<br><br><strong>Term Life</strong> (if dependents) - Replaces your income if you die. Only need while others depend on you.<br><br><strong>Disability</strong> (often overlooked) - You're more likely to be disabled than die young. Protects your income.`
+      },
+      {
+        type: 'info',
+        icon: '❌',
+        title: "Insurance That's Usually a Waste",
+        content: `<strong>Extended warranties</strong> - High profit margin for sellers. Most electronics don't fail during warranty.<br><br><strong>Whole/Universal Life</strong> - Combines insurance + investing poorly. Term + separate investing wins 95% of the time.<br><br><strong>Credit card insurance</strong> - Your life/disability insurance already covers this.<br><br><strong>Rental car insurance</strong> - Your auto policy and credit card often cover this.<br><br><strong>Phone insurance</strong> - $10/month × 24 = $240 + $100 deductible. Just buy a replacement.`
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '📺', name: 'Electronics Store' },
+        content: `You're buying a $600 laptop. The cashier says:<br><br><em>"Would you like our protection plan? For just $149, you're covered for 3 years against accidents, drops, and spills. Peace of mind!"</em>`,
+        choices: [
+          { text: "Yes, I'm clumsy and this protects me.", correct: false, explanation: "You're paying 25% of the laptop's cost for coverage that rarely gets used. Most failures happen outside warranty periods or aren't covered." },
+          { text: "No thanks - I'll risk it.", correct: true, explanation: "Statistically correct. Put $149 in savings. If your laptop dies (unlikely in 3 years), you're ahead by self-insuring small losses." },
+          { text: "Can I get a longer warranty?", correct: false, explanation: "Longer = more profit for them. The math gets worse, not better." }
+        ],
+        points: 100
+      },
+      {
+        type: 'artifact',
+        context: "Your insurance agent proposes this...",
+        contextIcon: '📋',
+        artifactType: 'insurance-comparison',
+        artifactHTML: `<div class="fake-insurance-compare"><div class="ins-header">LIFE INSURANCE COMPARISON</div><div class="ins-columns"><div class="ins-col"><div class="ins-type">TERM LIFE (20yr)</div><div class="ins-row"><span>Coverage</span><span>$500,000</span></div><div class="ins-row"><span>Monthly</span><span class="good">$32</span></div><div class="ins-row"><span>Death Benefit</span><span>$500k (20 yrs)</span></div><div class="ins-row"><span>Cash Value</span><span>$0</span></div></div><div class="ins-col highlight"><div class="ins-type">WHOLE LIFE</div><div class="ins-row"><span>Coverage</span><span>$500,000</span></div><div class="ins-row"><span>Monthly</span><span class="warn">$385</span></div><div class="ins-row"><span>Death Benefit</span><span>$500k (lifetime)</span></div><div class="ins-row"><span>Cash Value @20yr</span><span>~$85,000</span></div></div></div><div class="ins-pitch">"Whole life BUILDS WEALTH while protecting your family!"</div></div>`,
+        prompt: 'The agent recommends whole life. Find why term is usually better.',
+        hotspots: [
+          { x: 5, y: 30, width: 90, height: 12, isHook: true, explanation: "Term costs 12x less. The $353/month difference invested at 7% for 20 years = $173,000. Way more than whole life's $85k 'cash value.'" },
+          { x: 50, y: 55, width: 45, height: 10, isHook: true, explanation: "You're paying ~$92,000 in premiums to get $85,000 back. The insurance company profits from the difference." },
+          { x: 5, y: 75, width: 90, height: 10, isHook: true, explanation: "Insurance isn't an investment vehicle. Buy cheap term, invest the difference. You'll come out $80,000+ ahead." }
+        ],
+        points: 100
+      },
+      {
+        type: 'sharklens',
+        instruction: 'Tap each coverage to understand what you really need.',
+        documentType: 'auto-policy',
+        documentTitle: 'AUTO INSURANCE POLICY',
+        documentText: `<strong>Liability:</strong> $50,000 / $100,000 / $50,000<br><strong>Collision:</strong> $500 deductible<br><strong>Comprehensive:</strong> $250 deductible<br><strong>Uninsured Motorist:</strong> $50,000 / $100,000<br><br><strong>Premium:</strong> $1,847 / year<br><br><strong>Optional:</strong><br>• Roadside Assistance: $24/year<br>• Rental Reimbursement: $48/year<br>• Gap Insurance: $180/year`,
+        terms: [
+          { jargon: 'Liability: $50,000 / $100,000', realMeaning: "Covers damage YOU cause. $100k might not be enough for a serious accident. Consider $250k/$500k - costs only slightly more." },
+          { jargon: 'Collision: $500 deductible', realMeaning: "You pay first $500 on any collision. Raising to $1,000 saves ~15% on premium. Worth it if you have savings." },
+          { jargon: 'Gap Insurance', realMeaning: "Only needed if you owe more than car is worth. Check loan balance vs car value. Positive equity = wasted money." },
+          { jargon: 'Roadside Assistance', realMeaning: "Your credit card or AAA might already include this. Don't double-pay." }
+        ]
+      },
+      {
+        type: 'reverse',
+        title: 'Deductible Trade-Off',
+        villainIcon: '⚖️',
+        instruction: "Your car insurance is $2,000/year with $500 deductible. See how raising it affects the math.",
+        sliders: [
+          { label: 'Deductible Amount', min: 500, max: 2000, default: 500, step: 250, suffix: '' },
+          { label: 'Expected Claims (5 years)', min: 0, max: 3, default: 1, step: 1, suffix: '' }
+        ],
+        calculate: (values) => {
+          const [deductible, claims] = values;
+          const basePremium = 2000;
+          const premiumSavings = (deductible - 500) * 0.12;
+          const annualPremium = basePremium - premiumSavings;
+          const fiveYearPremium = annualPremium * 5;
+          const claimCost = claims * deductible;
+          const totalCost = fiveYearPremium + claimCost;
+          const vsBaseline = (basePremium * 5) + (claims * 500) - totalCost;
+          return { monthly: Math.round(annualPremium), total: Math.round(totalCost), hidden: Math.round(vsBaseline) };
+        },
+        checkGoal: (result) => result.hidden > 200,
+        goal: 'Find a deductible that saves you $200+ over 5 years',
+        revelation: "For most drivers (0-1 claims per 5 years), higher deductible saves money. Premium savings exceed the extra deductible. Just keep that amount in savings.",
+        resultLabels: { monthly: 'Annual Premium', total: '5-Year Total Cost', hidden: 'Savings vs $500' },
+        points: 100
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '📧', name: 'Insurance Renewal' },
+        content: `Your renters insurance renewal arrives:<br><br><em>"Premium increasing from $180/year to $215/year. Coverage: $30,000 personal property, $100,000 liability, $1,000 deductible."</em><br><br>You own maybe $10,000 worth of stuff total.`,
+        choices: [
+          { text: "Just pay it - it's only $35 more.", correct: false, explanation: "You're paying for $30,000 coverage when you have $10,000 of stuff. Reduce coverage and save money." },
+          { text: "Shop around and reduce coverage to match what I own.", correct: true, explanation: "Right move. Match coverage to belongings. Also get quotes from 3+ companies - renters insurance varies wildly." },
+          { text: "Cancel it - I don't need renters insurance.", correct: false, explanation: "Liability coverage alone is worth it. If someone gets hurt in your apartment, you could be sued. Keep it, right-size it." }
+        ],
+        points: 100
+      },
+      {
+        type: 'weapon',
+        name: 'The Coverage Audit',
+        description: "Annually review all insurance: Am I covered for catastrophic risks? Am I paying for coverage I don't need? Is my deductible appropriate? Could I get it cheaper elsewhere? Insurance covers what would ruin you - not minor inconveniences.",
+        phrase: "Does this cover a risk that would actually ruin me financially?"
+      },
+      {
+        type: 'summary',
+        title: 'Insurance Essentials Complete',
+        keyTakeaways: [
+          'Insurance transfers unpredictable large costs for predictable small ones',
+          'Must-haves: health, auto liability, renters/homeowners, term life if dependents',
+          'Usually skip: extended warranties, whole life, phone insurance',
+          'Higher deductibles save money if you have emergency savings',
+          'Term life + invest the difference beats whole life',
+          "Review coverage annually - don't pay for what you don't need"
+        ]
+      }
+    ]
+  },
+
+  // ============== LESSON 4: CONTRACT RED FLAGS ==============
+  contract_red_flags: {
+    id: 'lesson_contracts',
+    title: 'Contract Red Flags',
+    steps: [
+      {
+        type: 'info',
+        icon: '📜',
+        title: 'The Fine Print Problem',
+        content: `You've signed hundreds of contracts without reading them.<br><br>• Gym memberships<br>• Phone plans<br>• Software terms<br>• Apartment leases<br>• Employment agreements<br><br>Every one contains clauses favoring the company - and some contain traps that can cost you thousands.<br><br>You don't need to read everything. You need to know what to scan for.`
+      },
+      {
+        type: 'info',
+        icon: '🚩',
+        title: 'The Five Red Flags',
+        content: `When scanning any contract, look for:<br><br><strong>1. Auto-renewal clauses</strong> - Continues forever until YOU cancel (with specific notice requirements)<br><br><strong>2. Arbitration clauses</strong> - You give up right to sue. Disputes go to arbitration (favors companies).<br><br><strong>3. Cancellation penalties</strong> - Early termination fees, notice periods, continued payments.<br><br><strong>4. Price change clauses</strong> - "We may change pricing at any time."<br><br><strong>5. Liability waivers</strong> - "Not responsible for damages, including our negligence."`
+      },
+      {
+        type: 'artifact',
+        context: "You're signing up for a gym membership...",
+        contextIcon: '🏋️',
+        artifactType: 'gym-contract',
+        artifactHTML: `<div class="fake-contract"><div class="contract-header">FitLife Gym Membership Agreement</div><div class="contract-section"><div class="contract-label">MEMBERSHIP TERMS</div><div class="contract-row"><span>Monthly Rate</span><span>$49.99</span></div><div class="contract-row warn"><span>Annual Fee</span><span>$59.99 (every February)</span></div><div class="contract-row"><span>Initiation</span><span>$0 (WAIVED TODAY!)</span></div></div><div class="contract-section"><div class="contract-label">CANCELLATION</div><div class="contract-text">This agreement automatically renews month-to-month. To cancel, member must provide written notice 30 days before next billing. Requests must be submitted IN PERSON at home club during staffed hours.</div></div><div class="contract-section"><div class="contract-label">DISPUTES</div><div class="contract-text">Any dispute resolved through binding arbitration. Member waives right to jury trial or class action.</div></div><div class="contract-section"><div class="contract-label">FREEZE POLICY</div><div class="contract-text">Memberships may be frozen with doctor's note. Frozen months extend contract end date.</div></div></div>`,
+        prompt: 'This gym membership has traps. Find them.',
+        hotspots: [
+          { x: 5, y: 20, width: 90, height: 8, isHook: true, explanation: "Hidden fee! Your '$49.99/month' is actually $660/year, not $600. Many gyms bury this in paragraph 3." },
+          { x: 5, y: 38, width: 90, height: 10, isHook: true, explanation: "IN PERSON cancellation is a trap. Can't email, can't call. Many keep paying because it's inconvenient." },
+          { x: 5, y: 55, width: 90, height: 10, isHook: true, explanation: "You gave up your right to sue. Arbitration heavily favors companies. Standard but worth knowing." },
+          { x: 5, y: 70, width: 90, height: 10, isHook: true, explanation: "Freeze sounds good, but extends commitment. Freeze 3 months = 3 more months before you can cancel." }
+        ],
+        points: 100
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '🏢', name: 'New Landlord' },
+        content: `You're signing an apartment lease. You notice this clause:<br><br><em>"Upon lease termination, any disputes regarding security deposit shall be resolved through binding arbitration administered by LandlordArbitration Services LLC."</em>`,
+        choices: [
+          { text: "Sign it - everyone has arbitration clauses now.", correct: false, explanation: "Landlord-selected arbitration is heavily biased. Your state likely has tenant protections this might illegally waive." },
+          { text: "Ask to remove or modify this clause.", correct: true, explanation: "Always ask. Worst case: they say no. You might get it removed or modified to neutral arbitration." },
+          { text: "Refuse to rent here.", correct: false, explanation: "This is leverage, but you might fix it without losing the apartment. Try negotiating first." }
+        ],
+        points: 100
+      },
+      {
+        type: 'sharklens',
+        instruction: 'Tap each term to understand what rights you might be giving up.',
+        documentType: 'saas-terms',
+        documentTitle: 'SOFTWARE LICENSE AGREEMENT',
+        documentText: `By clicking "Accept," you agree to:<br><br><strong>1. LICENSE:</strong> Non-exclusive, non-transferable, revocable license to use the Software.<br><br><strong>2. PRICING:</strong> $29/month. We may modify pricing with 30 days email notice.<br><br><strong>3. DATA:</strong> You grant us perpetual, irrevocable license to use and share aggregated data from your use.<br><br><strong>4. TERMINATION:</strong> We may terminate for any reason with 30 days notice. 7 days to export data.<br><br><strong>5. LIABILITY:</strong> Total liability not to exceed fees paid in prior 12 months.`,
+        terms: [
+          { jargon: 'revocable license', realMeaning: "They can take away access anytime. You don't 'own' anything - you're renting." },
+          { jargon: 'modify pricing with 30 days notice', realMeaning: "Your $29/month could become $99 with just an email. Build an exit plan for critical software." },
+          { jargon: 'perpetual, irrevocable license to data', realMeaning: "Even after you leave, they use your data forever. Know what you're giving up." },
+          { jargon: '7 days to export', realMeaning: "One week to get your data out. Know the export process BEFORE you need it." }
+        ]
+      },
+      {
+        type: 'info',
+        icon: '✍️',
+        title: 'Negotiating Contracts',
+        content: `Most people don't realize: <strong>contracts are often negotiable.</strong><br><br><strong>Employment:</strong> Non-competes, IP assignment, severance<br><strong>Leases:</strong> Pet policies, break clauses, maintenance<br><strong>Services:</strong> Price, term length, auto-renewal<br><br><strong>How to negotiate:</strong><br>1. Ask: "Is this term flexible?"<br>2. Propose alternative language<br>3. Get changes IN WRITING<br><br>Worst case: they say no. Often they say yes.`
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '📞', name: 'Cell Phone Store' },
+        content: `You're switching carriers. The salesperson says:<br><br><em>"Just initial here for the 24-month agreement. If you leave early, there's a $350 early termination fee - but you won't want to leave, our service is great!"</em>`,
+        choices: [
+          { text: "Sounds fine - I won't leave early anyway.", correct: false, explanation: "Life changes. Job moves, coverage issues, better deals. That ETF traps you. Ask about no-contract options." },
+          { text: "Do you have a month-to-month option?", correct: true, explanation: "Most carriers do - just don't advertise it. Month-to-month might cost $5-10 more but saves $350 in flexibility." },
+          { text: "I'll sign if you waive the ETF.", correct: false, explanation: "Worth asking but unlikely. No-contract is a better systematic solution." }
+        ],
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '📋',
+        title: 'The 5-Minute Contract Scan',
+        content: `For any contract, quick scan for:<br><br><strong>Ctrl+F / Search:</strong><br>• "auto-renew" or "automatic renewal"<br>• "arbitration"<br>• "terminate" or "cancel"<br>• "fee" or "penalty"<br>• "change" or "modify" (for pricing)<br>• "liability"<br><br>Read those sections carefully. Skip the rest unless concerned.<br><br>5 minutes of scanning catches 90% of traps.`
+      },
+      {
+        type: 'weapon',
+        name: 'The Red Flag Scan',
+        description: "Before signing any contract, search for: auto-renewal, arbitration, termination/cancellation, fees/penalties, and price changes. Read those sections. Five minutes prevents thousands in unexpected costs.",
+        phrase: "Let me scan for auto-renewal, cancellation terms, and hidden fees."
+      },
+      {
+        type: 'summary',
+        title: 'Contract Red Flags Complete',
+        keyTakeaways: [
+          "You've signed hundreds of contracts without reading them",
+          'Five red flags: auto-renewal, arbitration, cancellation, price changes, liability',
+          "Ctrl+F search for key terms - don't read everything",
+          'Contracts are often negotiable - just ask',
+          'Get any changes in writing',
+          'In-person cancellation requirements are designed to trap you'
+        ]
+      }
+    ]
+  },
+
+  // ============== LESSON 5: BUDGET ARCHITECTURE (MASTER) ==============
+  budget_architecture: {
+    id: 'lesson_budget',
+    title: 'Budget Architecture',
+    steps: [
+      {
+        type: 'info',
+        icon: '🏗️',
+        title: "Budgets Fail. Systems Don't.",
+        content: `You've tried budgeting before. Tracking every coffee. Feeling guilty about every purchase.<br><br>It didn't stick. You're not alone - most people can't maintain detailed budgets.<br><br>The solution isn't more willpower. It's <strong>building systems</strong> that make the right thing happen automatically.<br><br>Today you'll design your money system.`
+      },
+      {
+        type: 'info',
+        icon: '📐',
+        title: 'Three Philosophies',
+        content: `<strong>50/30/20 Budget</strong><br>50% Needs (rent, food, insurance)<br>30% Wants (entertainment, dining)<br>20% Savings/Debt<br>Simple percentages, easy to remember.<br><br><strong>Zero-Based Budget</strong><br>Every dollar assigned a job before month starts.<br>Maximum control, maximum effort.<br><br><strong>Anti-Budget (Pay Yourself First)</strong><br>Automate savings first, spend whatever's left.<br>No tracking required.`
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '🧠', name: 'Self-Assessment' },
+        content: `Be honest about yourself:<br><br><em>How do you handle money mentally?</em>`,
+        choices: [
+          { text: "I like detailed tracking - I want to know where every dollar goes.", correct: true, explanation: "Zero-based budgeting is your match. You'll thrive with apps like YNAB where every dollar has a purpose." },
+          { text: "I hate tracking but can follow simple rules.", correct: true, explanation: "50/30/20 works for you. Set it once, check quarterly, don't obsess over individual purchases." },
+          { text: "I just want to save without thinking about it.", correct: true, explanation: "Pay yourself first / anti-budget. Automate savings, then spend freely without guilt." }
+        ],
+        points: 50
+      },
+      {
+        type: 'info',
+        icon: '🔄',
+        title: 'The Automation Stack',
+        content: `The key to any budget: <strong>automate the hard parts.</strong><br><br><strong>Day 1 of Paycheck:</strong><br>• Auto-transfer to savings<br>• Auto-transfer to investments<br>• Auto-pay all fixed bills<br><br><strong>What's left:</strong> Your spending money. Use freely, guilt-free.<br><br><strong>Why it works:</strong><br>• Willpower is finite<br>• You can't spend what you never see<br>• Good decisions become default`
+      },
+      {
+        type: 'reverse',
+        title: 'Design Your System',
+        villainIcon: '💰',
+        instruction: "You take home $5,000/month after taxes. Allocate it.",
+        sliders: [
+          { label: 'Rent/Mortgage', min: 500, max: 2500, default: 1500, step: 100, suffix: '' },
+          { label: 'Other Fixed Bills', min: 200, max: 1000, default: 400, step: 50, suffix: '' },
+          { label: 'Savings (Auto-transfer)', min: 0, max: 1500, default: 500, step: 100, suffix: '' },
+          { label: 'Investing (401k/IRA)', min: 0, max: 1500, default: 500, step: 100, suffix: '' }
+        ],
+        calculate: (values) => {
+          const [rent, bills, savings, investing] = values;
+          const income = 5000;
+          const fixed = rent + bills + savings + investing;
+          const spending = income - fixed;
+          const savingsRate = ((savings + investing) / income * 100).toFixed(0);
+          const dailySpend = (spending / 30).toFixed(0);
+          return { monthly: parseInt(savingsRate), total: spending, hidden: parseInt(dailySpend) };
+        },
+        checkGoal: (result) => result.monthly >= 20 && result.hidden >= 30,
+        goal: 'Get savings rate above 20% with daily spending above $30',
+        revelation: "When you automate savings FIRST, spending takes care of itself. You can't overspend if the money isn't in your checking account.",
+        resultLabels: { monthly: 'Savings Rate %', total: 'Monthly Spending', hidden: 'Daily Budget' },
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '🏦',
+        title: 'The Account Structure',
+        content: `Separate money by purpose:<br><br><strong>Checking #1: Bills</strong><br>All fixed expenses auto-pay from here<br><br><strong>Checking #2: Spending</strong><br>Your "fun money" - use freely with zero guilt<br><br><strong>Savings: Emergency Fund</strong><br>3-6 months expenses. Don't touch.<br><br><strong>Investment: Future You</strong><br>401(k), IRA, brokerage. Automated.<br><br><strong>Why multiple accounts:</strong><br>• Visual clarity<br>• Can't accidentally spend bills money<br>• "Spending" balance = your true freedom`
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '💳', name: 'Your Bank Balance' },
+        content: `It's the 20th. Checking shows $847. Rent ($1,400) due on the 1st. Paid on the 25th.<br><br>In the past, you'd stress about spending anything until payday.<br><br>What's the system solution?`,
+        choices: [
+          { text: "Don't spend anything until after rent.", correct: false, explanation: "This works but requires constant vigilance. It's not a system - it's just stress." },
+          { text: "Set up a separate bills account with auto-transfers.", correct: true, explanation: "System solution. Half your rent ($700) transfers from each paycheck to bills-only account. By the 1st, $1,400 is waiting. Spending account shows what's actually spendable." },
+          { text: "Get overdraft protection just in case.", correct: false, explanation: "Overdraft fees are a bank profit center. Protect yourself with structure, not expensive safety nets." }
+        ],
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '🚨',
+        title: 'The Emergency Fund',
+        content: `Before optimizing: <strong>emergency fund first.</strong><br><br><strong>Why:</strong><br>• Job loss happens<br>• Medical emergencies happen<br>• Cars break down<br>• Without savings, crisis → debt<br><br><strong>How much:</strong><br>• Starter: $1,000 (prevents card spirals)<br>• Standard: 3 months expenses<br>• Conservative: 6 months<br><br><strong>Where:</strong><br>• High-yield savings (4%+)<br>• Separate from checking<br>• Instant access (no CDs)`
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '🎁', name: "Friend's Advice" },
+        content: `Your friend says:<br><br><em>"Budgeting doesn't work for me. I just check my balance before buying. If there's money, I spend it. If not, I don't."</em>`,
+        choices: [
+          { text: "That's basically what I do too.", correct: false, explanation: "Works until it doesn't. No savings means every surprise becomes debt." },
+          { text: "You should try tracking every purchase.", correct: false, explanation: "If budgeting doesn't work for them, more tracking won't help. Different people need different systems." },
+          { text: "What if you automated savings first, then used the balance method?", correct: true, explanation: "This is the anti-budget. Automate savings so it never shows in 'available' balance. What's left is truly free. System + their natural behavior." }
+        ],
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '📊',
+        title: 'The Check-In Cadence',
+        content: `Even automated systems need maintenance:<br><br><strong>Weekly (5 min):</strong><br>• Glance at spending balance<br>• Any unexpected charges?<br><br><strong>Monthly (30 min):</strong><br>• All auto-transfers happen?<br>• Irregular expenses coming?<br>• Credit card paid in full?<br><br><strong>Quarterly (1 hour):</strong><br>• Percentages still right?<br>• Adjust for income changes<br>• Cancel unused subscriptions<br><br><strong>Annually (half day):</strong><br>• Full financial review<br>• Net worth check<br>• Insurance/benefits review`
+      },
+      {
+        type: 'weapon',
+        name: 'The Automation Stack',
+        description: "Build a system where good behavior is automatic: savings transferred on payday before you see it, bills paid automatically, investments on autopilot. What remains is guilt-free spending. Willpower is finite. Automation is forever.",
+        phrase: "Is this automated, or am I relying on willpower?"
+      },
+      {
+        type: 'summary',
+        title: 'Budget Architecture Complete',
+        keyTakeaways: [
+          'Detailed budgets fail because willpower is limited',
+          'Three approaches: 50/30/20, zero-based, or pay-yourself-first',
+          'Automation is the key - move money before you see it',
+          'Separate accounts by purpose (bills, spending, saving)',
+          'Emergency fund comes before optimization',
+          'Check in weekly (5 min), monthly (30 min), quarterly (1 hour)'
+        ]
+      }
+    ]
+  },
+
+  // ============== LESSON 1: KNOW YOUR NUMBER ==============
+  know_your_number: {
+    id: 'lesson_knowyournumber',
+    title: 'Know Your Number',
+    steps: [
+      {
+        type: 'info',
+        icon: '🎯',
+        title: 'The Most Expensive Ignorance',
+        content: `Most people have no idea what they're worth.<br><br>They accept the first offer. They don't negotiate. They leave thousands - sometimes tens of thousands - on the table every year.<br><br>The #1 reason? <strong>They don't know their market rate.</strong><br><br>Today you fix that.`
+      },
+      {
+        type: 'artifact',
+        context: "You're researching salaries online...",
+        contextIcon: '💻',
+        artifactType: 'salary-site',
+        artifactHTML: `<div class="fake-salary-site"><div class="salary-header">GlassSalary.com</div><div class="salary-title">Software Engineer - Austin, TX</div><div class="salary-range"><div class="range-item"><span class="range-value">$85,000</span><span class="range-label">LOW</span></div><div class="range-item featured"><span class="range-value">$115,000</span><span class="range-label">MEDIAN</span></div><div class="range-item"><span class="range-value">$155,000</span><span class="range-label">HIGH</span></div></div><div class="salary-meta">Based on 847 salary reports</div><div class="salary-likely">"Most Likely Range: $98,000 - $132,000"</div><div class="salary-note">⭐ Top companies pay 20-40% above median</div><div class="salary-cta">[See full report - Premium Members Only]</div></div>`,
+        prompt: 'This data is helpful but incomplete. Find the limitations.',
+        hotspots: [
+          { x: 30, y: 28, width: 40, height: 18, isHook: false, explanation: "The median is useful, but it's just one data point. You need 3+ sources to triangulate your real market rate." },
+          { x: 5, y: 28, width: 25, height: 18, isHook: true, explanation: "Companies will try to anchor you here. Don't accept 'industry data' from recruiters - they cherry-pick the low end." },
+          { x: 10, y: 50, width: 80, height: 8, isHook: true, explanation: "Self-reported data is skewed. People with unusually high OR low salaries are more likely to report. Use this as a starting point, not gospel." }
+        ],
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '📊',
+        title: 'The Three-Source Rule',
+        content: `Never rely on one salary source. Each has biases:<br><br><strong>Glassdoor/Levels.fyi:</strong> Self-reported, skews toward extremes<br><strong>LinkedIn Salary:</strong> Limited data, varies by region<br><strong>Recruiters:</strong> They profit from lower salaries<br><br><strong>Your move:</strong> Get data from 3+ sources, then look at the OVERLAP. That's your realistic range.<br><br>Also research: total compensation (bonus, equity, benefits), your specific experience level, and company size/funding stage.`
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '📞', name: 'Recruiter Call' },
+        content: `A recruiter calls about a role you're interested in. She asks:<br><br><em>"Before we go further, what are your salary expectations? I want to make sure we're in the same ballpark."</em><br><br>You've researched - the role pays $90k-$120k, and you're currently at $85k.`,
+        choices: [
+          { text: "I'm currently making $85k, so I'm looking for at least $95k.", correct: false, explanation: "You just anchored yourself LOW. Now $95k is your ceiling. They would've paid $110k." },
+          { text: "I'm targeting roles in the $110k-$125k range based on my research.", correct: true, explanation: "You anchored high without revealing your current salary. Even if they negotiate down, you'll land higher." },
+          { text: "What's the budget for the role?", correct: false, explanation: "Good deflection, but they'll often push back. Better to state your range confidently so you control the anchor." }
+        ],
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '💰',
+        title: 'Total Compensation ≠ Salary',
+        content: `Base salary is just one piece. Calculate your TOTAL comp:<br><br><strong>Base salary:</strong> $100,000<br><strong>Annual bonus (15%):</strong> $15,000<br><strong>401k match (4%):</strong> $4,000<br><strong>Stock/RSUs:</strong> $20,000/year<br><strong>Health insurance value:</strong> $8,000/year<br><br><strong>Total compensation: $147,000</strong><br><br>When comparing offers, compare TOTAL COMP. A $95k base with great benefits can beat a $110k base with nothing.`
+      },
+      {
+        type: 'reverse',
+        title: 'Calculate Your Worth',
+        villainIcon: '🧮',
+        instruction: "Build your total compensation picture. What are you REALLY making?",
+        sliders: [
+          { label: 'Base Salary', min: 40000, max: 200000, default: 75000, step: 5000, suffix: '' },
+          { label: 'Bonus %', min: 0, max: 30, default: 10, step: 5, suffix: '%' },
+          { label: '401k Match %', min: 0, max: 6, default: 3, step: 1, suffix: '%' },
+          { label: 'Stock/RSUs Annual', min: 0, max: 50000, default: 0, step: 5000, suffix: '' }
+        ],
+        calculate: (values) => {
+          const [base, bonusPct, matchPct, stock] = values;
+          const bonus = base * (bonusPct / 100);
+          const match = base * (matchPct / 100);
+          const benefits = 8000;
+          const totalComp = base + bonus + match + stock + benefits;
+          const hourlyRate = Math.round(totalComp / 2080);
+          const tenPctRaise = Math.round(totalComp * 0.1);
+          return { monthly: Math.round(totalComp), total: hourlyRate, hidden: tenPctRaise };
+        },
+        checkGoal: (result) => result.monthly > 90000,
+        goal: 'See your total comp exceed $90k',
+        revelation: "Most people dramatically underestimate their total compensation - then undervalue themselves in negotiations. Know your FULL number before you negotiate.",
+        resultLabels: { monthly: 'Total Comp', total: 'Hourly Rate', hidden: '10% Raise Value' },
+        points: 100
+      },
+      {
+        type: 'sharklens',
+        instruction: 'Tap each term to see what it really means for your compensation.',
+        documentType: 'offer-letter',
+        documentTitle: 'EMPLOYMENT OFFER',
+        documentText: `We are pleased to offer you the position of Marketing Manager.<br><br><strong>Base Salary:</strong> $92,000 annually<br><strong>Target Bonus:</strong> 10% of base salary<br><strong>Start Date:</strong> January 15, 2025<br><br><strong>Benefits:</strong><br>• Health/Dental/Vision (employee contribution: $150/mo)<br>• 401(k) with 3% company match<br>• 15 days PTO<br>• Stock options: 2,000 shares vesting over 4 years<br><br>Please sign below to accept. This offer expires in 48 hours.`,
+        terms: [
+          { jargon: 'Target Bonus', realMeaning: "'Target' means you might get less. Ask what % of employees actually hit target. If it's 50%, your expected bonus is really 5%, not 10%." },
+          { jargon: 'employee contribution: $150/mo', realMeaning: "That's $1,800/year YOU pay. Factor this into total comp. Compare to other offers' healthcare costs." },
+          { jargon: 'Stock options: 2,000 shares', realMeaning: "Worthless until you know: Strike price? Current valuation? Vesting cliff? Options ≠ shares - you have to BUY them." },
+          { jargon: 'expires in 48 hours', realMeaning: "Artificial urgency. Most companies will extend if you ask professionally. Don't let pressure force a decision." }
+        ]
+      },
+      {
+        type: 'weapon',
+        name: 'The Market Rate Stack',
+        description: "Before any salary negotiation, stack 3+ data sources: Glassdoor, Levels.fyi, LinkedIn, and conversations with people in the industry. Find where they overlap. Then calculate your TOTAL compensation. That's your real number.",
+        phrase: "Based on market data from multiple sources, I'm seeing [range]."
+      },
+      {
+        type: 'summary',
+        title: 'Know Your Number Complete',
+        keyTakeaways: [
+          "Most people don't know their market rate - and it costs them thousands",
+          'Never rely on one salary source - use 3+ and find the overlap',
+          'Calculate TOTAL compensation, not just base salary',
+          'Never reveal your current salary - it anchors you low',
+          '"Target bonus" and stock options need deeper investigation'
+        ]
+      }
+    ]
+  },
+
+  // ============== LESSON 2: NEGOTIATION OPENERS ==============
+  negotiation_openers: {
+    id: 'lesson_openers',
+    title: 'Negotiation Openers',
+    steps: [
+      {
+        type: 'info',
+        icon: '🎬',
+        title: 'The Opening Move',
+        content: `Salary negotiation is won or lost in the first few exchanges.<br><br>Say the wrong thing early, and you're fighting uphill forever.<br><br><strong>The goals:</strong><br>1. Don't anchor yourself low<br>2. Show enthusiasm without desperation<br>3. Gather information before committing<br><br>Let's learn the scripts that work.`
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '👩‍💼', name: 'HR Manager' },
+        content: `You just got a verbal offer. The HR manager says:<br><br><em>"We'd love to have you join us! We're prepared to offer you $88,000. How does that sound?"</em><br><br>You were hoping for $95k-$105k based on your research.`,
+        choices: [
+          { text: "That's a bit lower than I expected. Can you do $95k?", correct: false, explanation: "Too fast! You accepted their anchor and only nudged 8% higher. You signaled $95k is your ceiling." },
+          { text: "Thank you! I'm really excited about this opportunity. Can I have a few days to review the full package?", correct: true, explanation: "Perfect. You showed enthusiasm, bought time to prepare, and avoided reacting to the number. Now you control the pace." },
+          { text: "Is that negotiable?", correct: false, explanation: "Weak opener. Of course it's negotiable. You sound uncertain. Better to delay and come back prepared." }
+        ],
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '🤐',
+        title: 'The Power of Not Answering',
+        content: `When asked about salary expectations, you have options:<br><br><strong>Deflect:</strong> "I'd like to learn more about the role first. Can you share the budgeted range?"<br><br><strong>Redirect:</strong> "I'm more focused on finding the right fit. What's typical for this level?"<br><br><strong>Delay:</strong> "I'm sure we can find something that works. Let's keep talking about the role."<br><br><strong>Why this works:</strong> The first person to say a number usually loses. Employers often have more room than they initially offer.`
+      },
+      {
+        type: 'bsdetector',
+        platform: '📞 Phone Screen',
+        guruName: 'Company Recruiter',
+        guruAvatar: '👔',
+        script: [
+          { text: "We're really excited about your background!", isLie: false, duration: 2000 },
+          { text: "Before we move forward, I need to know your salary requirements.", isLie: true, truth: "They don't 'need' to know. They WANT to know so they can anchor low. You can deflect or ask for their range first.", duration: 4000 },
+          { text: "We want to make sure we don't waste anyone's time if we're not aligned.", isLie: true, truth: "Translation: 'Tell us the minimum you'll accept.' They're not worried about YOUR time - they're filtering candidates who know their worth.", duration: 4500 },
+          { text: "Our ranges are pretty set, so I need a number from you.", isLie: true, truth: "Ranges are almost never 'set.' This is pressure to make you commit first. Keep deflecting or give a high range.", duration: 4000 },
+          { text: "I'll pass along whatever number you give me.", isLie: false, duration: 2500 }
+        ]
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '📝', name: 'Application Form' },
+        content: `You're filling out a job application. There's a required field:<br><br><strong>Desired Salary: $_______</strong><br><br>You can't submit without filling it in.`,
+        choices: [
+          { text: "Enter my current salary plus 10%", correct: false, explanation: "You anchored yourself based on your CURRENT pay, which might be below market. The new role could've paid 40% more." },
+          { text: "Enter the top of my researched range", correct: true, explanation: "If forced to answer, go high. You can always negotiate down, never up. If they filter you out for being 'too expensive,' they weren't going to pay fairly anyway." },
+          { text: "Enter $0 or 'Negotiable'", correct: false, explanation: "Sometimes works, but many systems require a number. If rejected for putting $0, you can't apply at all." }
+        ],
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '🎭',
+        title: 'Enthusiasm ≠ Desperation',
+        content: `Employers want to hire people who WANT the job. Show genuine interest.<br><br>But there's a line:<br><br><strong>Enthusiasm:</strong> "I'm really excited about this role - the team's work on X is exactly what I want to be doing."<br><br><strong>Desperation:</strong> "I really need this job. I'll take whatever you offer."<br><br>Enthusiasm is attractive. Desperation is leverage for them.<br><br><strong>Your stance:</strong> "I want this role AND I know my worth. Both can be true."`
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '🤝', name: 'Final Interview' },
+        content: `The hiring manager says at the end of a great final interview:<br><br><em>"We're very impressed. Before we make an offer - where do you need to be on compensation to say yes today?"</em>`,
+        choices: [
+          { text: "I'd need at least $105k to accept.", correct: false, explanation: "You just gave them your 'yes' number. They'll offer exactly $105k when they might've paid $115k." },
+          { text: "I'm targeting $110k-$125k based on market data, but I'm flexible for the right opportunity.", correct: true, explanation: "Range anchors high, 'flexible' keeps door open, 'right opportunity' signals you're not just about money." },
+          { text: "What's the budget for this role?", correct: false, explanation: "Good deflection, but by final interview they expect you to have a number. Better to state a confident range." }
+        ],
+        points: 100
+      },
+      {
+        type: 'weapon',
+        name: 'The Enthusiastic Delay',
+        description: "When you receive an offer, respond with genuine enthusiasm PLUS a delay. \"Thank you so much - I'm really excited about this! I'd like a few days to review the complete package.\" This shows interest while giving you time to prepare.",
+        phrase: "I'm really excited about this. Let me review the full package and get back to you."
+      },
+      {
+        type: 'summary',
+        title: 'Negotiation Openers Complete',
+        keyTakeaways: [
+          'The first few exchanges determine the negotiation trajectory',
+          'Deflect salary questions early: "What\'s the budgeted range?"',
+          'Never give a single number - always a range (anchored high)',
+          'When you get an offer, show enthusiasm but ask for time',
+          'Enthusiasm is good; desperation gives away your leverage'
+        ]
+      }
+    ]
+  },
+
+  // ============== LESSON 3: COUNTER TACTICS ==============
+  counter_tactics: {
+    id: 'lesson_counter',
+    title: 'Counter Tactics',
+    steps: [
+      {
+        type: 'info',
+        icon: '⚔️',
+        title: 'They Will Push Back',
+        content: `You asked for more money. Now they're pushing back.<br><br>This is NORMAL. Expected. Not a rejection.<br><br>Most people panic here and accept less. Don't be most people.<br><br>The pushback is often a test. They have more budget. They just want to see if you'll fold.<br><br>Let's practice the responses.`
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '💼', name: 'HR Manager' },
+        content: `You countered their $90k offer with $105k. They respond:<br><br><em>"I understand you're looking for more, but $90,000 is really the max we can do for this role. The budget is set."</em>`,
+        choices: [
+          { text: "Okay, I understand. I'll accept $90k.", correct: false, explanation: "You folded at the first pushback. 'Budget is set' is almost never true. They had room - you just left it on the table." },
+          { text: "I appreciate that. Is there flexibility in other areas - signing bonus, extra PTO, or earlier review?", correct: true, explanation: "If base is truly stuck, expand the pie. Many companies have separate budgets for bonuses, PTO, and equity." },
+          { text: "Then I'll have to decline.", correct: false, explanation: "Walking away immediately is too aggressive. Try expanding the pie first. You can always walk away later." }
+        ],
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '🧩',
+        title: 'Expand the Pie',
+        content: `When base salary is "stuck," negotiate other things:<br><br><strong>Cash:</strong><br>• Signing bonus (often separate budget)<br>• Earlier performance review/raise<br>• Guaranteed minimum bonus<br><br><strong>Time:</strong><br>• Extra PTO days<br>• Remote work flexibility<br>• Later start date<br><br><strong>Equity:</strong><br>• More stock options/RSUs<br>• Accelerated vesting<br><br><strong>Development:</strong><br>• Training budget<br>• Conference attendance<br><br>One company couldn't budge on salary but gave me $15k signing + 5 extra PTO days.`
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '👨‍💼', name: 'Hiring Manager' },
+        content: `The manager says:<br><br><em>"I've pushed as hard as I can. Legal says $95,000 is the cap for this band. I'm really sorry - I'd pay you more if I could."</em><br><br>You believe he's being genuine.`,
+        choices: [
+          { text: "I understand. Let's do $95k.", correct: false, explanation: "If you trust him, this might be okay eventually - but have you asked about non-salary comp? Don't leave value on the table." },
+          { text: "I appreciate you advocating for me. Can we discuss a signing bonus and accelerated review at 6 months?", correct: true, explanation: "You acknowledged his effort, maintained the relationship, and found other value. Even $5k signing + 6-month review is meaningful." },
+          { text: "If you can't pay market rate, maybe this isn't the right fit.", correct: false, explanation: "Burning bridges unnecessarily. He tried to help. Explore all options before walking away." }
+        ],
+        points: 100
+      },
+      {
+        type: 'bsdetector',
+        platform: '💬 Negotiation',
+        guruName: 'HR Representative',
+        guruAvatar: '📋',
+        script: [
+          { text: "We really want you on the team.", isLie: false, duration: 2000 },
+          { text: "Unfortunately, our bands are standardized across the company.", isLie: true, truth: "Bands have ranges. You're probably being offered the bottom. There's almost always room within the band.", duration: 4000 },
+          { text: "We can't make exceptions or it wouldn't be fair to other employees.", isLie: true, truth: "Exceptions happen constantly for strong candidates. The 'fairness' argument is designed to make you feel guilty.", duration: 4500 },
+          { text: "This is actually above what we offered the last person in this role.", isLie: true, truth: "Irrelevant. The market changes. The last person might've been underpaid. Your value is based on market rate, not their past mistakes.", duration: 4000 },
+          { text: "I really have no flexibility here - this comes from finance.", isLie: true, truth: "There's always someone with authority. If HR has no flexibility, ask to speak with the hiring manager.", duration: 4000 }
+        ]
+      },
+      {
+        type: 'info',
+        icon: '📄',
+        title: 'The Power of Documentation',
+        content: `Your counter is stronger with evidence:<br><br><strong>Weak:</strong> "I was hoping for $110k."<br><br><strong>Strong:</strong> "Based on Glassdoor, Levels.fyi, and conversations with people in similar roles, the market range is $105k-$120k. Given my 5 years of experience and the Python skills you mentioned were rare, I'm targeting $115k."<br><br><strong>Why it works:</strong><br>• Shows you did your homework<br>• Makes it about DATA, not feelings<br>• Harder to dismiss than "I want more"<br>• Positions you as professional`
+      },
+      {
+        type: 'reverse',
+        title: 'Build Your Counter',
+        villainIcon: '📊',
+        instruction: "You got an offer for $88k. You want $102k. Build your documented counter.",
+        sliders: [
+          { label: 'Salary Sources Cited', min: 0, max: 5, default: 1, step: 1, suffix: '' },
+          { label: 'Specific Skills Mentioned', min: 0, max: 5, default: 1, step: 1, suffix: '' },
+          { label: 'Have Competing Offer?', min: 0, max: 1, default: 0, step: 1, suffix: '' },
+          { label: 'Enthusiasm Shown (1-10)', min: 1, max: 10, default: 5, step: 1, suffix: '' }
+        ],
+        calculate: (values) => {
+          const [sources, skills, competing, enthusiasm] = values;
+          const persuasion = (sources * 12) + (skills * 10) + (competing * 25) + (enthusiasm * 3);
+          const likelyBump = 88000 + (persuasion * 100);
+          const outcome = Math.min(likelyBump, 105000);
+          const risk = competing > 0 ? 5 : (enthusiasm < 4 ? 15 : 3);
+          return { monthly: Math.round(persuasion), total: Math.round(outcome), hidden: risk };
+        },
+        checkGoal: (result) => result.total >= 98000,
+        goal: 'Get likely outcome above $98k',
+        revelation: "Notice what moves the needle? Multiple sources + specific skills + enthusiasm. A competing offer helps but isn't required. Data + relationship beats demands every time.",
+        resultLabels: { monthly: 'Persuasion Score', total: 'Likely Outcome', hidden: 'Risk %' },
+        points: 100
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '✉️', name: 'Email Response' },
+        content: `You countered over email. They respond:<br><br><em>"Thanks for your note. We've discussed internally and can move to $93,000. This is our final offer. Please let us know by Friday."</em><br><br>Original offer was $88k. You asked for $102k. You'd be happy with $96k.`,
+        choices: [
+          { text: "Accept $93k - they said it's final.", correct: false, explanation: "'Final offer' is rarely final. You're $3k from your target. One more professional push often works." },
+          { text: "Counter: 'Thank you for the increase. Is there any way to get to $96k? That would make this an immediate yes.'", correct: true, explanation: "You showed appreciation, gave a specific number, and made it easy to say yes. Many 'final' offers have one more round." },
+          { text: "Decline and walk away - they're lowballing.", correct: false, explanation: "$93k from $88k is a $5k win. Don't let perfect be the enemy of good. Try one more counter first." }
+        ],
+        points: 100
+      },
+      {
+        type: 'weapon',
+        name: 'The Documented Counter',
+        description: "Never counter with just a number. Counter with data: market research from 3+ sources, specific skills that add value, and genuine enthusiasm. \"Based on [sources], the market rate is [range]. Given my [skills], I'm targeting [number].\"",
+        phrase: "Based on market data and my [specific skills], I'm targeting [number]."
+      },
+      {
+        type: 'summary',
+        title: 'Counter Tactics Complete',
+        keyTakeaways: [
+          "First pushback is normal - don't fold immediately",
+          'If salary is stuck, expand the pie: bonus, PTO, equity, title',
+          '"Budget is set" and "final offer" are rarely true',
+          'Document your counter with market data and specific skills',
+          'Show enthusiasm throughout - they want someone who wants the job'
+        ]
+      }
+    ]
+  },
+
+  // ============== LESSON 4: SIDE HUSTLE MATH ==============
+  side_hustle_math: {
+    id: 'lesson_sidehustle',
+    title: 'Side Hustle Math',
+    steps: [
+      {
+        type: 'info',
+        icon: '⏱️',
+        title: 'The Side Hustle Trap',
+        content: `"I make an extra $500/month with my side hustle!"<br><br>Okay, but:<br>• How many hours does it take?<br>• What are the expenses?<br>• What's the opportunity cost?<br><br>Many side hustles pay LESS than minimum wage when you do the real math. Some even lose money.<br><br>Let's learn to evaluate any income opportunity honestly.`
+      },
+      {
+        type: 'reverse',
+        title: 'Real Hourly Rate Calculator',
+        villainIcon: '🧮',
+        instruction: "Your friend says they make '$2,000/month driving rideshare.' Let's find the REAL hourly rate.",
+        sliders: [
+          { label: 'Hours Worked/Month', min: 20, max: 80, default: 40, step: 5, suffix: ' hrs' },
+          { label: 'Gas & Car Costs/Month', min: 100, max: 800, default: 400, step: 50, suffix: '' },
+          { label: 'Self-Employment Tax %', min: 0, max: 15, default: 15, step: 5, suffix: '%' }
+        ],
+        calculate: (values) => {
+          const [hours, expenses, taxRate] = values;
+          const gross = 2000;
+          const afterExpenses = gross - expenses;
+          const taxes = afterExpenses * (taxRate / 100);
+          const netIncome = afterExpenses - taxes;
+          const hourlyRate = netIncome / hours;
+          return { monthly: Math.round(afterExpenses), total: Math.round(netIncome), hidden: Math.round(hourlyRate * 100) / 100 };
+        },
+        checkGoal: (result) => result.hidden < 15,
+        goal: 'See the true hourly rate drop below $15/hr',
+        revelation: "That '$2,000/month' became $10-12/hour after expenses and taxes - while putting miles on your car. Your friend might make more at a regular part-time job with none of the risk.",
+        resultLabels: { monthly: 'After Expenses', total: 'After Taxes', hidden: 'True $/Hour' },
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '💸',
+        title: 'Hidden Costs of Side Hustles',
+        content: `<strong>Gig economy (rideshare, delivery):</strong><br>• Gas, car depreciation, maintenance<br>• Self-employment tax (15.3%)<br>• No benefits, no workers comp<br>• Your car's resale value tanks<br><br><strong>Freelancing:</strong><br>• Self-employment tax<br>• Unpaid time: invoicing, chasing payments, marketing<br>• Healthcare, retirement - all on you<br><br><strong>"Passive" income:</strong><br>• Usually requires huge upfront time<br>• Often not passive at all<br>• Content creation is a full-time job`
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '🛍️', name: 'Your Friend' },
+        content: `Your friend is excited about a reselling business:<br><br><em>"I buy clearance items at Target and sell them on Amazon for 2x the price! I made $800 last month in sales!"</em><br><br>She's not counting time spent sourcing, listing, packaging, and shipping. Or Amazon's fees.`,
+        choices: [
+          { text: "That's awesome! How do I start?", correct: false, explanation: "$800 in SALES is not $800 in profit. After Amazon's 15% fee, shipping, and hours of work, she might be making $5/hour." },
+          { text: "Cool! What's your profit after fees, and how many hours do you spend?", correct: true, explanation: "These questions reveal the real economics. Many resellers discover they're barely breaking even when they track properly." },
+          { text: "Sounds like a scam.", correct: false, explanation: "Reselling can be legitimate. The issue is doing the MATH, not dismissing it entirely." }
+        ],
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '⚖️',
+        title: 'Opportunity Cost',
+        content: `Every hour on a side hustle is an hour you DON'T spend on:<br><br>• Upskilling for a promotion (higher long-term value)<br>• Resting (burnout kills productivity)<br>• Relationships (networking has compounding value)<br>• Your actual job (where a raise beats most side hustles)<br><br><strong>The math:</strong><br>If your day job pays $50/hour and a side hustle pays $15/hour, that side hustle actually COSTS you $35/hour in opportunity cost.<br><br>Sometimes the best side hustle is getting better at your main job.`
+      },
+      {
+        type: 'artifact',
+        context: "Instagram ad for an opportunity...",
+        contextIcon: '📱',
+        artifactType: 'hustle-ad',
+        artifactHTML: `<div class="fake-hustle-ad"><div class="hustle-header">💰 I made $10,000 last month working from home! 💰</div><div class="hustle-body"><p>I quit my 9-5 and now I work 2 hours a day teaching English online.</p><p>Ready to fire your boss? DM me "FREEDOM" and I'll show you EXACTLY how I did it!</p></div><div class="hustle-bullets"><div>🔥 No experience needed</div><div>🔥 Set your own schedule</div><div>🔥 Unlimited income potential</div></div><div class="hustle-cta">Comment "INFO" for my free guide!</div><div class="hustle-tags">#passiveincome #sidehustle #workfromhome #financialfreedom</div></div>`,
+        prompt: "This looks appealing. Find what's hidden.",
+        hotspots: [
+          { x: 5, y: 8, width: 90, height: 12, isHook: true, explanation: "Revenue or profit? After self-employment tax, this is ~$8,500. And this is likely her BEST month, cherry-picked for marketing." },
+          { x: 5, y: 22, width: 90, height: 10, isHook: true, explanation: "Teaching hours only. What about prep, marketing, student management, and creating THIS ad? True time is probably 6+ hours/day." },
+          { x: 5, y: 52, width: 90, height: 8, isHook: true, explanation: "Your time is limited to 24 hours/day. 'Unlimited potential' is marketing, not reality." },
+          { x: 5, y: 62, width: 90, height: 10, isHook: true, explanation: "The real business: selling courses about how to make money. The $10k comes from selling the dream, not teaching English." }
+        ],
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '📈',
+        title: 'When Side Hustles Make Sense',
+        content: `Side hustles CAN be worth it when:<br><br><strong>Building a skill:</strong> Even if pay is low, you're gaining experience for a career change<br><br><strong>Scalable:</strong> Income can grow without proportional time increase (products, not services)<br><br><strong>Passion project:</strong> Enjoyment has value (just be honest it's a hobby)<br><br><strong>Clear path:</strong> Stepping stone to full-time self-employment with a real plan<br><br><strong>The key:</strong> Go in with clear eyes. Know your true hourly rate, opportunity cost, and realistic growth potential.`
+      },
+      {
+        type: 'weapon',
+        name: 'The True Hourly Rate',
+        description: "Before starting any side hustle, calculate: (Revenue - All Expenses - Taxes) ÷ ALL Hours Spent (including unpaid work). If the result is less than you could earn elsewhere - or less than your free time is worth - it's not worth it.",
+        phrase: "What's the true hourly rate after expenses, taxes, and ALL time invested?"
+      },
+      {
+        type: 'summary',
+        title: 'Side Hustle Math Complete',
+        keyTakeaways: [
+          'Revenue ≠ profit - always subtract expenses and taxes',
+          'Gig work often pays less than minimum wage after real costs',
+          '"Passive income" usually requires massive active investment first',
+          'Opportunity cost: that time could go toward career advancement',
+          'Calculate true hourly rate before committing to any side hustle'
+        ]
+      }
+    ]
+  },
+
+  // ============== LESSON 5: INCOME STACKING (MASTER) ==============
+  income_stacking: {
+    id: 'lesson_stacking',
+    title: 'Income Stacking',
+    steps: [
+      {
+        type: 'info',
+        icon: '🏗️',
+        title: 'Beyond the Single Paycheck',
+        content: `Most people rely on one income source: their job.<br><br>When that job disappears, so does 100% of their income.<br><br>The wealthy think differently. They build <strong>income stacks</strong> - multiple streams that don't all fail at once.<br><br>This isn't about working more. It's about working smarter and letting money work for you.`
+      },
+      {
+        type: 'info',
+        icon: '🎯',
+        title: 'The Income Stack Framework',
+        content: `Four types of income, in order of effort:<br><br><strong>1. Active Income (high effort)</strong><br>Your job. Trade time directly for money.<br><br><strong>2. Side Income (medium effort)</strong><br>Freelance, consulting, part-time. Still trading time, but diversified.<br><br><strong>3. Portfolio Income (low effort)</strong><br>Dividends, interest, capital gains. Money works while you sleep.<br><br><strong>4. Passive Income (variable)</strong><br>Royalties, rental income, business systems. High upfront work, low ongoing.<br><br><strong>The goal:</strong> Gradually shift from mostly (1) to a mix of all four.`
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '🧑‍💼', name: 'Your Colleague' },
+        content: `Your colleague brags at lunch:<br><br><em>"I've got five income streams! My job, driving Uber on weekends, selling on eBay, my dividend portfolio, and I just started dropshipping!"</em><br><br>He looks exhausted.`,
+        choices: [
+          { text: "Impressive! You must be wealthy.", correct: false, explanation: "Quantity isn't quality. He has 2 jobs worth of work, a low-margin hobby, probably tiny dividends, and a likely-failing dropship store. He's overworked, not wealthy." },
+          { text: "How many hours a week is that, and what's the total return?", correct: true, explanation: "The right question. If he's working 70 hours/week and most income is from his day job, he doesn't have an income stack - he has burnout." },
+          { text: "I should start dropshipping too!", correct: false, explanation: "Dropshipping has razor-thin margins and most stores fail. Don't chase trendy hustles - chase strategic income streams." }
+        ],
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '📊',
+        title: 'The Strategic Stack',
+        content: `Building income streams strategically:<br><br><strong>Year 1-2: Maximize main income</strong><br>• Negotiate raises, build skills, get promoted<br>• Highest ROI of any "side hustle"<br><br><strong>Year 2-3: Start portfolio income</strong><br>• Invest in index funds (dividends + growth)<br>• Requires no extra time<br><br><strong>Year 3-5: Consider scalable side income</strong><br>• Consulting in your expertise (high hourly)<br>• Content/products (upfront work, ongoing returns)<br><br><strong>Avoid:</strong> Stacking more active work. Five jobs isn't diversification - it's exhaustion.`
+      },
+      {
+        type: 'reverse',
+        title: 'Design Your Income Stack',
+        villainIcon: '💼',
+        instruction: "You have 168 hours/week and $50k savings. Design an income stack.",
+        sliders: [
+          { label: 'Hours at Day Job', min: 40, max: 60, default: 45, step: 5, suffix: ' hrs' },
+          { label: 'Hours on Side Work', min: 0, max: 20, default: 5, step: 5, suffix: ' hrs' },
+          { label: 'Amount Invested', min: 0, max: 50000, default: 20000, step: 5000, suffix: '' },
+          { label: 'Hours on Content/Products', min: 0, max: 15, default: 0, step: 5, suffix: ' hrs' }
+        ],
+        calculate: (values) => {
+          const [jobHours, sideHours, invested, contentHours] = values;
+          const jobIncome = jobHours * 50 * 52;
+          const sideIncome = sideHours * 40 * 52;
+          const portfolioIncome = invested * 0.09;
+          const contentIncome = contentHours > 0 ? contentHours * 20 * 52 * 0.3 : 0;
+          const totalIncome = jobIncome + sideIncome + portfolioIncome + contentIncome;
+          const totalHours = jobHours + sideHours + contentHours;
+          const passiveRatio = Math.round(((portfolioIncome + contentIncome * 0.5) / totalIncome) * 100);
+          const sustainability = totalHours <= 55 ? 'Good' : totalHours <= 65 ? 'Risky' : 'Burnout';
+          return { monthly: Math.round(totalIncome), total: passiveRatio, hidden: totalHours };
+        },
+        checkGoal: (result) => result.total >= 15 && result.hidden <= 55,
+        goal: 'Get passive ratio above 15% while keeping hours under 55/week',
+        revelation: "Notice how investing generates income without extra hours? And how products create ongoing returns? The goal isn't to work MORE - it's to shift from time-based to asset-based income.",
+        resultLabels: { monthly: 'Annual Income', total: 'Passive Ratio %', hidden: 'Hours/Week' },
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '💰',
+        title: 'The Power of Portfolio Income',
+        content: `The most overlooked income stream: your investments.<br><br>$100,000 invested at 7% return = <strong>$7,000/year</strong> in growth<br>Add 2% dividend yield = <strong>$2,000/year</strong> in cash<br><br>Total: $9,000/year while doing NOTHING.<br><br><strong>The math gets wild:</strong><br>$500,000 invested = $45,000/year<br>$1,000,000 invested = $90,000/year<br><br>This is why building wealth (Wealth Currents) enables income stacking.`
+      },
+      {
+        type: 'scenario',
+        speaker: { avatar: '📚', name: 'Online Course Idea' },
+        content: `You're considering creating an online course teaching a skill you have. It would take ~200 hours to create.<br><br>Once created, it sells for $197 with 2 hours/week support.<br><br>Based on similar courses, you estimate 5-20 sales/month.`,
+        choices: [
+          { text: "200 hours is too much work upfront.", correct: false, explanation: "At 10 sales/month = $1,970/month = $23,640/year. That's $118/hour for your 200 hours, PLUS ongoing income. Compare to a $15/hour side hustle." },
+          { text: "I'd need to validate demand before building it.", correct: true, explanation: "Smart. 200 hours is worth it IF there's demand. Pre-sell, survey your audience, or build a minimum version first." },
+          { text: "I'll just do one-on-one coaching instead.", correct: false, explanation: "Coaching is good but doesn't scale - still trading time for money. The course earns while you sleep. Consider both." }
+        ],
+        points: 100
+      },
+      {
+        type: 'info',
+        icon: '🛡️',
+        title: 'Income Resilience',
+        content: `The real point of income stacking: <strong>resilience.</strong><br><br>If you lose your job:<br>• Portfolio income keeps paying dividends<br>• Side income can scale up temporarily<br>• Passive products keep selling<br><br>You go from "I'm ruined" to "I'm okay while I find something new."<br><br>This isn't about maximizing total income. It's about minimizing catastrophic risk.<br><br><strong>Target:</strong> Have at least 3 months of expenses covered by non-job income. That's financial security.`
+      },
+      {
+        type: 'weapon',
+        name: 'The Income Portfolio',
+        description: "Build income streams like an investment portfolio: diversified across types (active, side, portfolio, passive) with a goal of reducing dependence on any single source. Target: 3+ months of expenses covered by non-job income.",
+        phrase: "If I lost my job tomorrow, how many months could my other income cover?"
+      },
+      {
+        type: 'summary',
+        title: 'Income Stacking Complete',
+        keyTakeaways: [
+          'Most people depend 100% on one income source - risky',
+          'Four types: active, side, portfolio, passive',
+          "Quality > quantity - five exhausting jobs isn't diversification",
+          'Portfolio income requires no extra time - prioritize investing',
+          'Scalable products beat hourly trading',
+          'Target: 3+ months expenses from non-job income'
+        ]
+      }
+    ]
+  },
 
   // ============== LESSON 1: PRICE ANCHORING ==============
   price_anchoring: {
