@@ -225,6 +225,43 @@
     .currency-item.streak span { 
       color: var(--predator-sense);
     }
+    
+    /* Sound Toggle Button */
+    .sound-toggle {
+      width: 36px;
+      height: 36px;
+      background: var(--surface-1);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      padding: 0;
+    }
+    .sound-toggle:hover {
+      background: var(--surface-2);
+      border-color: var(--surface-border-strong);
+    }
+    .sound-toggle:active {
+      transform: scale(0.95);
+    }
+    .sound-toggle svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--text-tertiary);
+      transition: var(--transition-fast);
+    }
+    .sound-toggle:hover svg {
+      fill: var(--text-secondary);
+    }
+    .sound-toggle .sound-off {
+      fill: var(--predator-sense);
+    }
+    .sound-toggle svg.hidden {
+      display: none;
+    }
     .rank-title { font-size: 12px; color: rgba(224, 232, 240, 0.5); }
     .currency { display: flex; gap: 10px; }
     .currency-item {
