@@ -71,37 +71,40 @@
     <!-- Combat Radar (Locked initially) -->
     <div class="section-label">COMBAT RADAR</div>
     <div class="radar-card radar-locked" id="radarCard">
-      <div class="radar-lock-overlay">
+      <div class="radar-wrap">
+        <svg class="radar-svg" viewBox="0 0 200 200">
+          <!-- Rings -->
+          <circle class="radar-ring" cx="100" cy="100" r="70" stroke-width="1"/>
+          <circle class="radar-ring" cx="100" cy="100" r="50" stroke-width="1"/>
+          <circle class="radar-ring" cx="100" cy="100" r="30" stroke-width="1"/>
+          <!-- Progress shape - will be updated by JS -->
+          <polygon class="radar-shape" id="radarShape" points="100,70 130,85 120,115 80,115 70,85"/>
+          <!-- Progress dots -->
+          <circle class="radar-dot" id="radarDot0" cx="100" cy="70" r="4"/>
+          <circle class="radar-dot" id="radarDot1" cx="130" cy="85" r="4"/>
+          <circle class="radar-dot" id="radarDot2" cx="120" cy="115" r="4"/>
+          <circle class="radar-dot" id="radarDot3" cx="80" cy="115" r="4"/>
+          <circle class="radar-dot" id="radarDot4" cx="70" cy="85" r="4"/>
+        </svg>
+        <!-- Labels outside SVG for better positioning -->
+        <div class="radar-labels">
+          <span class="radar-lbl" style="top: 5px; left: 50%; transform: translateX(-50%);">DEFENSE</span>
+          <span class="radar-lbl" style="top: 35%; right: -5px;">WEALTH</span>
+          <span class="radar-lbl" style="bottom: 15%; right: 5px;">PURCHASE</span>
+          <span class="radar-lbl" style="bottom: 15%; left: 5px;">INCOME</span>
+          <span class="radar-lbl" style="top: 35%; left: -5px;">SYSTEMS</span>
+        </div>
+      </div>
+      <!-- Lock overlay - positioned absolutely over radar -->
+      <div class="radar-lock-overlay" id="radarLockOverlay">
         <div class="radar-lock-icon">🔒</div>
         <div class="radar-lock-title">CLASSIFIED</div>
         <div class="radar-lock-desc">Your threat profile is being analyzed...</div>
         <div class="radar-lock-level">Unlocks at <span>Level 5</span></div>
       </div>
-      <div class="radar-wrap">
-        <svg class="radar-svg" viewBox="0 0 200 200">
-          <circle class="radar-ring" cx="100" cy="100" r="70" stroke-width="1"/>
-          <circle class="radar-ring" cx="100" cy="100" r="50" stroke-width="1"/>
-          <circle class="radar-ring" cx="100" cy="100" r="30" stroke-width="1"/>
-          <polygon class="radar-shape" points="100,35 155,65 140,130 60,130 45,65"/>
-          <circle class="radar-dot" cx="100" cy="35" r="5"/>
-          <circle class="radar-dot" cx="155" cy="65" r="5"/>
-          <circle class="radar-dot" cx="140" cy="130" r="5"/>
-          <circle class="radar-dot" cx="60" cy="130" r="5"/>
-          <circle class="radar-dot" cx="45" cy="65" r="5"/>
-          <text class="radar-lbl" x="100" y="22" text-anchor="middle">DEF</text>
-          <text class="radar-lbl" x="172" y="68">WL</text>
-          <text class="radar-lbl" x="152" y="145">PUR</text>
-          <text class="radar-lbl" x="48" y="145" text-anchor="end">INC</text>
-          <text class="radar-lbl" x="28" y="68" text-anchor="end">SYS</text>
-        </svg>
-        <div class="radar-center">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-        </div>
-      </div>
       <div class="tap-hint">TAP TO ENTER PREDATOR GRID</div>
-      <div class="skill-tags">
-        <div class="skill-tag">Urgency Resistance II</div>
-        <div class="skill-tag">Index Fund Basics</div>
+      <div class="skill-tags" id="skillTags">
+        <!-- Populated by JS based on completed skills -->
       </div>
     </div>
     
