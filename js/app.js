@@ -17,7 +17,93 @@ const App = {
     this.setupSimulationPage();
     this.setupSkillTree();
     this.setupAudio();
+    this.updateRadar();
     console.log('SharkFin App initialized');
+  },
+  
+  /**
+   * Update the combat radar based on progress
+   */
+  updateRadar() {
+    const radarCard = document.getElementById('radarCard');
+    const radarShape = document.getElementById('radarShape');
+    const radarLockOverlay = document.getElementById('radarLockOverlay');
+    const skillTags = document.getElementById('skillTags');
+    
+    if (!radarShape) return;
+    
+    // Get player level
+    const playerLevel = State.current?.level || 1;
+    
+    // Check if radar should be unlocked (level 5+)
+    const isUnlocked = playerLevel >= 5;
+    
+    if (isUnlocked && radarCard) {
+      radarCard.classList.remove('radar-locked');
+      if (radarLockOverlay) radarLockOverlay.classList.add('hidden');
+    }
+    
+    // Calculate progress per branch (0-1)
+    const branches = ['defense', 'wealth', 'purchase', 'income', 'systems'];
+    const progress = {};
+    
+    branches.forEach(branch => {
+      const branchSkills = Object.values(Skills.nodes).filter(s => s.branch === branch);
+      const masteredCount = branchSkills.filter(s => State.getMasteredNodes().includes(s.id)).length;
+      const totalCount = branchSkills.length || 1;
+      progress[branch] = masteredCount / totalCount;
+    });
+    
+    // Calculate radar points (pentagon)
+    // Center at 100,100, min radius 30, max radius 70
+    const minR = 30;
+    const maxR = 70;
+    const center = 100;
+    
+    // Angles for pentagon (starting from top, going clockwise)
+    // Defense (top), Wealth (top-right), Purchase (bottom-right), Income (bottom-left), Systems (top-left)
+    const angles = [
+      -Math.PI / 2,           // Defense - top
+      -Math.PI / 2 + 2 * Math.PI / 5,  // Wealth - top-right
+      -Math.PI / 2 + 4 * Math.PI / 5,  // Purchase - bottom-right
+      -Math.PI / 2 + 6 * Math.PI / 5,  // Income - bottom-left
+      -Math.PI / 2 + 8 * Math.PI / 5   // Systems - top-left
+    ];
+    
+    const points = [];
+    const branchOrder = ['defense', 'wealth', 'purchase', 'income', 'systems'];
+    
+    branchOrder.forEach((branch, i) => {
+      const prog = progress[branch] || 0;
+      const radius = minR + (maxR - minR) * prog;
+      const x = center + radius * Math.cos(angles[i]);
+      const y = center + radius * Math.sin(angles[i]);
+      points.push(`${x.toFixed(0)},${y.toFixed(0)}`);
+      
+      // Update dots
+      const dot = document.getElementById(`radarDot${i}`);
+      if (dot) {
+        dot.setAttribute('cx', x.toFixed(0));
+        dot.setAttribute('cy', y.toFixed(0));
+      }
+    });
+    
+    radarShape.setAttribute('points', points.join(' '));
+    
+    // Update skill tags with recently completed skills
+    if (skillTags) {
+      const mastered = State.getMasteredNodes();
+      const recentSkills = mastered.slice(-3).reverse();
+      
+      if (recentSkills.length > 0) {
+        skillTags.innerHTML = recentSkills.map(skillId => {
+          const skill = Skills.nodes[skillId];
+          return skill ? `<div class="skill-tag">${skill.name}</div>` : '';
+        }).join('');
+      } else {
+        skillTags.innerHTML = '<div class="skill-tag" style="opacity: 0.5;">No skills mastered yet</div>';
+      }
+    }
   },
   
   /**
