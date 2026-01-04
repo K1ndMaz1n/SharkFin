@@ -96,14 +96,22 @@ const Lessons = {
     `;
 
     document.body.appendChild(overlay);
+    
+    // Play lesson start sound
+    if (typeof AudioManager !== 'undefined') {
+      AudioManager.play('lessonStart');
+    }
 
     document.getElementById('lessonClose').addEventListener('click', () => {
+      if (typeof AudioManager !== 'undefined') AudioManager.play('back');
       if (confirm('Exit lesson? Progress will be lost.')) {
         this.close();
       }
     });
 
-    document.getElementById('lessonContinue').addEventListener('click', () => {
+    document.getElementById('lessonContinue').addEventListener('click', (e) => {
+      if (typeof AudioManager !== 'undefined') AudioManager.play('stepForward');
+      if (typeof Interactions !== 'undefined') Interactions.ripple(e, e.target);
       this.nextStep();
     });
   },
@@ -233,6 +241,24 @@ const Lessons = {
     const hotspot = step.hotspots[index];
 
     spot.classList.add('tapped', isCorrect ? 'correct' : 'wrong');
+    
+    // Audio and visual feedback
+    if (typeof AudioManager !== 'undefined') {
+      AudioManager.play(isCorrect ? 'hotspotHook' : 'hotspotReveal');
+    }
+    if (typeof Interactions !== 'undefined') {
+      const rect = spot.getBoundingClientRect();
+      if (isCorrect) {
+        Interactions.particleBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, {
+          colors: ['#c75d5d', '#dc2626', '#f87171'],
+          count: 6,
+          spread: 40
+        });
+        Interactions.haptic('medium');
+      } else {
+        Interactions.haptic('light');
+      }
+    }
 
     const feedback = document.getElementById('artifactFeedback');
     feedback.innerHTML = `
@@ -447,9 +473,23 @@ const Lessons = {
         
         this.showBSFeedback(line.truth, true);
         bsButton.classList.add('correct');
+        
+        // Audio/visual feedback for catching a lie
+        if (typeof AudioManager !== 'undefined') AudioManager.play('lieReveal');
+        if (typeof Interactions !== 'undefined') {
+          Interactions.correctFlash();
+          Interactions.haptic('success');
+        }
       } else {
         this.showBSFeedback("That was actually true!", false);
         bsButton.classList.add('wrong');
+        
+        // Audio/visual feedback for false alarm
+        if (typeof AudioManager !== 'undefined') AudioManager.play('incorrect');
+        if (typeof Interactions !== 'undefined') {
+          Interactions.screenShake(3, 150);
+          Interactions.haptic('error');
+        }
       }
 
       setTimeout(() => {
@@ -850,9 +890,20 @@ const Lessons = {
       }
     };
 
-    // Add slider listeners
+    // Add slider listeners with audio feedback
     step.sliders.forEach((s, i) => {
-      document.getElementById(`slider${i}`).addEventListener('input', calculate);
+      const slider = document.getElementById(`slider${i}`);
+      slider.addEventListener('input', calculate);
+      
+      // Throttled audio feedback for sliders
+      let lastSound = 0;
+      slider.addEventListener('input', () => {
+        const now = Date.now();
+        if (now - lastSound > 50 && typeof AudioManager !== 'undefined') {
+          AudioManager.play('sliderMove');
+          lastSound = now;
+        }
+      });
     });
 
     calculate();
@@ -872,6 +923,23 @@ const Lessons = {
     this.current.score += step.points || 100;
     this.updateProgress();
     continueBtn.disabled = false;
+    
+    // Audio and visual celebration
+    if (typeof AudioManager !== 'undefined') {
+      AudioManager.play('correct');
+    }
+    if (typeof Interactions !== 'undefined') {
+      Interactions.correctFlash();
+      const feedbackEl = document.getElementById('trapFeedback');
+      if (feedbackEl) {
+        const rect = feedbackEl.getBoundingClientRect();
+        Interactions.particleBurst(rect.left + rect.width / 2, rect.top, {
+          count: 10,
+          spread: 60
+        });
+      }
+      Interactions.haptic('success');
+    }
   },
 
   /**
@@ -914,6 +982,28 @@ const Lessons = {
     const choice = step.choices[index];
 
     btn.classList.add('selected', isCorrect ? 'correct' : 'wrong');
+    
+    // Audio and visual feedback
+    if (typeof AudioManager !== 'undefined') {
+      AudioManager.play(isCorrect ? 'correct' : 'incorrect');
+    }
+    if (typeof Interactions !== 'undefined') {
+      if (isCorrect) {
+        Interactions.correctFlash();
+        Interactions.haptic('success');
+        // Particle burst from button
+        const rect = btn.getBoundingClientRect();
+        Interactions.particleBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, {
+          colors: ['#2ab5a0', '#4dd8e8', '#7eecd3'],
+          count: 8,
+          spread: 50
+        });
+      } else {
+        Interactions.incorrectFlash();
+        Interactions.screenShake(4, 200);
+        Interactions.haptic('error');
+      }
+    }
 
     // Show correct if wrong
     if (!isCorrect) {
@@ -923,6 +1013,18 @@ const Lessons = {
     } else {
       this.current.score += step.points || 100;
       this.updateProgress();
+      
+      // Animate score
+      if (typeof Interactions !== 'undefined') {
+        const scoreEl = document.getElementById('lessonScore');
+        scoreEl.style.transition = 'transform 0.2s, color 0.2s';
+        scoreEl.style.transform = 'scale(1.2)';
+        scoreEl.style.color = '#d4af37';
+        setTimeout(() => {
+          scoreEl.style.transform = 'scale(1)';
+          scoreEl.style.color = '';
+        }, 200);
+      }
     }
 
     document.querySelectorAll('.scenario-choice').forEach(b => b.disabled = true);
@@ -967,6 +1069,20 @@ const Lessons = {
         </div>
       </div>
     `;
+    
+    // Play weapon unlock celebration
+    if (typeof AudioManager !== 'undefined') {
+      AudioManager.play('weaponUnlock');
+    }
+    if (typeof Interactions !== 'undefined') {
+      setTimeout(() => {
+        const weaponIcon = content.querySelector('.weapon-icon');
+        if (weaponIcon) {
+          const rect = weaponIcon.getBoundingClientRect();
+          Interactions.celebrate(rect.left + rect.width / 2, rect.top + rect.height / 2, 'weapon');
+        }
+      }, 300);
+    }
   },
 
   /**
@@ -1004,6 +1120,20 @@ const Lessons = {
         ` : ''}
       </div>
     `;
+    
+    // Play grade reveal sound and celebration
+    setTimeout(() => {
+      if (typeof AudioManager !== 'undefined') {
+        AudioManager.play(`grade${grade}`);
+      }
+      if (typeof Interactions !== 'undefined' && grade === 'S') {
+        const gradeEl = content.querySelector('.summary-grade');
+        if (gradeEl) {
+          const rect = gradeEl.getBoundingClientRect();
+          Interactions.celebrate(rect.left + rect.width / 2, rect.top + rect.height / 2, 'gradeS');
+        }
+      }
+    }, 400);
   },
 
   /**
