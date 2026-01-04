@@ -16,7 +16,38 @@ const App = {
     this.setupEventListeners();
     this.setupSimulationPage();
     this.setupSkillTree();
+    this.setupAudio();
     console.log('SharkFin App initialized');
+  },
+  
+  /**
+   * Setup audio controls
+   */
+  setupAudio() {
+    const soundToggle = document.getElementById('soundToggle');
+    if (!soundToggle) return;
+    
+    // Update button state based on current setting
+    const updateSoundButton = () => {
+      const isEnabled = typeof AudioManager !== 'undefined' && AudioManager.enabled;
+      soundToggle.querySelector('.sound-on').classList.toggle('hidden', !isEnabled);
+      soundToggle.querySelector('.sound-off').classList.toggle('hidden', isEnabled);
+    };
+    
+    // Initialize button state
+    setTimeout(updateSoundButton, 100);
+    
+    soundToggle.addEventListener('click', () => {
+      if (typeof AudioManager !== 'undefined') {
+        AudioManager.toggle();
+        updateSoundButton();
+        
+        // Visual feedback
+        if (typeof Interactions !== 'undefined') {
+          Interactions.haptic('light');
+        }
+      }
+    });
   },
 
   /**
@@ -26,6 +57,12 @@ const App = {
     document.querySelectorAll('.nav-item').forEach(item => {
       item.addEventListener('click', () => {
         const page = item.dataset.page;
+        
+        // Play navigation sound
+        if (typeof AudioManager !== 'undefined') {
+          AudioManager.play('navigate');
+        }
+        
         this.showPage(page);
       });
     });
