@@ -1154,10 +1154,14 @@ const Lessons = {
    */
   complete() {
     const skill = this.current.skill;
+    const lesson = this.current.lesson;
     const percentage = Math.round((this.current.score / this.current.maxScore) * 100);
     const reward = Math.floor(skill.reward * (percentage / 100));
 
-    State.completeLesson(skill.lesson.id, skill.id, reward);
+    // Get lesson ID - could be from lesson object or skill id
+    const lessonId = lesson.id || `lesson_${skill.id}`;
+    
+    State.completeLesson(lessonId, skill.id, reward);
     if (skill.perk) State.activatePerk(`${skill.id}_perk`);
 
     this.showCompletion(skill, reward, percentage);
