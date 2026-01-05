@@ -1,0 +1,939 @@
+/* ============================================================
+   SHARKY'S SHOP STYLES
+   ============================================================ */
+
+/* Shop Container */
+.shop-container {
+  padding: calc(70px + var(--safe-top)) var(--space-md) calc(90px + var(--safe-bottom));
+  min-height: 100vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ============================================================
+   SHARKY CHARACTER SECTION
+   ============================================================ */
+
+.sharky-section {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  padding: var(--space-md);
+  background: var(--surface-2);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--surface-border);
+}
+
+.sharky-character {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  position: relative;
+}
+
+.sharky-sprite {
+  font-size: 48px;
+  line-height: 1;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  transition: transform 0.3s ease;
+}
+
+.sharky-sprite.happy {
+  animation: sharkyBounce 0.5s ease;
+}
+
+.sharky-sprite.sly {
+  transform: rotate(5deg);
+}
+
+.sharky-sprite.caught {
+  animation: sharkyCaught 0.5s ease;
+}
+
+.sharky-sprite.teaching {
+  animation: sharkyTeach 2s ease-in-out infinite;
+}
+
+@keyframes sharkyBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes sharkyCaught {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
+}
+
+@keyframes sharkyTeach {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.sharky-dialogue {
+  flex: 1;
+  background: var(--surface-1);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  position: relative;
+  border: 1px solid var(--surface-border);
+}
+
+.sharky-dialogue::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 20px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid var(--surface-1);
+}
+
+.sharky-dialogue.speaking {
+  animation: dialoguePop 0.3s ease;
+}
+
+@keyframes dialoguePop {
+  0% { transform: scale(0.95); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.dialogue-text {
+  font-size: var(--text-base);
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+/* ============================================================
+   COIN DISPLAY
+   ============================================================ */
+
+.shop-coins {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-lg);
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-lg);
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.coin-icon {
+  color: var(--treasure-gold);
+  font-size: var(--text-lg);
+}
+
+.coin-amount {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: var(--text-xl);
+  color: var(--treasure-gold);
+  font-weight: 700;
+}
+
+.coin-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  letter-spacing: 1px;
+}
+
+/* ============================================================
+   RARE EVENT BANNER
+   ============================================================ */
+
+.rare-event-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(184, 155, 77, 0.1));
+  border: 2px solid rgba(212, 175, 55, 0.4);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-lg);
+  animation: eventPulse 2s ease-in-out infinite;
+}
+
+.rare-event-banner.suspicious {
+  background: linear-gradient(135deg, rgba(199, 93, 93, 0.15), rgba(139, 58, 58, 0.1));
+  border-color: rgba(199, 93, 93, 0.4);
+}
+
+.rare-event-banner.genuine {
+  background: linear-gradient(135deg, rgba(42, 181, 160, 0.15), rgba(77, 216, 232, 0.1));
+  border-color: rgba(42, 181, 160, 0.4);
+}
+
+@keyframes eventPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.3); }
+  50% { box-shadow: 0 0 20px 5px rgba(212, 175, 55, 0.2); }
+}
+
+.event-icon {
+  font-size: 32px;
+  flex-shrink: 0;
+}
+
+.event-info {
+  flex: 1;
+}
+
+.event-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.event-desc {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.call-bs-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--surface-1);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  white-space: nowrap;
+}
+
+.call-bs-btn:hover {
+  background: var(--surface-2);
+  border-color: var(--bio-cyan);
+  color: var(--bio-cyan);
+}
+
+.call-bs-btn:active {
+  transform: scale(0.95);
+}
+
+/* ============================================================
+   CATEGORY TABS
+   ============================================================ */
+
+.shop-tabs {
+  display: flex;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+  overflow-x: auto;
+  padding-bottom: var(--space-xs);
+  -webkit-overflow-scrolling: touch;
+}
+
+.shop-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.shop-tab {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--surface-1);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  color: var(--text-tertiary);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  white-space: nowrap;
+}
+
+.shop-tab:hover {
+  background: var(--surface-2);
+  color: var(--text-secondary);
+}
+
+.shop-tab.active {
+  background: var(--bio-teal);
+  border-color: var(--bio-teal);
+  color: var(--abyss);
+}
+
+.tab-icon {
+  font-size: var(--text-base);
+}
+
+/* ============================================================
+   ITEMS GRID
+   ============================================================ */
+
+.shop-items {
+  min-height: 200px;
+}
+
+.featured-grid,
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+}
+
+.functional-grid {
+  grid-template-columns: 1fr;
+}
+
+.category-section {
+  margin-bottom: var(--space-xl);
+}
+
+.category-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: var(--text-sm);
+  color: var(--bio-cyan);
+  letter-spacing: 1px;
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid var(--surface-border);
+}
+
+/* ============================================================
+   DEAL CARDS (Featured)
+   ============================================================ */
+
+.deal-card {
+  background: var(--surface-2);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.deal-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--surface-border-strong);
+  box-shadow: var(--shadow-glow-sm);
+}
+
+.deal-card:active {
+  transform: scale(0.98);
+}
+
+.deal-card.owned {
+  opacity: 0.6;
+}
+
+.deal-card.cant-afford {
+  opacity: 0.7;
+}
+
+.deal-card.exposed {
+  border-color: var(--bio-teal);
+}
+
+.deal-rarity {
+  position: absolute;
+  top: var(--space-xs);
+  right: var(--space-xs);
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.deal-rarity.common { background: rgba(224, 232, 240, 0.1); color: var(--text-tertiary); }
+.deal-rarity.uncommon { background: rgba(42, 181, 160, 0.2); color: var(--bio-cyan); }
+.deal-rarity.rare { background: rgba(107, 91, 140, 0.3); color: #a78bfa; }
+.deal-rarity.legendary { background: rgba(212, 175, 55, 0.2); color: var(--treasure-gold); }
+
+.deal-icon {
+  font-size: 36px;
+  text-align: center;
+  margin-bottom: var(--space-sm);
+}
+
+.deal-name {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: var(--space-sm);
+}
+
+.deal-price-area {
+  text-align: center;
+}
+
+.original-price {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-decoration: line-through;
+  display: block;
+}
+
+.deal-price {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: var(--text-lg);
+  color: var(--treasure-gold);
+  font-weight: 700;
+}
+
+.savings {
+  font-size: var(--text-xs);
+  color: var(--bio-teal);
+  display: block;
+  margin-top: var(--space-xs);
+}
+
+.urgency-hint,
+.social-hint,
+.loyalty-hint {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  display: block;
+  margin-top: var(--space-xs);
+}
+
+.urgency-hint { color: var(--predator-sense); }
+.social-hint { color: var(--bio-cyan); }
+.loyalty-hint { color: var(--treasure-gold); }
+
+.bundle-items {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: var(--space-xs);
+}
+
+.owned-badge,
+.exposed-badge {
+  position: absolute;
+  bottom: var(--space-sm);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.owned-badge {
+  background: rgba(42, 181, 160, 0.2);
+  color: var(--bio-teal);
+}
+
+.exposed-badge {
+  background: rgba(212, 175, 55, 0.2);
+  color: var(--treasure-gold);
+}
+
+/* ============================================================
+   ITEM CARDS (Regular)
+   ============================================================ */
+
+.item-card {
+  background: var(--surface-2);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  position: relative;
+  text-align: center;
+}
+
+.item-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--surface-border-strong);
+}
+
+.item-card.owned {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.item-card.cant-afford {
+  opacity: 0.7;
+}
+
+.item-rarity {
+  position: absolute;
+  top: var(--space-xs);
+  right: var(--space-xs);
+  font-size: 8px;
+  padding: 2px 5px;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+}
+
+.item-rarity.common { background: rgba(224, 232, 240, 0.1); color: var(--text-tertiary); }
+.item-rarity.uncommon { background: rgba(42, 181, 160, 0.2); color: var(--bio-cyan); }
+.item-rarity.rare { background: rgba(107, 91, 140, 0.3); color: #a78bfa; }
+.item-rarity.legendary { background: rgba(212, 175, 55, 0.2); color: var(--treasure-gold); }
+
+.item-icon {
+  font-size: 32px;
+  margin-bottom: var(--space-sm);
+}
+
+.item-name {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.item-price {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: var(--text-base);
+  color: var(--treasure-gold);
+}
+
+.quantity-badge {
+  position: absolute;
+  top: var(--space-xs);
+  left: var(--space-xs);
+  font-size: 10px;
+  padding: 2px 6px;
+  background: var(--bio-teal);
+  color: var(--abyss);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+}
+
+/* ============================================================
+   COLLECTIONS
+   ============================================================ */
+
+.collection-card {
+  background: var(--surface-2);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+.collection-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
+}
+
+.collection-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.collection-progress {
+  font-size: var(--text-sm);
+  color: var(--bio-cyan);
+}
+
+.collection-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.collection-piece {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  background: var(--surface-1);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--surface-border);
+}
+
+.collection-piece.owned {
+  border-color: var(--bio-teal);
+  background: rgba(42, 181, 160, 0.1);
+}
+
+.piece-icon {
+  font-size: 20px;
+}
+
+.piece-name {
+  flex: 1;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.piece-price {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: var(--text-sm);
+  color: var(--treasure-gold);
+}
+
+.collection-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--surface-border);
+}
+
+.collection-total {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.collection-complete {
+  font-size: var(--text-sm);
+  color: var(--bio-teal);
+  font-weight: 600;
+}
+
+/* ============================================================
+   ITEM MODAL
+   ============================================================ */
+
+.item-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+}
+
+.item-modal.hidden {
+  display: none;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 8, 16, 0.9);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  position: relative;
+  background: var(--surface-2);
+  border: 1px solid var(--surface-border-strong);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  max-width: 340px;
+  width: 100%;
+  animation: modalSlide 0.3s ease-out;
+}
+
+@keyframes modalSlide {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-close {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  width: 32px;
+  height: 32px;
+  background: var(--surface-1);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-full);
+  color: var(--text-tertiary);
+  font-size: 16px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.modal-close:hover {
+  background: var(--surface-2);
+  color: var(--text-primary);
+}
+
+.modal-item {
+  text-align: center;
+}
+
+.modal-icon {
+  font-size: 64px;
+  margin-bottom: var(--space-md);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+.modal-rarity {
+  display: inline-block;
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+}
+
+.modal-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.modal-desc {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+}
+
+.deal-detail {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--surface-1);
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+.deal-detail.urgency { color: var(--predator-sense); }
+.deal-detail.social { color: var(--bio-cyan); }
+.deal-detail.bundle { color: var(--treasure-gold); }
+.deal-detail.loyalty { color: var(--treasure-gold); }
+
+.modal-price-section {
+  margin-bottom: var(--space-lg);
+}
+
+.modal-original-price {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  text-decoration: line-through;
+  margin-bottom: var(--space-xs);
+}
+
+.modal-price {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: var(--text-2xl);
+  color: var(--treasure-gold);
+  font-weight: 700;
+}
+
+.modal-price.deal {
+  color: var(--bio-teal);
+}
+
+.buy-btn {
+  width: 100%;
+  padding: var(--space-md);
+  background: linear-gradient(135deg, var(--bio-teal), var(--bio-cyan));
+  border: none;
+  border-radius: var(--radius-lg);
+  color: var(--abyss);
+  font-family: 'Orbitron', sans-serif;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.buy-btn:hover {
+  box-shadow: var(--shadow-glow-md);
+}
+
+.buy-btn:active {
+  transform: scale(0.98);
+}
+
+.buy-btn.disabled {
+  background: var(--surface-1);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.already-owned {
+  padding: var(--space-md);
+  background: var(--surface-1);
+  border-radius: var(--radius-lg);
+  color: var(--text-tertiary);
+  font-size: var(--text-sm);
+}
+
+/* ============================================================
+   WISDOM MODAL
+   ============================================================ */
+
+.wisdom-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+}
+
+.wisdom-modal.hidden {
+  display: none;
+}
+
+.wisdom-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 8, 16, 0.95);
+}
+
+.wisdom-card {
+  position: relative;
+  background: linear-gradient(165deg, rgba(13, 33, 55, 0.95), rgba(6, 16, 24, 0.98));
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  max-width: 360px;
+  width: 100%;
+  animation: wisdomReveal 0.5s ease-out;
+}
+
+@keyframes wisdomReveal {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.wisdom-sharky {
+  text-align: center;
+  margin-bottom: var(--space-md);
+}
+
+.wisdom-sharky .sharky-sprite {
+  font-size: 56px;
+}
+
+.wisdom-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.wisdom-icon {
+  font-size: 24px;
+}
+
+.wisdom-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--treasure-gold);
+}
+
+.wisdom-tactic {
+  text-align: center;
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(199, 93, 93, 0.15);
+  border: 1px solid rgba(199, 93, 93, 0.3);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-lg);
+}
+
+.tactic-label {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  display: block;
+  margin-bottom: var(--space-xs);
+}
+
+.tactic-name {
+  font-size: var(--text-base);
+  color: var(--predator-sense);
+  font-weight: 600;
+}
+
+.wisdom-text {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: var(--space-lg);
+}
+
+.wisdom-close-btn {
+  width: 100%;
+  padding: var(--space-md);
+  background: linear-gradient(135deg, var(--treasure-gold), var(--caution-amber));
+  border: none;
+  border-radius: var(--radius-lg);
+  color: var(--abyss);
+  font-family: 'Orbitron', sans-serif;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.wisdom-close-btn:hover {
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+/* ============================================================
+   TOAST NOTIFICATIONS
+   ============================================================ */
+
+.shop-toast {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--surface-2);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1002;
+  white-space: nowrap;
+}
+
+.shop-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.shop-toast.success {
+  border-color: var(--bio-teal);
+  color: var(--bio-glow);
+}
+
+.shop-toast.error {
+  border-color: var(--predator-sense);
+  color: var(--predator-sense);
+}
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+
+.empty-state {
+  text-align: center;
+  padding: var(--space-2xl);
+  color: var(--text-tertiary);
+  font-size: var(--text-sm);
+}
