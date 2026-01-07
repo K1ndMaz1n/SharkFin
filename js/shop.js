@@ -847,13 +847,20 @@ const Shop = {
       wasGoodDeal = deal.isGoodDeal || (deal.displayPrice <= deal.actualValue);
     }
     
-    const coins = State.current?.sharkCoins || 0;
-    if (coins < price) {
+    // Use Economy engine to spend coins
+    let spendSuccess;
+    if (typeof Economy !== 'undefined') {
+      spendSuccess = Economy.spend('shop', price, `Purchased ${item.name}`);
+    } else {
+      // Fallback
+      spendSuccess = State.spendCoins(price);
+    }
+    
+    if (!spendSuccess) {
       return { success: false, message: "Not enough coins" };
     }
     
-    // Process purchase
-    State.spendCoins(price);
+    // Add item to inventory
     State.addOwnedItem(itemId);
     this.state.todaysPurchases.push({ itemId, price, tactic });
     this.saveState();
