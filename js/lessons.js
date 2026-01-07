@@ -1156,19 +1156,33 @@ const Lessons = {
     const skill = this.current.skill;
     const lesson = this.current.lesson;
     const percentage = Math.round((this.current.score / this.current.maxScore) * 100);
-    const reward = Math.floor(skill.reward * (percentage / 100));
 
     // Get lesson ID - could be from lesson object or skill id
     const lessonId = lesson.id || `lesson_${skill.id}`;
     
-    State.completeLesson(lessonId, skill.id, reward);
+    // Use Economy engine for rewards
+    let result;
+    if (typeof Economy !== 'undefined') {
+      result = Economy.grantLessonReward(skill.id, percentage);
+    } else {
+      // Fallback if Economy not loaded
+      const reward = Math.floor(skill.reward * (percentage / 100));
+      State.addCoins(reward);
+      result = { coins: reward, xp: 0 };
+    }
+    
+    // Mark lesson complete and activate perk
+    State.completeLesson(lessonId, skill.id, 0); // 0 because Economy already granted coins
     if (skill.perk) State.activatePerk(`${skill.id}_perk`);
 
-    this.showCompletion(skill, reward, percentage);
+    this.showCompletion(skill, result, percentage);
   },
 
-  showCompletion(skill, reward, percentage) {
+  showCompletion(skill, result, percentage) {
     const content = document.getElementById('lessonContent');
+    const coins = result.coins || 0;
+    const xp = result.xp || 0;
+    const leveledUp = result.leveledUp || false;
     
     document.querySelector('.lesson-progress').style.opacity = '0';
     document.getElementById('lessonScore').style.opacity = '0';
@@ -1182,14 +1196,30 @@ const Lessons = {
         
         <div class="complete-rewards">
           <div class="reward-item">
-            <span class="reward-value">+${reward}</span>
+            <span class="reward-value">+${coins}</span>
             <span class="reward-label">SharkCoins</span>
+          </div>
+          <div class="reward-item">
+            <span class="reward-value">+${xp}</span>
+            <span class="reward-label">XP</span>
           </div>
           <div class="reward-item">
             <span class="reward-value">${percentage}%</span>
             <span class="reward-label">Score</span>
           </div>
         </div>
+
+        ${result.multiplier > 1 ? `
+          <div class="multiplier-bonus">
+            <span>🔥 ${Math.round((result.multiplier - 1) * 100)}% Bonus Applied!</span>
+          </div>
+        ` : ''}
+
+        ${leveledUp ? `
+          <div class="level-up-notice">
+            <span>🎉 LEVEL UP! Now Level ${result.newLevel}</span>
+          </div>
+        ` : ''}
 
         ${skill.perk ? `
           <div class="complete-perk">
