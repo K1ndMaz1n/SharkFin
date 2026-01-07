@@ -405,4 +405,4 @@ const AudioManager = {
 });
 
 // Export for use
-window.AudioManager = AudioManager;s
+window.AudioManager = AudioManager;
