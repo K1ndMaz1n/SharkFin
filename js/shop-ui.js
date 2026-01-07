@@ -526,9 +526,15 @@ const ShopUI = {
       }
     }
 
-    // Award some coins for catching it
-    State.addCoins(25);
-    this.showToast('+25 SC for spotting the scam!', 'success');
+    // Award reward for catching the scam
+    let result;
+    if (typeof Economy !== 'undefined') {
+      result = Economy.grantCallBSReward();
+      this.showToast(`+${result.coins} SC and +${result.xp} XP for spotting the scam!`, 'success');
+    } else {
+      State.addCoins(25);
+      this.showToast('+25 SC for spotting the scam!', 'success');
+    }
 
     // Re-render
     setTimeout(() => this.render(), 1000);
