@@ -205,6 +205,15 @@ const App = {
       }, 50);
     }
 
+    // Render shop when opening shop page
+    if (pageName === 'shop') {
+      setTimeout(() => {
+        if (typeof ShopUI !== 'undefined') {
+          ShopUI.render();
+        }
+      }, 50);
+    }
+
     this.currentPage = pageName;
   },
 
