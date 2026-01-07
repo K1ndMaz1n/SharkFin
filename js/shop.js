@@ -594,7 +594,7 @@ const Shop = {
 
         case 'bundle':
           // Find complementary items
-          const complement = this.findComplement(item);
+          const complement = Shop.tactics.findComplement(item);
           const bundlePrice = Math.floor((item.basePrice + complement.basePrice) * 0.92); // Fake 8% discount
           const realValue = item.basePrice + complement.basePrice;
           deal.displayPrice = bundlePrice;
@@ -729,23 +729,30 @@ const Shop = {
   
   init() {
     this.loadState();
-    this.generateDailyStock();
-    console.log('Shop initialized');
+    console.log('Shop initialized', this.state);
   },
 
   loadState() {
     const saved = localStorage.getItem('sharkfin_shop');
     if (saved) {
-      const parsed = JSON.parse(saved);
-      // Check if it's a new day
-      const lastDate = new Date(parsed.lastVisit).toDateString();
-      const today = new Date().toDateString();
-      if (lastDate !== today) {
-        // New day - regenerate stock
+      try {
+        const parsed = JSON.parse(saved);
+        // Check if it's a new day
+        const lastDate = new Date(parsed.lastVisit).toDateString();
+        const today = new Date().toDateString();
+        if (lastDate !== today) {
+          // New day - regenerate stock
+          this.generateDailyStock();
+        } else {
+          this.state = { ...this.state, ...parsed };
+        }
+      } catch (e) {
+        console.error('Failed to parse shop state', e);
         this.generateDailyStock();
-      } else {
-        this.state = { ...this.state, ...parsed };
       }
+    } else {
+      // First time - generate fresh stock
+      this.generateDailyStock();
     }
   },
 
