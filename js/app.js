@@ -214,6 +214,15 @@ const App = {
       }, 50);
     }
 
+    // Render profile when opening profile page
+    if (pageName === 'profile') {
+      setTimeout(() => {
+        if (typeof Profile !== 'undefined') {
+          Profile.render();
+        }
+      }, 50);
+    }
+
     this.currentPage = pageName;
   },
 
