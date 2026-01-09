@@ -21,10 +21,11 @@ const Onboarding = {
       type: 'info',
       title: 'The Problem',
       content: `
-        <div class="onboard-stat">$500B+</div>
-        <div class="onboard-stat-label">spent yearly by companies learning how to take your money</div>
+        <div class="onboard-stat">$3,381</div>
+        <div class="onboard-stat-label">spent per year on impulse purchases by the average consumer</div>
+        <div class="onboard-stat-source">— Capital One Research, 2024</div>
         <div class="onboard-divider"></div>
-        <div class="onboard-question-text">How much have you spent learning to keep it?</div>
+        <div class="onboard-question-text">How much of that was actually worth it?</div>
       `
     },
     {
@@ -39,18 +40,18 @@ const Onboarding = {
           </div>
           <div class="onboard-fact">
             <span class="fact-icon">💳</span>
-            <span class="fact-text">1 in 5 young adults have debt in collections</span>
+            <span class="fact-text">72% of online shoppers impulse buy due to "discounts"</span>
           </div>
           <div class="onboard-fact">
             <span class="fact-icon">📱</span>
             <span class="fact-text">BNPL apps hide true costs behind "4 easy payments"</span>
           </div>
           <div class="onboard-fact">
-            <span class="fact-icon">🪙</span>
-            <span class="fact-text">Crypto scams flood social media with fake FOMO</span>
+            <span class="fact-icon">🛒</span>
+            <span class="fact-text">89% of people have a history of impulse buying</span>
           </div>
         </div>
-        <div class="onboard-hook">By the time mistakes hit your credit report, the damage is done.</div>
+        <div class="onboard-hook">These aren't accidents. You're being played.</div>
       `
     },
     {
@@ -59,11 +60,10 @@ const Onboarding = {
       title: 'The Solution',
       content: `
         <div class="onboard-solution">
-          <img src="assets/shark-mascot.png" alt="SharkFin" class="solution-mascot">
+          <div class="solution-shark">🦈</div>
           <div class="solution-text">
-            <p>SharkFin trains you the way predatory companies do:</p>
-            <p class="solution-highlight">Through repetition, pressure, and consequences.</p>
-            <p>Except we're on your side.</p>
+            <p>SharkFin trains you to spot manipulation before it works.</p>
+            <p class="solution-highlight">Learn their tricks. Keep your money.</p>
           </div>
         </div>
       `
@@ -270,7 +270,7 @@ const Onboarding = {
     content.innerHTML = `
       <div class="splash-screen">
         <div class="splash-logo">
-          <img src="assets/shark-mascot.png" alt="SharkFin" class="splash-mascot">
+          <div class="splash-shark">🦈</div>
           <div class="splash-ripple"></div>
         </div>
         <h1 class="splash-title">SHARKFIN</h1>
