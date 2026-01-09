@@ -59,7 +59,7 @@ const Onboarding = {
       title: 'The Solution',
       content: `
         <div class="onboard-solution">
-          <div class="solution-shark">🦈</div>
+          <img src="assets/shark-mascot.png" alt="SharkFin" class="solution-mascot">
           <div class="solution-text">
             <p>SharkFin trains you the way predatory companies do:</p>
             <p class="solution-highlight">Through repetition, pressure, and consequences.</p>
@@ -270,7 +270,7 @@ const Onboarding = {
     content.innerHTML = `
       <div class="splash-screen">
         <div class="splash-logo">
-          <div class="splash-shark">🦈</div>
+          <img src="assets/shark-mascot.png" alt="SharkFin" class="splash-mascot">
           <div class="splash-ripple"></div>
         </div>
         <h1 class="splash-title">SHARKFIN</h1>
