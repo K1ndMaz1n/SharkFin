@@ -129,26 +129,21 @@
 
 .splash-logo {
   position: relative;
-  width: 160px;
-  height: 160px;
+  width: 120px;
+  height: 120px;
   margin: 0 auto var(--space-xl);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.splash-mascot {
-  width: 140px;
-  height: auto;
+.splash-shark {
+  font-size: 80px;
   position: relative;
   z-index: 2;
   animation: splashFloat 3s ease-in-out infinite;
-  filter: drop-shadow(0 10px 30px rgba(77, 216, 232, 0.3));
 }
 
 @keyframes splashFloat {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-12px) rotate(2deg); }
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-15px) rotate(5deg); }
 }
 
 .splash-ripple {
@@ -226,6 +221,13 @@
   line-height: 1.5;
 }
 
+.onboard-stat-source {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin-top: var(--space-sm);
+  font-style: italic;
+}
+
 .onboard-divider {
   width: 60px;
   height: 2px;
@@ -283,16 +285,14 @@
   gap: var(--space-lg);
 }
 
-.solution-mascot {
-  width: 100px;
-  height: auto;
+.solution-shark {
+  font-size: 64px;
   animation: solutionPulse 2s ease-in-out infinite;
-  filter: drop-shadow(0 8px 20px rgba(77, 216, 232, 0.3));
 }
 
 @keyframes solutionPulse {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.08); }
+  50% { transform: scale(1.1); }
 }
 
 .solution-text {
