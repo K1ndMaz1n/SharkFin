@@ -18,7 +18,23 @@ const App = {
     this.setupSkillTree();
     this.setupAudio();
     this.updateRadar();
+    
+    // Check if new user needs onboarding
+    this.checkOnboarding();
+    
     console.log('SharkFin App initialized');
+  },
+  
+  /**
+   * Check if onboarding should be shown
+   */
+  checkOnboarding() {
+    if (typeof Onboarding !== 'undefined' && Onboarding.shouldShow()) {
+      // Small delay to let app render first
+      setTimeout(() => {
+        Onboarding.start();
+      }, 500);
+    }
   },
   
   /**
